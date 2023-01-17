@@ -26,4 +26,8 @@ public final class Constants {
     int BR_ROTATION_MOTOR = 0;
 
   }
+
+  public interface USB {
+    int DRIVER_CONTROLLER = 0;
+  }
 }

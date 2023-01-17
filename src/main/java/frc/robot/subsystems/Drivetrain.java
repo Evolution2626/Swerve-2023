@@ -4,8 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -57,10 +56,10 @@ public class Drivetrain extends SubsystemBase {
     brRotationMotor.setInverted(false);
 
     // Locations for the swerve drive modules relative to the robot center.
-    Translation2d frontLeftLocation = new Translation2d(0.381, 0.381);
-    Translation2d frontRightLocation = new Translation2d(0.381, -0.381);
-    Translation2d backLeftLocation = new Translation2d(-0.381, 0.381);
-    Translation2d backRightLocation = new Translation2d(-0.381, -0.381);
+    Translation2d frontLeftLocation = new Translation2d(0, 0);
+    Translation2d frontRightLocation = new Translation2d(0, -0);
+    Translation2d backLeftLocation = new Translation2d(-0, 0);
+    Translation2d backRightLocation = new Translation2d(-0, -0);
 
     // Creating my kinematics object using the module locations
     kinematics = new SwerveDriveKinematics(
@@ -72,7 +71,7 @@ public class Drivetrain extends SubsystemBase {
     double currentMotorSpeed = driveMotor.getEncoder().getVelocity() / 6.67 * Math.PI * 4 * 2.54 / 100 / 60;
     //ajouter un PID qui calcule la vitesse à output dans le moteur pour atteindre le targetSpeed de manière optimale
 
-    PIDController motorOutputPID = new PIDController(0, 0, 0); //JSP COMMENT FIX L'ERREUR RESSOURCE LEAK
+    PIDController motorOutputPID = new PIDController(1, 0, 0); //JSP COMMENT FIX L'ERREUR RESSOURCE LEAK
     //AUCUNE IDÉE SI CE CODE LÀ VA MARCHER, JSP CE QUE JE FAIS
     double motorOutput = MathUtil.clamp(motorOutputPID.calculate(currentMotorSpeed, targetSpeed), -1, 1);
     
@@ -83,7 +82,7 @@ public class Drivetrain extends SubsystemBase {
     double currentAngleRAD = MathUtil.angleModulus(Math.asin(Math.sin(rotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)));
     double targetAngleRAD = MathUtil.angleModulus(targetAngle.getRadians()); 
     //ajouter un PID qui calcule la vitesse à output dans le moteur pour atteindre le targetAngle de manière optimale
-    PIDController motorOutputPID = new PIDController(0, 0, 0); //JSP COMMENT FIX L'ERREUR RESSOURCE LEAK
+    PIDController motorOutputPID = new PIDController(1, 0, 0); //JSP COMMENT FIX L'ERREUR RESSOURCE LEAK
     motorOutputPID.enableContinuousInput(-Math.PI, Math.PI); 
     double motorOutput = MathUtil.clamp(motorOutputPID.calculate(currentAngleRAD, targetAngleRAD), -1, 1);
 
@@ -104,16 +103,16 @@ public class Drivetrain extends SubsystemBase {
     SwerveModuleState[] moduleStates = kinematics.toSwerveModuleStates(speeds);
     // Front left module state
     SwerveModuleState frontLeft = moduleStates[0];
-    SwerveModuleState frontLeftOptimized = SwerveModuleState.optimize(frontLeft, new Rotation2d(m_turningEncoder.getDistance()));
+    SwerveModuleState frontLeftOptimized = SwerveModuleState.optimize(frontLeft, new Rotation2d(MathUtil.angleModulus(Math.asin(Math.sin(flRotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)))));
     // Front right module state
     SwerveModuleState frontRight = moduleStates[1];
-    SwerveModuleState frontRightOptimized = SwerveModuleState.optimize(frontRight, new Rotation2d(m_turningEncoder.getDistance()));
+    SwerveModuleState frontRightOptimized = SwerveModuleState.optimize(frontRight, new Rotation2d(MathUtil.angleModulus(Math.asin(Math.sin(frRotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)))));
     // Back left module state
     SwerveModuleState backLeft = moduleStates[2];
-    SwerveModuleState backLeftOptimized = SwerveModuleState.optimize(backLeft, new Rotation2d(m_turningEncoder.getDistance()));
+    SwerveModuleState backLeftOptimized = SwerveModuleState.optimize(backLeft, new Rotation2d(MathUtil.angleModulus(Math.asin(Math.sin(blRotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)))));
     // Back right module state
     SwerveModuleState backRight = moduleStates[3];
-    SwerveModuleState backRightOptimized = SwerveModuleState.optimize(backRight, new Rotation2d(m_turningEncoder.getDistance()));
+    SwerveModuleState backRightOptimized = SwerveModuleState.optimize(backRight, new Rotation2d(MathUtil.angleModulus(Math.asin(Math.sin(brRotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)))));
 
     driveOneSwerve(frontLeftOptimized, flRotationMotor, flDriveMotor);
     driveOneSwerve(frontRightOptimized, frRotationMotor, frDriveMotor);
@@ -121,7 +120,13 @@ public class Drivetrain extends SubsystemBase {
     driveOneSwerve(backRightOptimized, brRotationMotor, brDriveMotor);
   }
 
-  
+  public void resetEncoders(){
+    flRotationMotor.getEncoder().setPosition(0);
+    frRotationMotor.getEncoder().setPosition(0);
+    blRotationMotor.getEncoder().setPosition(0);
+    brRotationMotor.getEncoder().setPosition(0);
+
+  }
 
   @Override
   public void periodic() {
