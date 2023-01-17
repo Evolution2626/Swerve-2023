@@ -80,13 +80,11 @@ public class Drivetrain extends SubsystemBase {
   }
 //fontion qui va orienter la roue vers un certain angle en rotation2d
   public double goToAngle(Rotation2d targetAngle, CANSparkMax rotationMotor){
-    double currentAngleRAD = Math.asin(Math.sin(rotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI));
-    double targetAngleRAD = targetAngle.getRadians(); //Vérifier l'échelle de radians de rotations2d si c'est 0 à 2π ou -π à π
-    //si l'échelle prend de -π à π utiliser MathUtil.angleModulus pour convertir le currentAngleRAD au bon range
+    double currentAngleRAD = MathUtil.angleModulus(Math.asin(Math.sin(rotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)));
+    double targetAngleRAD = MathUtil.angleModulus(targetAngle.getRadians()); 
     //ajouter un PID qui calcule la vitesse à output dans le moteur pour atteindre le targetAngle de manière optimale
     PIDController motorOutputPID = new PIDController(0, 0, 0); //JSP COMMENT FIX L'ERREUR RESSOURCE LEAK
-    motorOutputPID.enableContinuousInput(0, Math.PI * 2); //valider le range avec l'échelle de radians de rotations2d
-    //VÉRIFIER LES MATHS POUR VOIR S'IL N'Y AURA PAS DE PROBLÈMES LORSQUE LE TARGET EST 7π/4 ET QUE LE CURRENT EST À π/4
+    motorOutputPID.enableContinuousInput(-Math.PI, Math.PI); 
     double motorOutput = MathUtil.clamp(motorOutputPID.calculate(currentAngleRAD, targetAngleRAD), -1, 1);
 
     return motorOutput;
