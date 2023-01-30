@@ -16,6 +16,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -26,15 +27,15 @@ public class Drivetrain extends SubsystemBase {
   double currentAngleRAD;
   double targetAngleRAD;
 
-  private CANSparkMax flDriveMotor;
-  private CANSparkMax frDriveMotor;
-  private CANSparkMax blDriveMotor;
-  private CANSparkMax brDriveMotor;
+  private VictorSP flDriveMotor;
+  private VictorSP frDriveMotor;
+  private VictorSP blDriveMotor;
+  private VictorSP brDriveMotor;
 
-  private CANSparkMax flRotationMotor;
-  private CANSparkMax frRotationMotor;
-  private CANSparkMax blRotationMotor;
-  private CANSparkMax brRotationMotor;
+  private VictorSP flRotationMotor;
+  private VictorSP frRotationMotor;
+  private VictorSP blRotationMotor;
+  private VictorSP brRotationMotor;
 
   private SwerveDriveKinematics kinematics;
 
@@ -50,15 +51,15 @@ public class Drivetrain extends SubsystemBase {
 
 
 
-    flDriveMotor = new CANSparkMax(Constants.CAN.FL_DRIVE_MOTOR, MotorType.kBrushless);
-    frDriveMotor = new CANSparkMax(Constants.CAN.FR_DRIVE_MOTOR, MotorType.kBrushless);
-    blDriveMotor = new CANSparkMax(Constants.CAN.BL_DRIVE_MOTOR, MotorType.kBrushless);
-    brDriveMotor = new CANSparkMax(Constants.CAN.BR_DRIVE_MOTOR, MotorType.kBrushless);
+    flDriveMotor = new VictorSP(Constants.CAN.FL_DRIVE_MOTOR);
+    frDriveMotor = new VictorSP(Constants.CAN.FR_DRIVE_MOTOR);
+    blDriveMotor = new VictorSP(Constants.CAN.BL_DRIVE_MOTOR);
+    brDriveMotor = new VictorSP(Constants.CAN.BR_DRIVE_MOTOR);
 
-    flRotationMotor = new CANSparkMax(Constants.CAN.FL_ROTATION_MOTOR, MotorType.kBrushless);
-    frRotationMotor = new CANSparkMax(Constants.CAN.FR_ROTATION_MOTOR, MotorType.kBrushless);
-    blRotationMotor = new CANSparkMax(Constants.CAN.BL_ROTATION_MOTOR, MotorType.kBrushless);
-    brRotationMotor = new CANSparkMax(Constants.CAN.BR_ROTATION_MOTOR, MotorType.kBrushless);
+    flRotationMotor = new VictorSP(Constants.CAN.FL_ROTATION_MOTOR);
+    frRotationMotor = new VictorSP(Constants.CAN.FR_ROTATION_MOTOR);
+    blRotationMotor = new VictorSP(Constants.CAN.BL_ROTATION_MOTOR);
+    brRotationMotor = new VictorSP(Constants.CAN.BR_ROTATION_MOTOR);
 
     flDriveMotor.setInverted(false);
     frDriveMotor.setInverted(false);
@@ -70,16 +71,8 @@ public class Drivetrain extends SubsystemBase {
     blRotationMotor.setInverted(false);
     brRotationMotor.setInverted(false);
 
-    flRotationMotor.setIdleMode(IdleMode.kBrake);
-    frRotationMotor.setIdleMode(IdleMode.kBrake);
-    blRotationMotor.setIdleMode(IdleMode.kBrake);
-    brRotationMotor.setIdleMode(IdleMode.kBrake);
-
-    flDriveMotor.setIdleMode(IdleMode.kBrake);
-    frDriveMotor.setIdleMode(IdleMode.kBrake);
-    blDriveMotor.setIdleMode(IdleMode.kBrake);
-    brDriveMotor.setIdleMode(IdleMode.kBrake);
-
+    
+  
 
     // Locations for the swerve drive modules relative to the robot center.
     Translation2d frontLeftLocation = new Translation2d(0.3, 0.3);
@@ -94,7 +87,7 @@ public class Drivetrain extends SubsystemBase {
   }
 //fontion qui va faire tourner une roue à une certaine vitesse linéaire en m/s
   public double setLinearVelocity(double targetSpeed, CANSparkMax driveMotor){
-    double currentMotorSpeed = driveMotor.getEncoder().getVelocity() / 6.67 * Math.PI * 4 * 2.54 / 100 / 60;
+    double currentMotorSpeed = a;
     //ajouter un PID qui calcule la vitesse à output dans le moteur pour atteindre le targetSpeed de manière optimale
     //peut-être utiliser le PID inclut dans les sparkmax pour plus d'efficacité
     double motorOutput = MathUtil.clamp(motorOutputPIDDrive.calculate(currentMotorSpeed, targetSpeed), -1, 1);
@@ -103,7 +96,7 @@ public class Drivetrain extends SubsystemBase {
   }
 //fontion qui va orienter la roue vers un certain angle en rotation2d
   public double goToAngle(Rotation2d targetAngle, CANSparkMax rotationMotor){
-    currentAngleRAD = MathUtil.angleModulus(rotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI);
+    currentAngleRAD = a;
     targetAngleRAD = targetAngle.getRadians(); 
     //ajouter un PID qui calcule la vitesse à output dans le moteur pour atteindre le targetAngle de manière optimale
      //peut-être utiliser le PID inclut dans les sparkmax pour plus d'efficacité
@@ -127,16 +120,19 @@ public class Drivetrain extends SubsystemBase {
     // Front left module state
     SwerveModuleState frontLeft = moduleStates[0];
     SwerveModuleState frontLeftOptimized = SwerveModuleState.optimize(frontLeft, 
-		  new Rotation2d(MathUtil.angleModulus(flRotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)));
+		  new Rotation2d(a));
     // Front right module state
     SwerveModuleState frontRight = moduleStates[1];
-    SwerveModuleState frontRightOptimized = SwerveModuleState.optimize(frontRight, new Rotation2d(MathUtil.angleModulus(frRotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)));
+    SwerveModuleState frontRightOptimized = SwerveModuleState.optimize(frontRight, 
+      new Rotation2d(a));
     // Back left module state
     SwerveModuleState backLeft = moduleStates[2];
-    SwerveModuleState backLeftOptimized = SwerveModuleState.optimize(backLeft, new Rotation2d(MathUtil.angleModulus(blRotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)));
+    SwerveModuleState backLeftOptimized = SwerveModuleState.optimize(backLeft, 
+      new Rotation2d(a));
     // Back right module state
     SwerveModuleState backRight = moduleStates[3];
-    SwerveModuleState backRightOptimized = SwerveModuleState.optimize(backRight, new Rotation2d(MathUtil.angleModulus(brRotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)));
+    SwerveModuleState backRightOptimized = SwerveModuleState.optimize(backRight, 
+      new Rotation2d(a));
 
     driveOneSwerve(frontLeftOptimized, flRotationMotor, flDriveMotor);
     driveOneSwerve(frontRightOptimized, frRotationMotor, frDriveMotor);
@@ -145,10 +141,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void resetEncoders(){
-    flRotationMotor.getEncoder().setPosition(0);
-    frRotationMotor.getEncoder().setPosition(0);
-    blRotationMotor.getEncoder().setPosition(0);
-    brRotationMotor.getEncoder().setPosition(0);
+    
 
   }
 
