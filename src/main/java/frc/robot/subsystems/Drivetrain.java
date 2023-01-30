@@ -27,14 +27,14 @@ public class Drivetrain extends SubsystemBase {
   double targetAngleRAD;
 
   private CANSparkMax flDriveMotor;
-  //private CANSparkMax frDriveMotor;
-  //private CANSparkMax blDriveMotor;
-  //private CANSparkMax brDriveMotor;
+  private CANSparkMax frDriveMotor;
+  private CANSparkMax blDriveMotor;
+  private CANSparkMax brDriveMotor;
 
   private CANSparkMax flRotationMotor;
-  //private CANSparkMax frRotationMotor;
-  //private CANSparkMax blRotationMotor;
-  //private CANSparkMax brRotationMotor;
+  private CANSparkMax frRotationMotor;
+  private CANSparkMax blRotationMotor;
+  private CANSparkMax brRotationMotor;
 
   private SwerveDriveKinematics kinematics;
 
@@ -51,34 +51,34 @@ public class Drivetrain extends SubsystemBase {
 
 
     flDriveMotor = new CANSparkMax(Constants.CAN.FL_DRIVE_MOTOR, MotorType.kBrushless);
-    //frDriveMotor = new CANSparkMax(Constants.CAN.FR_DRIVE_MOTOR, MotorType.kBrushless);
-    //blDriveMotor = new CANSparkMax(Constants.CAN.BL_DRIVE_MOTOR, MotorType.kBrushless);
-    //brDriveMotor = new CANSparkMax(Constants.CAN.BR_DRIVE_MOTOR, MotorType.kBrushless);
+    frDriveMotor = new CANSparkMax(Constants.CAN.FR_DRIVE_MOTOR, MotorType.kBrushless);
+    blDriveMotor = new CANSparkMax(Constants.CAN.BL_DRIVE_MOTOR, MotorType.kBrushless);
+    brDriveMotor = new CANSparkMax(Constants.CAN.BR_DRIVE_MOTOR, MotorType.kBrushless);
 
     flRotationMotor = new CANSparkMax(Constants.CAN.FL_ROTATION_MOTOR, MotorType.kBrushless);
-    //frRotationMotor = new CANSparkMax(Constants.CAN.FR_ROTATION_MOTOR, MotorType.kBrushless);
-    //blRotationMotor = new CANSparkMax(Constants.CAN.BL_ROTATION_MOTOR, MotorType.kBrushless);
-    //brRotationMotor = new CANSparkMax(Constants.CAN.BR_ROTATION_MOTOR, MotorType.kBrushless);
+    frRotationMotor = new CANSparkMax(Constants.CAN.FR_ROTATION_MOTOR, MotorType.kBrushless);
+    blRotationMotor = new CANSparkMax(Constants.CAN.BL_ROTATION_MOTOR, MotorType.kBrushless);
+    brRotationMotor = new CANSparkMax(Constants.CAN.BR_ROTATION_MOTOR, MotorType.kBrushless);
 
     flDriveMotor.setInverted(false);
-    //frDriveMotor.setInverted(false);
-    //blDriveMotor.setInverted(false);
-    //brDriveMotor.setInverted(false);
+    frDriveMotor.setInverted(false);
+    blDriveMotor.setInverted(false);
+    brDriveMotor.setInverted(false);
 
     flRotationMotor.setInverted(false);
-    //frRotationMotor.setInverted(false);
-    //blRotationMotor.setInverted(false);
-    //brRotationMotor.setInverted(false);
+    frRotationMotor.setInverted(false);
+    blRotationMotor.setInverted(false);
+    brRotationMotor.setInverted(false);
 
     flRotationMotor.setIdleMode(IdleMode.kBrake);
-    //frRotationMotor.setIdleMode(IdleMode.kBrake);
-    //blRotationMotor.setIdleMode(IdleMode.kBrake);
-    //brRotationMotor.setIdleMode(IdleMode.kBrake);
+    frRotationMotor.setIdleMode(IdleMode.kBrake);
+    blRotationMotor.setIdleMode(IdleMode.kBrake);
+    brRotationMotor.setIdleMode(IdleMode.kBrake);
 
     flDriveMotor.setIdleMode(IdleMode.kBrake);
-    //frDriveMotor.setIdleMode(IdleMode.kBrake);
-    //blDriveMotor.setIdleMode(IdleMode.kBrake);
-    //brDriveMotor.setIdleMode(IdleMode.kBrake);
+    frDriveMotor.setIdleMode(IdleMode.kBrake);
+    blDriveMotor.setIdleMode(IdleMode.kBrake);
+    brDriveMotor.setIdleMode(IdleMode.kBrake);
 
 
     // Locations for the swerve drive modules relative to the robot center.
@@ -121,34 +121,34 @@ public class Drivetrain extends SubsystemBase {
     // Example chassis speeds: 1 meter per second forward, 3 meters
     // per second to the left, and rotation at 1.5 radians per second
     // counterclockwise.
-    ChassisSpeeds speeds = new ChassisSpeeds(x, y, r);   //VÉRIFIER S'IL N'Y A PAS UN MEILLEUR ENDROIT POUR CRÉER LES OBJETS
+    ChassisSpeeds speeds = new ChassisSpeeds(x, y, r); 
     // Convert to module states
     SwerveModuleState[] moduleStates = kinematics.toSwerveModuleStates(speeds);
     // Front left module state
-    SwerveModuleState frontLeft = moduleStates[0]; //LE PROBLÈME VIENT DU OPTIMIZE ET DE L'ANGLE QU'ON LUI PASSE
+    SwerveModuleState frontLeft = moduleStates[0];
     SwerveModuleState frontLeftOptimized = SwerveModuleState.optimize(frontLeft, 
 		  new Rotation2d(MathUtil.angleModulus(flRotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)));
     // Front right module state
-    //SwerveModuleState frontRight = moduleStates[1];
-    //SwerveModuleState frontRightOptimized = SwerveModuleState.optimize(frontRight, new Rotation2d(MathUtil.angleModulus(Math.asin(Math.sin(frRotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)))));
+    SwerveModuleState frontRight = moduleStates[1];
+    SwerveModuleState frontRightOptimized = SwerveModuleState.optimize(frontRight, new Rotation2d(MathUtil.angleModulus(frRotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)));
     // Back left module state
-    //SwerveModuleState backLeft = moduleStates[2];
-    //SwerveModuleState backLeftOptimized = SwerveModuleState.optimize(backLeft, new Rotation2d(MathUtil.angleModulus(Math.asin(Math.sin(blRotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)))));
+    SwerveModuleState backLeft = moduleStates[2];
+    SwerveModuleState backLeftOptimized = SwerveModuleState.optimize(backLeft, new Rotation2d(MathUtil.angleModulus(blRotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)));
     // Back right module state
-    //SwerveModuleState backRight = moduleStates[3];
-    //SwerveModuleState backRightOptimized = SwerveModuleState.optimize(backRight, new Rotation2d(MathUtil.angleModulus(Math.asin(Math.sin(brRotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)))));
+    SwerveModuleState backRight = moduleStates[3];
+    SwerveModuleState backRightOptimized = SwerveModuleState.optimize(backRight, new Rotation2d(MathUtil.angleModulus(brRotationMotor.getEncoder().getPosition() / 10 * 6 / 5 * 2 * Math.PI)));
 
     driveOneSwerve(frontLeftOptimized, flRotationMotor, flDriveMotor);
-    //driveOneSwerve(frontRightOptimized, frRotationMotor, frDriveMotor);
-    //driveOneSwerve(backLeftOptimized, blRotationMotor, blDriveMotor);
-    //driveOneSwerve(backRightOptimized, brRotationMotor, brDriveMotor);
+    driveOneSwerve(frontRightOptimized, frRotationMotor, frDriveMotor);
+    driveOneSwerve(backLeftOptimized, blRotationMotor, blDriveMotor);
+    driveOneSwerve(backRightOptimized, brRotationMotor, brDriveMotor);
   }
 
   public void resetEncoders(){
     flRotationMotor.getEncoder().setPosition(0);
-    //frRotationMotor.getEncoder().setPosition(0);
-    //blRotationMotor.getEncoder().setPosition(0);
-    //brRotationMotor.getEncoder().setPosition(0);
+    frRotationMotor.getEncoder().setPosition(0);
+    blRotationMotor.getEncoder().setPosition(0);
+    brRotationMotor.getEncoder().setPosition(0);
 
   }
 
