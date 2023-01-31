@@ -16,6 +16,12 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -37,6 +43,8 @@ public class Drivetrain extends SubsystemBase {
   private VictorSP blRotationMotor;
   private VictorSP brRotationMotor;
 
+  private SerialPort serialPort;
+
   private SwerveDriveKinematics kinematics;
 
   public PIDController motorOutputPIDRotation;
@@ -49,7 +57,7 @@ public class Drivetrain extends SubsystemBase {
 
     motorOutputPIDDrive = new PIDController(0.1, 0, 0); //JSP COMMENT FIX L'ERREUR RESSOURCE LEAK
 
-
+    serialPort = new SerialPort(115200, Port.kMXP);
 
     flDriveMotor = new VictorSP(Constants.CAN.FL_DRIVE_MOTOR);
     frDriveMotor = new VictorSP(Constants.CAN.FR_DRIVE_MOTOR);
@@ -71,9 +79,9 @@ public class Drivetrain extends SubsystemBase {
     blRotationMotor.setInverted(false);
     brRotationMotor.setInverted(false);
 
-    
-  
 
+
+    
     // Locations for the swerve drive modules relative to the robot center.
     Translation2d frontLeftLocation = new Translation2d(0.3, 0.3);
     Translation2d frontRightLocation = new Translation2d(0, -0);
@@ -85,29 +93,37 @@ public class Drivetrain extends SubsystemBase {
       frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation
     );
   }
+
+  public int readEncoderValue(int encoderNumber){
+    String rawSerialValue = serialPort.readString();
+    String parsedValue[] = rawSerialValue.split(":");
+    parsedValue = parsedValue[parsedValue.length - 1].split(",");
+    
+    return Integer.parseInt(parsedValue[encoderNumber]);
+  }
+
+
 //fontion qui va faire tourner une roue à une certaine vitesse linéaire en m/s
-  public double setLinearVelocity(double targetSpeed, CANSparkMax driveMotor){
+  public double setLinearVelocity(double targetSpeed){
     double currentMotorSpeed = a;
     //ajouter un PID qui calcule la vitesse à output dans le moteur pour atteindre le targetSpeed de manière optimale
-    //peut-être utiliser le PID inclut dans les sparkmax pour plus d'efficacité
     double motorOutput = MathUtil.clamp(motorOutputPIDDrive.calculate(currentMotorSpeed, targetSpeed), -1, 1);
     
 	return motorOutput;
   }
 //fontion qui va orienter la roue vers un certain angle en rotation2d
-  public double goToAngle(Rotation2d targetAngle, CANSparkMax rotationMotor){
-    currentAngleRAD = a;
-    targetAngleRAD = targetAngle.getRadians(); 
+  public double goToAngle(Rotation2d targetAngle, int encoderNumber){
+    currentAngleRAD = MathUtil.angleModulus(readEncoderValue(encoderNumber) * 2 * Math.PI / 4096);
+    targetAngleRAD = targetAngle.getRadians();
     //ajouter un PID qui calcule la vitesse à output dans le moteur pour atteindre le targetAngle de manière optimale
-     //peut-être utiliser le PID inclut dans les sparkmax pour plus d'efficacité
     double motorOutput = MathUtil.clamp(motorOutputPIDRotation.calculate(currentAngleRAD, targetAngleRAD), -1, 1);
     
     return motorOutput;
   }
 //fonction qui va gérer la position et la vitesse d'une roue
-  public void driveOneSwerve(SwerveModuleState moduleState, CANSparkMax rotationMotor, CANSparkMax driveMotor){
-    driveMotor.set(setLinearVelocity(moduleState.speedMetersPerSecond, driveMotor));
-    rotationMotor.set(goToAngle(moduleState.angle, rotationMotor));
+  public void driveOneSwerve(SwerveModuleState moduleState, VictorSP rotationMotor, VictorSP driveMotor, int encoderNumber){
+    driveMotor.set(setLinearVelocity(moduleState.speedMetersPerSecond));
+    rotationMotor.set(goToAngle(moduleState.angle, encoderNumber));
   }
 
   public void driveSwerve(double x, double y, double r){
@@ -134,10 +150,10 @@ public class Drivetrain extends SubsystemBase {
     SwerveModuleState backRightOptimized = SwerveModuleState.optimize(backRight, 
       new Rotation2d(a));
 
-    driveOneSwerve(frontLeftOptimized, flRotationMotor, flDriveMotor);
-    driveOneSwerve(frontRightOptimized, frRotationMotor, frDriveMotor);
-    driveOneSwerve(backLeftOptimized, blRotationMotor, blDriveMotor);
-    driveOneSwerve(backRightOptimized, brRotationMotor, brDriveMotor);
+    driveOneSwerve(frontLeftOptimized, flRotationMotor, flDriveMotor, 0);
+    driveOneSwerve(frontRightOptimized, frRotationMotor, frDriveMotor, 1);
+    driveOneSwerve(backLeftOptimized, blRotationMotor, blDriveMotor, 2);
+    driveOneSwerve(backRightOptimized, brRotationMotor, brDriveMotor, 3);
   }
 
   public void resetEncoders(){
