@@ -5,9 +5,6 @@
 package frc.robot.subsystems;
 
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
@@ -16,10 +13,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DigitalOutput;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
@@ -105,15 +98,15 @@ public class Drivetrain extends SubsystemBase {
 
 //fontion qui va faire tourner une roue à une certaine vitesse linéaire en m/s
   public double setLinearVelocity(double targetSpeed){
-    double currentMotorSpeed = a;
+    //double currentMotorSpeed = a;
     //ajouter un PID qui calcule la vitesse à output dans le moteur pour atteindre le targetSpeed de manière optimale
-    double motorOutput = MathUtil.clamp(motorOutputPIDDrive.calculate(currentMotorSpeed, targetSpeed), -1, 1);
+    //double motorOutput = MathUtil.clamp(motorOutputPIDDrive.calculate(currentMotorSpeed, targetSpeed), -1, 1);
     
-	return motorOutput;
+	return targetSpeed/3;
   }
 //fontion qui va orienter la roue vers un certain angle en rotation2d
   public double goToAngle(Rotation2d targetAngle, int encoderNumber){
-    currentAngleRAD = MathUtil.angleModulus(readEncoderValue(encoderNumber) * 2 * Math.PI / 4096);
+    currentAngleRAD = (readEncoderValue(encoderNumber) * 2 * Math.PI / 4096) - Math.PI;
     targetAngleRAD = targetAngle.getRadians();
     //ajouter un PID qui calcule la vitesse à output dans le moteur pour atteindre le targetAngle de manière optimale
     double motorOutput = MathUtil.clamp(motorOutputPIDRotation.calculate(currentAngleRAD, targetAngleRAD), -1, 1);
@@ -136,19 +129,19 @@ public class Drivetrain extends SubsystemBase {
     // Front left module state
     SwerveModuleState frontLeft = moduleStates[0];
     SwerveModuleState frontLeftOptimized = SwerveModuleState.optimize(frontLeft, 
-		  new Rotation2d(a));
+		  new Rotation2d((readEncoderValue(0) * 2 * Math.PI / 4096) - Math.PI));
     // Front right module state
     SwerveModuleState frontRight = moduleStates[1];
     SwerveModuleState frontRightOptimized = SwerveModuleState.optimize(frontRight, 
-      new Rotation2d(a));
+      new Rotation2d((readEncoderValue(1) * 2 * Math.PI / 4096) - Math.PI));
     // Back left module state
     SwerveModuleState backLeft = moduleStates[2];
     SwerveModuleState backLeftOptimized = SwerveModuleState.optimize(backLeft, 
-      new Rotation2d(a));
+      new Rotation2d((readEncoderValue(2) * 2 * Math.PI / 4096) - Math.PI));
     // Back right module state
     SwerveModuleState backRight = moduleStates[3];
     SwerveModuleState backRightOptimized = SwerveModuleState.optimize(backRight, 
-      new Rotation2d(a));
+      new Rotation2d((readEncoderValue(3) * 2 * Math.PI / 4096) - Math.PI));
 
     driveOneSwerve(frontLeftOptimized, flRotationMotor, flDriveMotor, 0);
     driveOneSwerve(frontRightOptimized, frRotationMotor, frDriveMotor, 1);

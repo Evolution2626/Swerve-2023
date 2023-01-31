@@ -15,15 +15,15 @@ package frc.robot;
 public final class Constants {
 
   public interface CAN {
-    int FL_DRIVE_MOTOR = 0;
-    int FR_DRIVE_MOTOR = 0;
-    int BL_DRIVE_MOTOR = 0;
-    int BR_DRIVE_MOTOR = 0;
+    int FL_DRIVE_MOTOR = 4;
+    int FR_DRIVE_MOTOR = 5;
+    int BL_DRIVE_MOTOR = 6;
+    int BR_DRIVE_MOTOR = 7;
 
     int FL_ROTATION_MOTOR = 0;
-    int FR_ROTATION_MOTOR = 0;
-    int BL_ROTATION_MOTOR = 0;
-    int BR_ROTATION_MOTOR = 0;
+    int FR_ROTATION_MOTOR = 1;
+    int BL_ROTATION_MOTOR = 2;
+    int BR_ROTATION_MOTOR = 3;
 
   }
 
