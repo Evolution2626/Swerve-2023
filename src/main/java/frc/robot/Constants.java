@@ -14,7 +14,7 @@ package frc.robot;
  */
 public final class Constants {
 
-  public interface CAN {
+  public interface PWM {
     int FL_DRIVE_MOTOR = 4;
     int FR_DRIVE_MOTOR = 5;
     int BL_DRIVE_MOTOR = 6;
@@ -26,8 +26,6 @@ public final class Constants {
     int BR_ROTATION_MOTOR = 3;
 
   }
-
-  
 
   public interface USB {
     int DRIVER_CONTROLLER = 0;

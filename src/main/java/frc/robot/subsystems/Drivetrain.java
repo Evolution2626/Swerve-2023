@@ -52,15 +52,15 @@ public class Drivetrain extends SubsystemBase {
 
     serialPort = new SerialPort(115200, Port.kMXP);
 
-    flDriveMotor = new VictorSP(Constants.CAN.FL_DRIVE_MOTOR);
-    frDriveMotor = new VictorSP(Constants.CAN.FR_DRIVE_MOTOR);
-    blDriveMotor = new VictorSP(Constants.CAN.BL_DRIVE_MOTOR);
-    brDriveMotor = new VictorSP(Constants.CAN.BR_DRIVE_MOTOR);
+    flDriveMotor = new VictorSP(Constants.PWM.FL_DRIVE_MOTOR);
+    frDriveMotor = new VictorSP(Constants.PWM.FR_DRIVE_MOTOR);
+    blDriveMotor = new VictorSP(Constants.PWM.BL_DRIVE_MOTOR);
+    brDriveMotor = new VictorSP(Constants.PWM.BR_DRIVE_MOTOR);
 
-    flRotationMotor = new VictorSP(Constants.CAN.FL_ROTATION_MOTOR);
-    frRotationMotor = new VictorSP(Constants.CAN.FR_ROTATION_MOTOR);
-    blRotationMotor = new VictorSP(Constants.CAN.BL_ROTATION_MOTOR);
-    brRotationMotor = new VictorSP(Constants.CAN.BR_ROTATION_MOTOR);
+    flRotationMotor = new VictorSP(Constants.PWM.FL_ROTATION_MOTOR);
+    frRotationMotor = new VictorSP(Constants.PWM.FR_ROTATION_MOTOR);
+    blRotationMotor = new VictorSP(Constants.PWM.BL_ROTATION_MOTOR);
+    brRotationMotor = new VictorSP(Constants.PWM.BR_ROTATION_MOTOR);
 
     flDriveMotor.setInverted(false);
     frDriveMotor.setInverted(false);
@@ -71,15 +71,12 @@ public class Drivetrain extends SubsystemBase {
     frRotationMotor.setInverted(false);
     blRotationMotor.setInverted(false);
     brRotationMotor.setInverted(false);
-
-
-
     
     // Locations for the swerve drive modules relative to the robot center.
-    Translation2d frontLeftLocation = new Translation2d(0.3, 0.3);
-    Translation2d frontRightLocation = new Translation2d(0, -0);
-    Translation2d backLeftLocation = new Translation2d(-0, 0);
-    Translation2d backRightLocation = new Translation2d(-0, -0);
+    Translation2d frontLeftLocation = new Translation2d(0.2, 0.31);
+    Translation2d frontRightLocation = new Translation2d(0.2, -0.31);
+    Translation2d backLeftLocation = new Translation2d(-0.2, 0.31);
+    Translation2d backRightLocation = new Translation2d(-0.2, -0.31);
 
     // Creating my kinematics object using the module locations
     kinematics = new SwerveDriveKinematics(
