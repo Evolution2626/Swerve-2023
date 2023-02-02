@@ -83,9 +83,9 @@ public class Drivetrain extends SubsystemBase {
 
     // Locations for the swerve drive modules relative to the robot center.
     Translation2d frontLeftLocation = new Translation2d(0.3, 0.3);
-    Translation2d frontRightLocation = new Translation2d(0, -0);
-    Translation2d backLeftLocation = new Translation2d(-0, 0);
-    Translation2d backRightLocation = new Translation2d(-0, -0);
+    Translation2d frontRightLocation = new Translation2d(0.3, -0.3);
+    Translation2d backLeftLocation = new Translation2d(-0.3, 0.3);
+    Translation2d backRightLocation = new Translation2d(-0.3, -0.3);
 
     // Creating my kinematics object using the module locations
     kinematics = new SwerveDriveKinematics(
@@ -155,7 +155,6 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Current angle: ", currentAngleRAD/Math.PI);
-    SmartDashboard.putNumber("Target Angle: ", targetAngleRAD/Math.PI);
+    
   }
 }
