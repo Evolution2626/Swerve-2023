@@ -1,12 +1,11 @@
 # This is a basic workflow to build robot code.
 
-name: CI
+name: Robot code validation
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the main branch.
-on:
+on: 
   push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 
