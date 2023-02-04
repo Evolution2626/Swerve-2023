@@ -23,6 +23,10 @@ public class ResetGyroCommand extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrain.resetEncoders();
+    drivetrain.resetEncoders(0);
+    drivetrain.resetEncoders(1);
+    drivetrain.resetEncoders(2);
+    drivetrain.resetEncoders(3);
+
   }
 }

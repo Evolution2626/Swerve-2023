@@ -24,7 +24,11 @@ public class SwerveDriveCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrain.resetEncoders();
+    drivetrain.resetEncoders(0);
+    drivetrain.resetEncoders(1);
+    drivetrain.resetEncoders(2);
+    drivetrain.resetEncoders(3);
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.

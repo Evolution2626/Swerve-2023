@@ -22,9 +22,16 @@ public final class Constants {
 
     int FL_ROTATION_MOTOR = 13;
     int FR_ROTATION_MOTOR = 10;
-    int BL_ROTATION_MOTOR = 1;
+    int BL_ROTATION_MOTOR = 6;
     int BR_ROTATION_MOTOR = 8;
 
+  }
+
+  public interface DIGITAL {
+    int FL_SENSOR = 0;
+    int FR_SENSOR = 0;
+    int BL_SENSOR = 0;
+    int BR_SENSOR = 0;
   }
 
   public interface USB {
