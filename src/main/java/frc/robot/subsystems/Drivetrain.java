@@ -35,12 +35,12 @@ public class Drivetrain extends SubsystemBase {
   private CANSparkMax frRotationMotor;
   private CANSparkMax blRotationMotor;
   private CANSparkMax brRotationMotor;
-
+  /* 
   private DigitalInput flSensor;
   private DigitalInput frSensor;
   private DigitalInput blSensor;
   private DigitalInput brSensor;
-
+*/
   private SwerveDriveKinematics kinematics;
 
   public PIDController motorOutputPIDRotation;
@@ -53,10 +53,10 @@ public class Drivetrain extends SubsystemBase {
 
     motorOutputPIDDrive = new PIDController(0.1, 0, 0); //JSP COMMENT FIX L'ERREUR RESSOURCE LEAK
 
-    flSensor = new DigitalInput(Constants.DIGITAL.FL_SENSOR);
-    frSensor = new DigitalInput(Constants.DIGITAL.FR_SENSOR);
-    blSensor = new DigitalInput(Constants.DIGITAL.BL_SENSOR);
-    brSensor = new DigitalInput(Constants.DIGITAL.BR_SENSOR);
+    // flSensor = new DigitalInput(Constants.DIGITAL.FL_SENSOR);
+    // frSensor = new DigitalInput(Constants.DIGITAL.FR_SENSOR);
+    // blSensor = new DigitalInput(Constants.DIGITAL.BL_SENSOR);
+    // brSensor = new DigitalInput(Constants.DIGITAL.BR_SENSOR);
 
     flDriveMotor = new CANSparkMax(Constants.CAN.FL_DRIVE_MOTOR, MotorType.kBrushless);
     frDriveMotor = new CANSparkMax(Constants.CAN.FR_DRIVE_MOTOR, MotorType.kBrushless);
@@ -175,10 +175,10 @@ public class Drivetrain extends SubsystemBase {
     }
   }
 
-  public boolean getDigitalInputs(int sensor){
-    boolean[] inputs = {flSensor.get(), frSensor.get(), blSensor.get(),brSensor.get()};
-    return inputs[sensor];
-  }
+  // public boolean getDigitalInputs(int sensor){
+  //   boolean[] inputs = {flSensor.get(), frSensor.get(), blSensor.get(),brSensor.get()};
+  //   return inputs[sensor];
+  // }
 
   public void setRotationMotorSpeed(int motor, double speed){
     switch (motor) {

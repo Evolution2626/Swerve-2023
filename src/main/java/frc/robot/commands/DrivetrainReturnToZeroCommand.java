@@ -22,30 +22,30 @@ public class DrivetrainReturnToZeroCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (!drivetrain.getDigitalInputs(0)) {
-      drivetrain.setRotationMotorSpeed(0, 0.2);
-    }else{
-      drivetrain.setRotationMotorSpeed(0, 0);
-      drivetrain.resetEncoders(0);
-    }
-    if (!drivetrain.getDigitalInputs(1)) {
-      drivetrain.setRotationMotorSpeed(1, 0.2);
-    }else{
-      drivetrain.setRotationMotorSpeed(1, 0);
-      drivetrain.resetEncoders(1);
-    }
-    if (!drivetrain.getDigitalInputs(2)) {
-      drivetrain.setRotationMotorSpeed(2, 0.2);
-    }else{
-      drivetrain.setRotationMotorSpeed(2, 0);
-      drivetrain.resetEncoders(2);
-    }
-    if (!drivetrain.getDigitalInputs(3)) {
-      drivetrain.setRotationMotorSpeed(3, 0.2);
-    }else{
-      drivetrain.setRotationMotorSpeed(3, 0);
-      drivetrain.resetEncoders(3);
-    }
+    // if (!drivetrain.getDigitalInputs(0)) {
+    //   drivetrain.setRotationMotorSpeed(0, 0.2);
+    // }else{
+    //   drivetrain.setRotationMotorSpeed(0, 0);
+    //   drivetrain.resetEncoders(0);
+    // }
+    // if (!drivetrain.getDigitalInputs(1)) {
+    //   drivetrain.setRotationMotorSpeed(1, 0.2);
+    // }else{
+    //   drivetrain.setRotationMotorSpeed(1, 0);
+    //   drivetrain.resetEncoders(1);
+    // }
+    // if (!drivetrain.getDigitalInputs(2)) {
+    //   drivetrain.setRotationMotorSpeed(2, 0.2);
+    // }else{
+    //   drivetrain.setRotationMotorSpeed(2, 0);
+    //   drivetrain.resetEncoders(2);
+    // }
+    // if (!drivetrain.getDigitalInputs(3)) {
+    //   drivetrain.setRotationMotorSpeed(3, 0.2);
+    // }else{
+    //   drivetrain.setRotationMotorSpeed(3, 0);
+    //   drivetrain.resetEncoders(3);
+    // }
   }
 
   // Called once the command ends or is interrupted.
