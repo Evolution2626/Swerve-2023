@@ -88,8 +88,9 @@ public class Drivetrain extends SubsystemBase {
     String rawSerialValue = serialPort.readString();
     String parsedValue[] = rawSerialValue.split(":");
     parsedValue = parsedValue[parsedValue.length - 1].split(",");
-    
-    return Integer.parseInt(parsedValue[encoderNumber]);
+    //int output = Integer.parseInt(parsedValue[encoderNumber]);
+    SmartDashboard.putString("Encoder value: ", parsedValue[0]);
+    return 0;
   }
 
 
