@@ -97,9 +97,12 @@ public class Drivetrain extends SubsystemBase {
   public double setLinearVelocity(double targetSpeed){
     //double currentMotorSpeed = a;
     //ajouter un PID qui calcule la vitesse à output dans le moteur pour atteindre le targetSpeed de manière optimale
-    //double motorOutput = MathUtil.clamp(motorOutputPIDDrive.calculate(currentMotorSpeed, targetSpeed), -1, 1);
+    double motorOutput = MathUtil.clamp(
+      //motorOutputPIDDrive.calculate(currentMotorSpeed, targetSpeed),
+      targetSpeed/3,
+       -1, 1);
     
-	return targetSpeed/3;
+	return motorOutput;
   }
 //fontion qui va orienter la roue vers un certain angle en rotation2d
   public double goToAngle(Rotation2d targetAngle, int encoderNumber){
@@ -141,16 +144,12 @@ public class Drivetrain extends SubsystemBase {
       new Rotation2d((readEncoderValue(3) * 2 * Math.PI / 4096) - Math.PI));
 
     driveOneSwerve(frontLeftOptimized, flRotationMotor, flDriveMotor, 0);
-    driveOneSwerve(frontRightOptimized, frRotationMotor, frDriveMotor, 1);
-    driveOneSwerve(backLeftOptimized, blRotationMotor, blDriveMotor, 2);
-    driveOneSwerve(backRightOptimized, brRotationMotor, brDriveMotor, 3);
+    // driveOneSwerve(frontRightOptimized, frRotationMotor, frDriveMotor, 1);
+    // driveOneSwerve(backLeftOptimized, blRotationMotor, blDriveMotor, 2);
+    // driveOneSwerve(backRightOptimized, brRotationMotor, brDriveMotor, 3);
   }
 
-  public void resetEncoders(){
-    
-
-  }
-
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
