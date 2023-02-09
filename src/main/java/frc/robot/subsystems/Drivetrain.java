@@ -6,6 +6,9 @@ package frc.robot.subsystems;
 
 
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -13,6 +16,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
@@ -85,13 +89,16 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public int readEncoderValue(int encoderNumber){
-    String rawSerialValue = serialPort.readString();
-    String parsedValue[] = rawSerialValue.split(":");
-    parsedValue = parsedValue[parsedValue.length - 1].split(",");
-    //int output = Integer.parseInt(parsedValue[encoderNumber]);
-    SmartDashboard.putString("Encoder value: ", parsedValue[0]);
-    return 0;
+    String regex = "([0-9]{1,4})([:])([0-9]{1,4})([:])([0-9]{1,4})([:])([0-9]{1,4})";
+    String rawData = "";
+    
+    Pattern pattern = Pattern.compile(regex);
+    Matcher matcher = pattern.matcher(rawData);
+    
+    return Integer.parseInt(matcher.group(encoderNumber*2+1));
   }
+
+  
 
 
 //fontion qui va faire tourner une roue à une certaine vitesse linéaire en m/s
