@@ -30,4 +30,15 @@ public final class Constants {
   public interface USB {
     int DRIVER_CONTROLLER = 0;
   }
+
+  public interface DIGITAL {
+    int FL_ENCODER = 0;
+    int FR_ENCODER = 1;
+    int BL_ENCODER = 2;
+    int BR_ENCODER = 3;
+
+    int CLOCK = 4;
+    int CHIP_SELECT = 5;
+
+  }
 }

@@ -16,9 +16,11 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.SPI.Mode;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -40,7 +42,19 @@ public class Drivetrain extends SubsystemBase {
   private VictorSP blRotationMotor;
   private VictorSP brRotationMotor;
 
-  private SerialPort serialPort;
+  private DigitalInput flEncoder;
+  private DigitalInput frEncoder;
+  private DigitalInput blEncoder;
+  private DigitalInput brEncoder;
+
+  private DigitalOutput clock;
+  private DigitalOutput chipSelect;
+
+  private Timer timer;
+
+  private SPI spi;
+
+  double bitToInteger[] = new double[4];
 
   private SwerveDriveKinematics kinematics;
 
@@ -54,7 +68,24 @@ public class Drivetrain extends SubsystemBase {
 
     motorOutputPIDDrive = new PIDController(0.1, 0, 0); //JSP COMMENT FIX L'ERREUR RESSOURCE LEAK
 
-    serialPort = new SerialPort(115200, Port.kMXP);
+    spi = new SPI(SPI.Port.kMXP);
+    spi.setClockRate(2000000);
+
+    timer = new Timer();
+    timer.start();
+    timer.stop();
+    timer.reset();
+
+    flEncoder = new DigitalInput(Constants.DIGITAL.FL_ENCODER);
+    frEncoder = new DigitalInput(Constants.DIGITAL.FR_ENCODER);
+    blEncoder = new DigitalInput(Constants.DIGITAL.BL_ENCODER);
+    brEncoder = new DigitalInput(Constants.DIGITAL.BR_ENCODER);
+
+    clock = new DigitalOutput(Constants.DIGITAL.CLOCK);
+    chipSelect = new DigitalOutput(Constants.DIGITAL.CHIP_SELECT);
+
+    chipSelect.set(true);
+    clock.set(false);
 
     flDriveMotor = new VictorSP(Constants.PWM.FL_DRIVE_MOTOR);
     frDriveMotor = new VictorSP(Constants.PWM.FR_DRIVE_MOTOR);
@@ -86,20 +117,76 @@ public class Drivetrain extends SubsystemBase {
     kinematics = new SwerveDriveKinematics(
       frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation
     );
+
+    for (int i = 0; i < bitToInteger.length; i++) {
+      bitToInteger[i] = 0;
+    }
+
   }
 
-  public int readEncoderValue(int encoderNumber){
-    String regex = "([0-9]{1,4})([:])([0-9]{1,4})([:])([0-9]{1,4})([:])([0-9]{1,4})";
-    String rawData = "";
+  // public int readEncoderValue(int encoderNumber){
+  //   String regex = "([0-9]{1,4})([:])([0-9]{1,4})([:])([0-9]{1,4})([:])([0-9]{1,4})";
     
-    Pattern pattern = Pattern.compile(regex);
-    Matcher matcher = pattern.matcher(rawData);
+  //   byte buffer[] = new byte[30];
     
-    return Integer.parseInt(matcher.group(encoderNumber*2+1));
+  //   spi.read(false, buffer, 30);
+  //   String rawData = buffer.toString();
+  //   System.out.println("test: " + buffer);
+  //   Pattern pattern = Pattern.compile(regex);
+  //   Matcher matcher = pattern.matcher(rawData);
+  //   int output = Integer.parseInt(matcher.group(encoderNumber*2+1));
+  //   System.out.print(output);
+  //   return output;
+  // }
+
+  void getEncoderAngle(int encoderNumber){
+
+    for (int i = 0; i < bitToInteger.length; i++) {
+      bitToInteger[i] = 0;
+    }
+
+    chipSelect.set(false);
+    timer.start();
+    if (timer.hasElapsed(0.001)) return;
+    timer.stop();
+    timer.reset();
+
+    for (int i = 0; i < 12; i++) {
+
+      clock.set(true);
+
+      int value = 0;
+
+      switch (encoderNumber) {
+        case 0:
+          value = flEncoder.get() ? 1 : 0;
+          break;
+        case 1:
+          value = frEncoder.get() ? 1 : 0;
+          break;
+        case 2:
+          value = blEncoder.get() ? 1 : 0; 
+          break;
+        case 3:
+          value = brEncoder.get() ? 1 : 0;
+          break;
+        default:
+          value = 0;
+          break;
+      }
+      
+      bitToInteger[encoderNumber] += Math.pow(2, 12-i)*(value);
+
+      clock.set(false);
+    }
+    chipSelect.set(true);
+
   }
 
-  
-
+  double returnEncoderAngle(int encoderNumber){
+    getEncoderAngle(encoderNumber);
+    return bitToInteger[encoderNumber]/4096*2*Math.PI;
+  }
 
 //fontion qui va faire tourner une roue à une certaine vitesse linéaire en m/s
   public double setLinearVelocity(double targetSpeed){
@@ -114,7 +201,7 @@ public class Drivetrain extends SubsystemBase {
   }
 //fontion qui va orienter la roue vers un certain angle en rotation2d
   public double goToAngle(Rotation2d targetAngle, int encoderNumber){
-    currentAngleRAD = (readEncoderValue(encoderNumber) * 2 * Math.PI / 4096) - Math.PI;
+    currentAngleRAD = returnEncoderAngle(encoderNumber) - Math.PI;
     targetAngleRAD = targetAngle.getRadians();
     //ajouter un PID qui calcule la vitesse à output dans le moteur pour atteindre le targetAngle de manière optimale
     double motorOutput = MathUtil.clamp(motorOutputPIDRotation.calculate(currentAngleRAD, targetAngleRAD), -1, 1);
@@ -137,19 +224,19 @@ public class Drivetrain extends SubsystemBase {
     // Front left module state
     SwerveModuleState frontLeft = moduleStates[0];
     SwerveModuleState frontLeftOptimized = SwerveModuleState.optimize(frontLeft, 
-		  new Rotation2d((readEncoderValue(0) * 2 * Math.PI / 4096) - Math.PI));
+		  new Rotation2d(returnEncoderAngle(0) - Math.PI));
     // Front right module state
     SwerveModuleState frontRight = moduleStates[1];
     SwerveModuleState frontRightOptimized = SwerveModuleState.optimize(frontRight, 
-      new Rotation2d((readEncoderValue(1) * 2 * Math.PI / 4096) - Math.PI));
+      new Rotation2d(returnEncoderAngle(1) - Math.PI));
     // Back left module state
     SwerveModuleState backLeft = moduleStates[2];
     SwerveModuleState backLeftOptimized = SwerveModuleState.optimize(backLeft, 
-      new Rotation2d((readEncoderValue(2) * 2 * Math.PI / 4096) - Math.PI));
+      new Rotation2d(returnEncoderAngle(2) - Math.PI));
     // Back right module state
     SwerveModuleState backRight = moduleStates[3];
     SwerveModuleState backRightOptimized = SwerveModuleState.optimize(backRight, 
-      new Rotation2d((readEncoderValue(3) * 2 * Math.PI / 4096) - Math.PI));
+      new Rotation2d(returnEncoderAngle(3) - Math.PI));
 
     driveOneSwerve(frontLeftOptimized, flRotationMotor, flDriveMotor, 0);
     // driveOneSwerve(frontRightOptimized, frRotationMotor, frDriveMotor, 1);
