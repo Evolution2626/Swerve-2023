@@ -21,7 +21,7 @@ public class LimelightYCommand extends PIDCommand {
   public static boolean stop = false;
 
   /** Creates a new LimelightCommand1m. */
-  public LimelightYCommand(Drivetrain drivetrain, Limelight limelight, XboxController controller, double range) {
+  public LimelightYCommand(Drivetrain drivetrain, Limelight limelight, XboxController controller, double range, boolean inverted) {
     super(
         // The controller that the command will use
         new PIDController(0.5, 0, 0),
@@ -36,7 +36,12 @@ public class LimelightYCommand extends PIDCommand {
           if(controller.getLeftBumperPressed() || limelight.getRobotPosition()[1] >= range-0.2 && limelight.getRobotPosition()[1] <= range+0.2){
             stop = true;
           }
-          drivetrain.driveSwerve(0, -output, 0);
+          if(inverted){
+            drivetrain.driveSwerve(0, -output, 0);
+          }
+          else{
+            drivetrain.driveSwerve(0,output, 0);
+          }
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.

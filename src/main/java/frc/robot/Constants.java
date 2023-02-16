@@ -25,6 +25,8 @@ public final class Constants {
     int BL_ROTATION_MOTOR = 6;
     int BR_ROTATION_MOTOR = 12;
 
+    int DeviceNumbermoteurGobbeur = 2;
+
   }
 
   public interface DIGITAL {
@@ -41,4 +43,11 @@ public final class Constants {
   public interface USB {
     int DRIVER_CONTROLLER = 0;
   }
+
+  public interface PCM{
+    int PISTON_PINCE_FORWARD = 0;
+    int PISTON_PINCE_REVERSE = 1;
+
+
+}
 }

@@ -24,7 +24,7 @@ public class LimelightXCommand extends PIDCommand {
  XboxController controller;
   public static boolean stop = false;
 
-  public LimelightXCommand(Drivetrain drivetrain, Limelight limelight, XboxController controller,double range) {
+  public LimelightXCommand(Drivetrain drivetrain, Limelight limelight, XboxController controller,double range, boolean inverted) {
     
     super(
         // The controller that the command will use
@@ -41,7 +41,13 @@ public class LimelightXCommand extends PIDCommand {
           if(controller.getLeftBumperPressed() || limelight.getRobotPosition()[0] >= range-0.2 && limelight.getRobotPosition()[0] <= range+0.2){
             stop = true;
           }
-          drivetrain.driveSwerve( -output,0, 0);
+          if(inverted){
+            drivetrain.driveSwerve( -output,0, 0);
+          }
+          else{
+            drivetrain.driveSwerve(output,0, 0);
+          }
+          
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
