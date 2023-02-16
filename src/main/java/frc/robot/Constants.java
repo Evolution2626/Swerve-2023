@@ -16,14 +16,14 @@ public final class Constants {
 
   public interface CAN {
     int FL_DRIVE_MOTOR = 7;
-    int FR_DRIVE_MOTOR = 8;
+    int FR_DRIVE_MOTOR = 10;
     int BL_DRIVE_MOTOR = 2;
-    int BR_DRIVE_MOTOR = 3;
+    int BR_DRIVE_MOTOR = 8;
 
     int FL_ROTATION_MOTOR = 13;
-    int FR_ROTATION_MOTOR = 4;
-    int BL_ROTATION_MOTOR = 5;
-    int BR_ROTATION_MOTOR = 6;
+    int FR_ROTATION_MOTOR = 3;
+    int BL_ROTATION_MOTOR = 6;
+    int BR_ROTATION_MOTOR = 12;
 
   }
 
