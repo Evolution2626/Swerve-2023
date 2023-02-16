@@ -5,10 +5,10 @@
 package frc.robot.subsystems;
 
 
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -16,11 +16,11 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DigitalOutput;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.util.EncoderValues;
+import frc.util.Range;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
@@ -38,46 +38,24 @@ public class Drivetrain extends SubsystemBase {
   private CANSparkMax blRotationMotor;
   private CANSparkMax brRotationMotor;
   
-  private DigitalInput flEncoder;
-  private DigitalInput frEncoder;
-  private DigitalInput blEncoder;
-  private DigitalInput brEncoder;
-
-  private DigitalOutput clock;
-  private DigitalOutput chipSelect;
-
-  private Timer timer;
-
-  double bitToInteger[] = new double[4];
-
+  
 
   private SwerveDriveKinematics kinematics;
 
   public PIDController motorOutputPIDRotation;
   public PIDController motorOutputPIDDrive;
 
+  
+
+
   public Drivetrain() {
 
-    motorOutputPIDRotation = new PIDController(0.1, 0.05, 0.001); 
+    motorOutputPIDRotation = new PIDController(0.15, 0, 0.001); 
     motorOutputPIDRotation.enableContinuousInput(-Math.PI, Math.PI);
 
     motorOutputPIDDrive = new PIDController(0.1, 0, 0); 
 
-    timer = new Timer();
-    timer.start();
-    timer.stop();
-    timer.reset();
-
-    flEncoder = new DigitalInput(Constants.DIGITAL.FL_ENCODER);
-    frEncoder = new DigitalInput(Constants.DIGITAL.FR_ENCODER);
-    blEncoder = new DigitalInput(Constants.DIGITAL.BL_ENCODER);
-    brEncoder = new DigitalInput(Constants.DIGITAL.BR_ENCODER);
-
-    clock = new DigitalOutput(Constants.DIGITAL.CLOCK);
-    chipSelect = new DigitalOutput(Constants.DIGITAL.CHIP_SELECT);
-
-    chipSelect.set(false);
-    clock.set(false);
+   
     
     flDriveMotor = new CANSparkMax(Constants.CAN.FL_DRIVE_MOTOR, MotorType.kBrushless);
     frDriveMotor = new CANSparkMax(Constants.CAN.FR_DRIVE_MOTOR, MotorType.kBrushless);
@@ -109,6 +87,11 @@ public class Drivetrain extends SubsystemBase {
     blDriveMotor.setIdleMode(IdleMode.kBrake);
     brDriveMotor.setIdleMode(IdleMode.kBrake);
 
+    flRotationMotor.setClosedLoopRampRate(0.1);
+    frRotationMotor.setClosedLoopRampRate(0.1);
+    blRotationMotor.setClosedLoopRampRate(0.1);
+    brRotationMotor.setClosedLoopRampRate(0.1);
+
 
     // Locations for the swerve drive modules relative to the robot center.
     Translation2d frontLeftLocation = new Translation2d(0.2, 0.31);
@@ -121,58 +104,27 @@ public class Drivetrain extends SubsystemBase {
       frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation
     );
 
-    for (int i = 0; i < bitToInteger.length; i++) {
-      bitToInteger[i] = 0;
-    }
+    
   }
 
-
-  void getEncoderAngle(int encoderNumber){
-
-    for (int i = 0; i < bitToInteger.length; i++) {
-      bitToInteger[i] = 0;
-    }
-
-    chipSelect.set(false);
-    timer.start();
-    if (timer.hasElapsed(0.001)) return;
-    timer.stop();
-    timer.reset();
-    for (int i = 0; i < 12; i++) {
-
-      clock.set(true);
-
-      int value = 0;
-
-      switch (encoderNumber) {
-        case 0:
-          value = flEncoder.get() ? 1 : 0;
-          break;
-        case 1:
-          value = frEncoder.get() ? 1 : 0;
-          break;
-        case 2:
-          value = blEncoder.get() ? 1 : 0; 
-          break;
-        case 3:
-          value = brEncoder.get() ? 1 : 0;
-          break;
-        default:
-          value = 0;
-          break;
-      }
-      
-      bitToInteger[encoderNumber] += Math.pow(2, 11-i)*(value);
-      clock.set(false);
-    }
-    chipSelect.set(true);
-    System.out.println(bitToInteger[encoderNumber]);
-  }
 
   double returnEncoderAngle(int encoderNumber){
-    getEncoderAngle(encoderNumber);
+    switch (encoderNumber) {
+      case 0:
+        return (EncoderValues.FL_ENCODER_VALUE)/4096*2*Math.PI;
+        
+      case 1:
+        return (EncoderValues.FR_ENCODER_VALUE)/4096*2*Math.PI;
+        
+      case 2:
+        return (EncoderValues.BL_ENCODER_VALUE)/4096*2*Math.PI;
+        
+      case 3:
+        return (EncoderValues.BR_ENCODER_VALUE)/4096*2*Math.PI;
     
-    return bitToInteger[encoderNumber]/4096*2*Math.PI;
+      default:
+        return 0;
+    }
   }
 
 
@@ -189,10 +141,11 @@ public class Drivetrain extends SubsystemBase {
   public double goToAngle(Rotation2d targetAngle, CANSparkMax rotationMotor, int encoderNumber){
     currentAngleRAD = returnEncoderAngle(encoderNumber) - Math.PI;
     targetAngleRAD = targetAngle.getRadians(); 
+
     //ajouter un PID qui calcule la vitesse à output dans le moteur pour atteindre le targetAngle de manière optimale
      //peut-être utiliser le PID inclut dans les sparkmax pour plus d'efficacité
     double motorOutput = MathUtil.clamp(motorOutputPIDRotation.calculate(currentAngleRAD, targetAngleRAD), -1, 1);
-    
+    motorOutput = Range.threshold(0.05, motorOutput);
     return motorOutput;
   }
 //fonction qui va gérer la position et la vitesse d'une roue
@@ -223,9 +176,9 @@ public class Drivetrain extends SubsystemBase {
     SwerveModuleState backRightOptimized = SwerveModuleState.optimize(backRight, new Rotation2d(returnEncoderAngle(3) - Math.PI));
 
     driveOneSwerve(frontLeftOptimized, flRotationMotor, flDriveMotor, 0);
-    // driveOneSwerve(frontRightOptimized, frRotationMotor, frDriveMotor, 1);
-    // driveOneSwerve(backLeftOptimized, blRotationMotor, blDriveMotor, 2);
-    // driveOneSwerve(backRightOptimized, brRotationMotor, brDriveMotor, 3);
+    driveOneSwerve(frontRightOptimized, frRotationMotor, frDriveMotor, 1);
+    driveOneSwerve(backLeftOptimized, blRotationMotor, blDriveMotor, 2);
+    driveOneSwerve(backRightOptimized, brRotationMotor, brDriveMotor, 3);
   }
 
 
@@ -233,6 +186,10 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    
+    SmartDashboard.putNumber("FL", EncoderValues.FL_ENCODER_VALUE);
+    SmartDashboard.putNumber("FR", EncoderValues.FR_ENCODER_VALUE);
+    SmartDashboard.putNumber("BL", EncoderValues.BL_ENCODER_VALUE);
+    SmartDashboard.putNumber("BR", EncoderValues.BR_ENCODER_VALUE);
+
   }
 }
