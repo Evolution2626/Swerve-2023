@@ -30,11 +30,11 @@ public class ControlPinceCommand extends CommandBase {
   @Override
   public void execute() {
 
-if(xboxController.getAButtonReleased()){
+if(xboxController.getAButtonPressed()){
       OuvertPinceCommand.pinceOuvert();
     }
 
-    if(xboxController.getBButtonReleased()){
+    if(xboxController.getBButtonPressed()){
       FermerPinceCommand.pinceFerme();
     }
 
