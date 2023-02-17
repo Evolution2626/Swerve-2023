@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,14 +14,32 @@ public class Echelle extends SubsystemBase {
 
   private TalonSRX monteur;
   private TalonSRX replieur;
-  private TalonSRX deplieur;
+  private TalonSRX avanceur;
 
   /** Creates a new Echelle. */
-  public Echelle(TalonSRX monteur, TalonSRX replieur, TalonSRX deplieur) {
+  public Echelle(TalonSRX monteur, TalonSRX replieur, TalonSRX avanceur) {
   
     this.monteur = monteur;
     this.replieur = replieur;
-    this.deplieur = deplieur;
+    this.avanceur = avanceur;
+
+  }
+
+  public void Avance(double valeur) {
+    
+    avanceur.set(TalonSRXControlMode.PercentOutput, valeur);
+
+  }
+
+  public void Replie(double valeur) {
+
+    replieur.set(TalonSRXControlMode.PercentOutput, valeur);
+  
+  }
+
+  public void Monte(double valeur) {
+  
+    monteur.set(TalonSRXControlMode.PercentOutput, valeur);
 
   }
 

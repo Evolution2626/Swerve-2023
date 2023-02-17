@@ -16,7 +16,7 @@ import frc.robot.subsystems.Pince;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ModeAutonome1Command extends SequentialCommandGroup {
+public class ModeAutonome4Command extends SequentialCommandGroup {
 
   Drivetrain drivetrain;
   Limelight limelight;
@@ -25,7 +25,7 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
   Echelle echelle;
 
   /** Creates a new ModeAutonome1Command. */
-  public ModeAutonome1Command() {
+  public ModeAutonome4Command() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new LimelightRotationCommand(drivetrain, limelight, controller, 0 /** a changer */));//trois premier serve a se placer
@@ -33,7 +33,6 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
     addCommands(new LimelightXCommand(drivetrain, limelight, controller, 0 /** a changer */, true));
     addCommands(new BougerBrasCommand(echelle, 0,0,0));// deploie le bras
     addCommands(new OuvertPinceCommand(pince));// ouvre la pince
-    addCommands(new LimelightXCommand(drivetrain, limelight, controller, 0 /** a changer */, true));//recule hors de la zone de depart
     addCommands(new LimelightYCommand(drivetrain, limelight, controller, 0 /** a changer */, true));//se place pour monter sur la plateform
     addCommands(new LimelightXCommand(drivetrain, limelight, controller, 0 /** a changer */, true));// vas sur la plateform
  }

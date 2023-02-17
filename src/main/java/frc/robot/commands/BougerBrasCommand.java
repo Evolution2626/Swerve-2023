@@ -5,11 +5,21 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Echelle;
 
-public class DeployerBrasCommand extends CommandBase {
+public class BougerBrasCommand extends CommandBase {
+  Echelle echelle;
+  double avance;
+  double replie;
+  double monte;
+
   /** Creates a new DeployerBrasCommand. */
-  public DeployerBrasCommand() {
+  public BougerBrasCommand(Echelle echelle, double avance, double replie, double monte) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.echelle = echelle;
+    this.avance = avance;
+    this.replie = replie;
+
   }
 
   // Called when the command is initially scheduled.
@@ -18,7 +28,13 @@ public class DeployerBrasCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+
+    echelle.Avance(avance);
+    echelle.Monte(monte);
+    echelle.Replie(replie);
+
+  }
 
   // Called once the command ends or is interrupted.
   @Override
