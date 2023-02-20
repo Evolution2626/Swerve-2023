@@ -7,7 +7,6 @@ import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import edu.wpi.first.wpilibj.XboxController;
 
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -17,11 +16,10 @@ public class LimelightYCommand extends PIDCommand {
 
   Drivetrain drivetrain;
   Limelight limelight;
-  XboxController controller;
   public static boolean stop = false;
 
   /** Creates a new LimelightCommand1m. */
-  public LimelightYCommand(Drivetrain drivetrain, Limelight limelight, XboxController controller, double range, boolean inverted) {
+  public LimelightYCommand(Drivetrain drivetrain, Limelight limelight, double range, boolean inverted) {
     super(
         // The controller that the command will use
         new PIDController(0.5, 0, 0),
@@ -33,7 +31,7 @@ public class LimelightYCommand extends PIDCommand {
         output -> {
           // Use the output here
           stop = false;
-          if(controller.getLeftBumperPressed() || limelight.getRobotPosition()[1] >= range-0.2 && limelight.getRobotPosition()[1] <= range+0.2){
+          if(limelight.getRobotPosition()[1] >= range-0.2 && limelight.getRobotPosition()[1] <= range+0.2){
             stop = true;
           }
           if(inverted){

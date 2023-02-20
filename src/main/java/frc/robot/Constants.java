@@ -27,6 +27,10 @@ public final class Constants {
 
     int DeviceNumbermoteurGobbeur = 2;
 
+    int MONTEUR = 0;
+    int AVANCEUR = 0;
+    int REPLIEUR = 0;
+
   }
 
   public interface DIGITAL {

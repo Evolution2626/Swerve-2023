@@ -4,11 +4,19 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.LimelightRotationCommand;
+import frc.robot.commands.LimelightXCommand;
+import frc.robot.commands.LimelightYCommand;
 import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Echelle;
+import frc.robot.subsystems.Limelight;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,13 +26,19 @@ import frc.robot.subsystems.Drivetrain;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+
+  
   private static final Drivetrain drivetrain = new Drivetrain();
+  private static final Limelight limelight = new Limelight();
+  private static final Echelle echelle = new Echelle(null, null, null);
   private static final CommandXboxController controller = new CommandXboxController(Constants.USB.DRIVER_CONTROLLER);
+
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
+    
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, controller));
     configureBindings();
   }
@@ -40,8 +54,11 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    
-    
+    controller.x().whileTrue(new LimelightXCommand(drivetrain, limelight, 0, false));
+    controller.y().whileTrue(new LimelightYCommand(drivetrain, limelight, 0, false));
+    controller.rightBumper().whileTrue(new LimelightRotationCommand(drivetrain, limelight, 0));
+
+
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
   }
