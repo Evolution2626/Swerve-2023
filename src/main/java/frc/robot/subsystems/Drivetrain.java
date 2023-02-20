@@ -107,26 +107,20 @@ public class Drivetrain extends SubsystemBase {
     
   }
 
-
   double returnEncoderAngle(int encoderNumber){
     switch (encoderNumber) {
       case 0:
         return (EncoderValues.FL_ENCODER_VALUE)/4096*2*Math.PI;
-        
       case 1:
-        return (EncoderValues.FR_ENCODER_VALUE)/4096*2*Math.PI;
-        
+        return (EncoderValues.FR_ENCODER_VALUE)/4096*2*Math.PI;  
       case 2:
-        return (EncoderValues.BL_ENCODER_VALUE)/4096*2*Math.PI;
-        
+        return (EncoderValues.BL_ENCODER_VALUE)/4096*2*Math.PI;        
       case 3:
-        return (EncoderValues.BR_ENCODER_VALUE)/4096*2*Math.PI;
-    
+        return (EncoderValues.BR_ENCODER_VALUE)/4096*2*Math.PI;    
       default:
         return 0;
     }
   }
-
 
 //fontion qui va faire tourner une roue à une certaine vitesse linéaire en m/s
   public double setLinearVelocity(double targetSpeed, CANSparkMax driveMotor){
