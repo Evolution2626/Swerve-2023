@@ -38,8 +38,6 @@ public class Drivetrain extends SubsystemBase {
   private CANSparkMax blRotationMotor;
   private CANSparkMax brRotationMotor;
   
-  
-
   private SwerveDriveKinematics kinematics;
 
   public PIDController motorOutputPIDRotation;
