@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems;
 
-
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -48,7 +46,7 @@ public class Drivetrain extends SubsystemBase {
 
   public Drivetrain() {
 
-    motorOutputPIDRotation = new PIDController(0.15, 0, 0.001); 
+    motorOutputPIDRotation = new PIDController(0.2, 0, 0.001); 
     motorOutputPIDRotation.enableContinuousInput(-Math.PI, Math.PI);
 
     motorOutputPIDDrive = new PIDController(0.1, 0, 0); 
@@ -80,10 +78,10 @@ public class Drivetrain extends SubsystemBase {
     blRotationMotor.setIdleMode(IdleMode.kBrake);
     brRotationMotor.setIdleMode(IdleMode.kBrake);
 
-    flDriveMotor.setIdleMode(IdleMode.kBrake);
-    frDriveMotor.setIdleMode(IdleMode.kBrake);
-    blDriveMotor.setIdleMode(IdleMode.kBrake);
-    brDriveMotor.setIdleMode(IdleMode.kBrake);
+    flDriveMotor.setIdleMode(IdleMode.kCoast);
+    frDriveMotor.setIdleMode(IdleMode.kCoast);
+    blDriveMotor.setIdleMode(IdleMode.kCoast);
+    brDriveMotor.setIdleMode(IdleMode.kCoast);
 
     flRotationMotor.setClosedLoopRampRate(0.1);
     frRotationMotor.setClosedLoopRampRate(0.1);
@@ -92,10 +90,10 @@ public class Drivetrain extends SubsystemBase {
 
 
     // Locations for the swerve drive modules relative to the robot center.
-    Translation2d frontLeftLocation = new Translation2d(0.2, 0.31);
-    Translation2d frontRightLocation = new Translation2d(0.2, -0.31);
-    Translation2d backLeftLocation = new Translation2d(-0.2, 0.31);
-    Translation2d backRightLocation = new Translation2d(-0.2, -0.31);
+    Translation2d frontLeftLocation = new Translation2d(0.2, 0.31);  //0.2 0.31
+    Translation2d frontRightLocation = new Translation2d(0.2, -0.31); //0.2 -0.31
+    Translation2d backLeftLocation = new Translation2d(-0.2, 0.31); //-0.2 0.31
+    Translation2d backRightLocation = new Translation2d(-0.2, -0.31); // -0.2 -0.31
 
     // Creating my kinematics object using the module locations
     kinematics = new SwerveDriveKinematics(
