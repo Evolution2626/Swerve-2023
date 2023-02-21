@@ -97,23 +97,22 @@ public class EncoderThread extends Thread{
 
             chipSelect.set(true);
             
-
-            if (flPreviousValue.size() >= 5) {
+            if (flPreviousValue.size() >= 10) {
                 flPreviousValue.remove(0);
             }
             flPreviousValue.add(bitToInteger[0]);
 
-            if (frPreviousValue.size() >= 5) {
+            if (frPreviousValue.size() >= 10) {
                 frPreviousValue.remove(0);
             }
             frPreviousValue.add(bitToInteger[1]);
 
-            if (blPreviousValue.size() >= 5) {
+            if (blPreviousValue.size() >= 10) {
                 blPreviousValue.remove(0);
             }
             blPreviousValue.add(bitToInteger[2]);
 
-            if (brPreviousValue.size() >= 5) {
+            if (brPreviousValue.size() >= 10) {
                 brPreviousValue.remove(0);
             }
             brPreviousValue.add(bitToInteger[3]);
@@ -142,10 +141,10 @@ public class EncoderThread extends Thread{
             }
             brAverageValue /= brPreviousValue.size();
                                                               //encoder offset
-            EncoderValues.FL_ENCODER_VALUE = (flAverageValue + 4096 - 3800)%4096;
-            EncoderValues.FR_ENCODER_VALUE = (frAverageValue + 4096 - 2100)%4096;
-            EncoderValues.BL_ENCODER_VALUE = (blAverageValue + 4096 - 1960)%4096;
-            EncoderValues.BR_ENCODER_VALUE = (brAverageValue + 4096 - 1075)%4096;
+            EncoderValues.FL_ENCODER_VALUE = (flAverageValue + 4096 - 1650)%4096;
+            EncoderValues.FR_ENCODER_VALUE = (frAverageValue + 4096 - 90)%4096;
+            EncoderValues.BL_ENCODER_VALUE = (blAverageValue + 4096 - 4060)%4096;
+            EncoderValues.BR_ENCODER_VALUE = (brAverageValue + 4096 - 3176)%4096;
             }
         }
     }
