@@ -25,7 +25,7 @@ public final class Constants {
     int BL_ROTATION_MOTOR = 6;
     int BR_ROTATION_MOTOR = 12;
 
-    int DeviceNumbermoteurGobbeur = 2;
+    int GOBBEUR = 2;
 
     int MONTEUR = 0;
     int AVANCEUR = 0;
