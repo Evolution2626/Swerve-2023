@@ -28,11 +28,11 @@ public class ControlPinceCommand extends CommandBase {
   public void execute() {
 
 if(xboxController.getAButtonPressed()){
-      pince.pinceOuvert();
+      Pince.pinceOuvert();
     }
 
     if(xboxController.getBButtonPressed()){
-      pince.pinceFerme();
+      Pince.pinceFerme();
     }
 
   
