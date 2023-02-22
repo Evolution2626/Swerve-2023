@@ -31,6 +31,7 @@ public class LimelightYCommand extends PIDCommand {
         output -> {
           // Use the output here
           stop = false;
+          limelight.setLEDMode(3);
           if(limelight.getRobotPosition()[1] >= range-0.2 && limelight.getRobotPosition()[1] <= range+0.2){
             stop = true;
           }
@@ -53,6 +54,8 @@ public class LimelightYCommand extends PIDCommand {
   @Override
   public boolean isFinished() {
     drivetrain.driveSwerve(0, 0, 0);
+    limelight.setLEDMode(1);
+
     return stop;
   }
 }

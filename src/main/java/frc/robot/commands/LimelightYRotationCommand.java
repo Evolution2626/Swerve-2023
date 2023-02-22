@@ -29,6 +29,7 @@ public class LimelightYRotationCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    limelight.setLEDMode(3);
 
     pidRotation.reset();
     pidY.reset();
@@ -62,6 +63,8 @@ public class LimelightYRotationCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    limelight.setLEDMode(1);
+
     return false;
   }
 }

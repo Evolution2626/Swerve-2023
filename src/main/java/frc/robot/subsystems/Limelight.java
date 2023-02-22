@@ -42,8 +42,11 @@ public class Limelight extends SubsystemBase {
   
   /**
    * Using the Default Lime Light NT table
+ * @return 
    */
-  public Limelight() {
+  
+   
+   public Limelight() {
       tableName = "limelight";
       networkTable = NetworkTableInstance.getDefault().getTable(tableName);
       _hearBeat.startPeriodic(_hearBeatPeriod);
@@ -168,10 +171,10 @@ public class Limelight extends SubsystemBase {
      *  kon
      *  koff
      *  kblink
-     * @param ledMode
+     * @param i
      */
-    public void setLEDMode(LedMode ledMode) {
-      networkTable.getEntry("ledMode").setValue(ledMode.getValue());
+    public void setLEDMode(int i) {
+      networkTable.getEntry("ledMode").setValue(i);
   }
 
   /**
