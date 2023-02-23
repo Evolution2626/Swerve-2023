@@ -6,15 +6,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Pince;
 
 public class ControlPinceCommand extends CommandBase {
-  private XboxController xboxController;
+  private XboxController controller2;
   private Pince pince;
   /** Creates a new ControlPinceCommand. */
-  public ControlPinceCommand(XboxController xboxController, Pince pince  ) {
+  public ControlPinceCommand(XboxController controller2, Pince pince ) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.xboxController = xboxController;
+    this.controller2 = controller2;
     this.pince = pince;
 
   }
@@ -27,16 +28,16 @@ public class ControlPinceCommand extends CommandBase {
   @Override
   public void execute() {
 
-if(xboxController.getAButtonPressed()){
+if(controller2.getAButtonPressed()){
       Pince.pinceOuvert();
     }
 
-    if(xboxController.getBButtonPressed()){
+    if(controller2.getBButtonPressed()){
       Pince.pinceFerme();
     }
 
   
-    pince.setMoteurSpeed(xboxController.getRightTriggerAxis());
+    pince.setMoteurSpeed(controller2.getRightTriggerAxis());
 
   }
 

@@ -4,25 +4,18 @@
 
 package frc.robot.commands;
 
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Echelle;
+import frc.robot.subsystems.Pince;
 
-public class BougerBrasCommand extends CommandBase {
-  Echelle echelle;
-  double avance;
-  double replie;
-  double monte;
-  
-  /** Creates a new DeployerBrasCommand. */
-  public BougerBrasCommand(Echelle echelle, double avance, double replie, double monte) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.echelle = echelle;
-    this.avance = avance;
-    this.replie = replie;
+public class PinceCommand extends CommandBase {
+boolean ouvert;
+  /** Creates a new PinceCommand. */
+  public PinceCommand(boolean ouvert) {
+this.ouvert = ouvert;
     
+    // Use addRequirements() here to declare subsystem dependencies.
   }
- 
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
@@ -31,10 +24,13 @@ public class BougerBrasCommand extends CommandBase {
   @Override
   public void execute() {
 
-    echelle.Avance(avance);
-    echelle.Monte(monte);
-    echelle.Replie(replie);
+    if(ouvert){
+      Pince.pinceOuvert();
+    }
 
+    else{
+      Pince.pinceFerme();
+    }
   }
 
   // Called once the command ends or is interrupted.

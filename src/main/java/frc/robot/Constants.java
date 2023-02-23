@@ -46,6 +46,7 @@ public final class Constants {
 
   public interface USB {
     int DRIVER_CONTROLLER = 0;
+    int DRIVER_CONTROLLERCOPILOT = 1;
   }
 
   public interface PCM{

@@ -4,9 +4,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.ControlPinceCommand;
 import frc.robot.commands.LimelightRotationCommand;
 import frc.robot.commands.LimelightXCommand;
 import frc.robot.commands.LimelightYCommand;
@@ -14,6 +16,7 @@ import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Pince;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -29,6 +32,8 @@ public class RobotContainer {
   private static final Limelight limelight = new Limelight();
   private static final Echelle echelle = new Echelle(null, null, null);
   private static final CommandXboxController controller = new CommandXboxController(Constants.USB.DRIVER_CONTROLLER);
+  private static final XboxController controller2 = new XboxController(Constants.USB.DRIVER_CONTROLLERCOPILOT);
+  private static final Pince Pince = new Pince();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -38,6 +43,8 @@ public class RobotContainer {
     
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, controller));
     configureBindings();
+
+    Pince.setDefaultCommand(new ControlPinceCommand(controller2, Pince));
   }
 
   /**
