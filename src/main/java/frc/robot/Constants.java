@@ -50,8 +50,8 @@ public final class Constants {
   }
 
   public interface PCM{
-    int PISTON_PINCE_FORWARD = 0;
-    int PISTON_PINCE_REVERSE = 1;
+    int PISTON_PINCE_FORWARD = 4;
+    int PISTON_PINCE_REVERSE = 5;
 
 
 }
