@@ -8,10 +8,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Pince;
 
 public class PinceCommand extends CommandBase {
-boolean ouvert;
+  boolean ouvert;
+
+  Pince pince;
   /** Creates a new PinceCommand. */
   public PinceCommand(boolean ouvert) {
-this.ouvert = ouvert;
+    this.ouvert = ouvert;
     
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -25,11 +27,9 @@ this.ouvert = ouvert;
   public void execute() {
 
     if(ouvert){
-      Pince.pinceOuvert();
-    }
-
-    else{
-      Pince.pinceFerme();
+      pince.pinceOuvert();
+    }else{
+      pince.pinceFerme();
     }
   }
 

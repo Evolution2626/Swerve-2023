@@ -26,13 +26,15 @@ public class ModeAutonome2Command extends SequentialCommandGroup {
       addCommands(new LimelightYCommand(drivetrain, limelight,   0 /** a changer */, true));
       addCommands(new LimelightXCommand(drivetrain, limelight,   0 /** a changer */, true));
       addCommands(new BougerBrasCommand(echelle, 0,0,0));// deploie le bras
-      Pince.pinceOuvert();// ouvre la pince      addCommands(new LimelightXCommand(drivetrain, limelight,   0 /** a changer */, true));//recule hors de la zone de depart
+      pince.pinceOuvert();// ouvre la pince      
+      addCommands(new LimelightXCommand(drivetrain, limelight,   0 /** a changer */, true));//recule hors de la zone de depart
       addCommands(new LimelightRotationCommand(drivetrain, limelight,   0/** a changer */)); 
       addCommands(new BougerBrasCommand(echelle, 0, 0, 0));//descendre le bras
-      Pince.pinceFerme();// ouvre la pince      addCommands(new BougerBrasCommand(echelle, 0, 0, 0)); //monte la pince
+      pince.pinceFerme();// ouvre la pince      
+      addCommands(new BougerBrasCommand(echelle, 0, 0, 0)); //monte la pince
       addCommands(new LimelightRotationCommand(drivetrain, limelight,   0)); //tourne robot
       addCommands(new LimelightXCommand(drivetrain, limelight,   0/** a changer */, true)); //va vers truc a scorer
       addCommands(new LimelightYCommand(drivetrain, limelight,   0/** a changer */, true)); //stabilise
-      Pince.pinceOuvert();// ouvre la pince
+      pince.pinceOuvert();// ouvre la pince
    }
   }

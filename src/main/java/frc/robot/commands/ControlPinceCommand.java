@@ -29,11 +29,11 @@ public class ControlPinceCommand extends CommandBase {
   public void execute() {
 
 if(controller2.getAButtonPressed()){
-      Pince.pinceOuvert();
+      pince.pinceOuvert();
     }
 
     if(controller2.getBButtonPressed()){
-      Pince.pinceFerme();
+      pince.pinceFerme();
     }
 
   

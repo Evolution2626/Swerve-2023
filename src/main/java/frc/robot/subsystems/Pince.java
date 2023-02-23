@@ -17,7 +17,7 @@ import frc.robot.Constants;
 public class Pince extends SubsystemBase {
   /** Creates a new Pince. */
   private CANSparkMax moteurGobbeur;
-  private static DoubleSolenoid piston;
+  private DoubleSolenoid piston;
 
 
 
@@ -27,13 +27,13 @@ public class Pince extends SubsystemBase {
     moteurGobbeur = new CANSparkMax(Constants.CAN.GOBBEUR, MotorType.kBrushless);
 }
 
-public static void pinceFerme() {
+public void pinceOuvert() {
 
   piston.set(DoubleSolenoid.Value.kReverse);
 
 }
 
-public static void pinceOuvert() {
+public void pinceFerme() {
 
   piston.set(DoubleSolenoid.Value.kForward);
 
