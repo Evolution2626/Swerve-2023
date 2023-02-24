@@ -5,11 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.Echelle;
 
 public class ControlBougerBrasCommand extends CommandBase {
+  Echelle echelle;
+  CommandXboxController controller;
   /** Creates a new ControlBougerBrasCommand. */
-  public ControlBougerBrasCommand() {
+  public ControlBougerBrasCommand(Echelle echelle, CommandXboxController controller) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.echelle = echelle;
+    this.controller = controller;
   }
 
   // Called when the command is initially scheduled.
@@ -18,7 +24,13 @@ public class ControlBougerBrasCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    echelle.Avance(controller.getLeftY());
+    echelle.Monte(controller.getRightY());
+    echelle.Replie(controller.getLeftX());
+
+    
+  }
 
   // Called once the command ends or is interrupted.
   @Override

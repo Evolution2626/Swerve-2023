@@ -27,7 +27,7 @@ public class Limelight extends SubsystemBase {
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
+                
                 e.printStackTrace();
             }
             if(getPipelineLatency()==0.0){

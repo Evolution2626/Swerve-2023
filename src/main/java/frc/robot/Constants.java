@@ -25,19 +25,19 @@ public final class Constants {
     int BL_ROTATION_MOTOR = 6;
     int BR_ROTATION_MOTOR = 12;
 
-    int GOBBEUR = 2;
+    int GOBBEUR = 125;
 
-    int MONTEUR = 0;
-    int AVANCEUR = 0;
-    int REPLIEUR = 0;
+    int MONTEUR = 126;
+    int AVANCEUR = 127;
+    int REPLIEUR = 128;
 
   }
 
   public interface DIGITAL {
-    int FL_ENCODER = 0;
-    int FR_ENCODER = 1;
-    int BL_ENCODER = 2;
-    int BR_ENCODER = 3;
+    int FL_ENCODER = 1;
+    int FR_ENCODER = 2;
+    int BL_ENCODER = 3;
+    int BR_ENCODER = 0;
 
     int CLOCK = 4;
     int CHIP_SELECT = 5;

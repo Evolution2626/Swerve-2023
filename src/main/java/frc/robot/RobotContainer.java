@@ -4,10 +4,10 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.ControlBougerBrasCommand;
 import frc.robot.commands.ControlPinceCommand;
 import frc.robot.commands.LimelightRotationCommand;
 import frc.robot.commands.LimelightXCommand;
@@ -30,7 +30,7 @@ public class RobotContainer {
   
   private static final Drivetrain drivetrain = new Drivetrain();
   private static final Limelight limelight = new Limelight();
-  private static final Echelle echelle = new Echelle(null, null, null);
+  private static final Echelle echelle = new Echelle();
   private static final CommandXboxController controller = new CommandXboxController(Constants.USB.DRIVER_CONTROLLER);
   private static final CommandXboxController controller2 = new CommandXboxController(Constants.USB.DRIVER_CONTROLLERCOPILOT);
   private static final Pince pince = new Pince();
@@ -45,6 +45,8 @@ public class RobotContainer {
     configureBindings();
 
     pince.setDefaultCommand(new ControlPinceCommand(controller2, pince));
+
+    echelle.setDefaultCommand(new ControlBougerBrasCommand(echelle, controller2));
   }
 
   /**

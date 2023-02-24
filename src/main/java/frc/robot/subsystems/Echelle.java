@@ -19,7 +19,7 @@ public class Echelle extends SubsystemBase {
   private CANSparkMax avanceur;
 
   /** Creates a new Echelle. */
-  public Echelle(CANSparkMax monteur, CANSparkMax replieur, CANSparkMax avanceur) {
+  public Echelle() {
   
     this.monteur = new CANSparkMax(Constants.CAN.MONTEUR, MotorType.kBrushless);
     this.replieur = new CANSparkMax(Constants.CAN.REPLIEUR, MotorType.kBrushless);

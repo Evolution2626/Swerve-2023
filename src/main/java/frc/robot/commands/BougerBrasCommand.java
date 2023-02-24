@@ -20,7 +20,7 @@ public class BougerBrasCommand extends CommandBase {
     this.echelle = echelle;
     this.avance = avance;
     this.replie = replie;
-    
+    this.monte = monte;
   }
  
   // Called when the command is initially scheduled.
