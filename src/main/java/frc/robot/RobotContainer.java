@@ -32,7 +32,7 @@ public class RobotContainer {
   private static final Limelight limelight = new Limelight();
   private static final Echelle echelle = new Echelle(null, null, null);
   private static final CommandXboxController controller = new CommandXboxController(Constants.USB.DRIVER_CONTROLLER);
-  private static final XboxController controller2 = new XboxController(Constants.USB.DRIVER_CONTROLLERCOPILOT);
+  private static final CommandXboxController controller2 = new CommandXboxController(Constants.USB.DRIVER_CONTROLLERCOPILOT);
   private static final Pince pince = new Pince();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed

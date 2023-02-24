@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Pince;
 
 public class ControlPinceCommand extends CommandBase {
-  private XboxController controller2;
+  private CommandXboxController controller2;
   private Pince pince;
   /** Creates a new ControlPinceCommand. */
-  public ControlPinceCommand(XboxController controller2, Pince pince ) {
+  public ControlPinceCommand(CommandXboxController controller2, Pince pince ) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.controller2 = controller2;
     this.pince = pince;
@@ -28,11 +28,11 @@ public class ControlPinceCommand extends CommandBase {
   @Override
   public void execute() {
 
-if(controller2.getAButtonPressed()){
+    if(controller2.a().getAsBoolean()){
       pince.pinceOuvert();
     }
 
-    if(controller2.getBButtonPressed()){
+    if(controller2.b().getAsBoolean()){
       pince.pinceFerme();
     }
 
