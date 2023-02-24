@@ -33,7 +33,7 @@ public class RobotContainer {
   private static final Echelle echelle = new Echelle(null, null, null);
   private static final CommandXboxController controller = new CommandXboxController(Constants.USB.DRIVER_CONTROLLER);
   private static final XboxController controller2 = new XboxController(Constants.USB.DRIVER_CONTROLLERCOPILOT);
-  private static final Pince Pince = new Pince();
+  private static final Pince pince = new Pince();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -44,7 +44,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, controller));
     configureBindings();
 
-    Pince.setDefaultCommand(new ControlPinceCommand(controller2, Pince));
+    pince.setDefaultCommand(new ControlPinceCommand(controller2, pince));
   }
 
   /**

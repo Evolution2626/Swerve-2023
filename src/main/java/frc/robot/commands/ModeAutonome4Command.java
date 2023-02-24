@@ -30,7 +30,7 @@ public class ModeAutonome4Command extends SequentialCommandGroup {
     addCommands(new LimelightYCommand(drivetrain, limelight,   0 /** a changer */, true));
     addCommands(new LimelightXCommand(drivetrain, limelight,   0 /** a changer */, true));
     addCommands(new BougerBrasCommand(echelle, 0,0,0));// deploie le bras
-    pince.pinceFerme();// ouvre la pince    
+    addCommands(new PinceCommand(false)); // ferme la pince  
     addCommands(new BougerBrasCommand(echelle, 0,0,0));// replie le bras
     addCommands(new LimelightYCommand(drivetrain, limelight,   0 /** a changer */, true));//se place pour monter sur la plateform
     addCommands(new LimelightXCommand(drivetrain, limelight,   0 /** a changer */, true));// vas sur la plateform
