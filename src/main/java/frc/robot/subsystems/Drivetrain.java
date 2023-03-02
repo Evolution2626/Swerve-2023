@@ -46,7 +46,7 @@ public class Drivetrain extends SubsystemBase {
 
   public Drivetrain() {
 
-    motorOutputPIDRotation = new PIDController(0.2, 0, 0.001); 
+    motorOutputPIDRotation = new PIDController(0.1, 0, 0.001); 
     motorOutputPIDRotation.enableContinuousInput(-Math.PI, Math.PI);
 
     motorOutputPIDDrive = new PIDController(0.1, 0, 0); 
@@ -131,6 +131,7 @@ public class Drivetrain extends SubsystemBase {
   public double goToAngle(Rotation2d targetAngle, CANSparkMax rotationMotor, int encoderNumber){
     currentAngleRAD = returnEncoderAngle(encoderNumber) - Math.PI;
     targetAngleRAD = targetAngle.getRadians(); 
+    SmartDashboard.putNumber("TARGET_POSITION", targetAngleRAD/Math.PI);
 
     //ajouter un PID qui calcule la vitesse à output dans le moteur pour atteindre le targetAngle de manière optimale
      //peut-être utiliser le PID inclut dans les sparkmax pour plus d'efficacité
@@ -153,22 +154,21 @@ public class Drivetrain extends SubsystemBase {
     SwerveModuleState[] moduleStates = kinematics.toSwerveModuleStates(speeds);
     // Front left module state
     SwerveModuleState frontLeft = moduleStates[0];
-    SwerveModuleState frontLeftOptimized = SwerveModuleState.optimize(frontLeft, 
-		  new Rotation2d(returnEncoderAngle(0) - Math.PI));
-    // Front right module state
+    SwerveModuleState frontLeftOptimized = SwerveModuleState.optimize(frontLeft, new Rotation2d(returnEncoderAngle(0) - Math.PI));
+    // // Front right module state
     SwerveModuleState frontRight = moduleStates[1];
     SwerveModuleState frontRightOptimized = SwerveModuleState.optimize(frontRight, new Rotation2d(returnEncoderAngle(1) - Math.PI));
-    // Back left module state
+    // // Back left module state
     SwerveModuleState backLeft = moduleStates[2];
     SwerveModuleState backLeftOptimized = SwerveModuleState.optimize(backLeft, new Rotation2d(returnEncoderAngle(2) - Math.PI));
-    // Back right module state
+    // // Back right module state
     SwerveModuleState backRight = moduleStates[3];
     SwerveModuleState backRightOptimized = SwerveModuleState.optimize(backRight, new Rotation2d(returnEncoderAngle(3) - Math.PI));
 
     driveOneSwerve(frontLeftOptimized, flRotationMotor, flDriveMotor, 0);
     driveOneSwerve(frontRightOptimized, frRotationMotor, frDriveMotor, 1);
     driveOneSwerve(backLeftOptimized, blRotationMotor, blDriveMotor, 2);
-    driveOneSwerve(backRightOptimized, brRotationMotor, brDriveMotor, 3);
+    //driveOneSwerve(backRightOptimized, brRotationMotor, brDriveMotor, 3);
   }
 
 
@@ -180,6 +180,6 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("FR", EncoderValues.FR_ENCODER_VALUE);
     SmartDashboard.putNumber("BL", EncoderValues.BL_ENCODER_VALUE);
     SmartDashboard.putNumber("BR", EncoderValues.BR_ENCODER_VALUE);
-
+    
   }
 }

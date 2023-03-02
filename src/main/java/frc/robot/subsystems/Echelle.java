@@ -21,9 +21,9 @@ public class Echelle extends SubsystemBase {
   /** Creates a new Echelle. */
   public Echelle() {
   
-    this.monteur = new CANSparkMax(Constants.CAN.MONTEUR, MotorType.kBrushless);
-    this.replieur = new CANSparkMax(Constants.CAN.REPLIEUR, MotorType.kBrushless);
-    this.avanceur = new CANSparkMax(Constants.CAN.AVANCEUR, MotorType.kBrushless);
+    monteur = new CANSparkMax(Constants.CAN.MONTEUR, MotorType.kBrushless);
+    replieur = new CANSparkMax(Constants.CAN.REPLIEUR, MotorType.kBrushless);
+    avanceur = new CANSparkMax(Constants.CAN.AVANCEUR, MotorType.kBrushless);
 
     monteur.setInverted(false);
     replieur.setInverted(false);

@@ -30,7 +30,7 @@ public class RobotContainer {
   
   private static final Drivetrain drivetrain = new Drivetrain();
   private static final Limelight limelight = new Limelight();
-  private static final Echelle echelle = new Echelle();
+  //private static final Echelle echelle = new Echelle();
   private static final CommandXboxController controller = new CommandXboxController(Constants.USB.DRIVER_CONTROLLER);
   private static final CommandXboxController controller2 = new CommandXboxController(Constants.USB.DRIVER_CONTROLLERCOPILOT);
   private static final Pince pince = new Pince();
@@ -46,7 +46,7 @@ public class RobotContainer {
 
     pince.setDefaultCommand(new ControlPinceCommand(controller2, pince));
 
-    echelle.setDefaultCommand(new ControlBougerBrasCommand(echelle, controller2));
+    //echelle.setDefaultCommand(new ControlBougerBrasCommand(echelle, controller2));
   }
 
   /**

@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-//import java.time.temporal.ValueRange;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.Drivetrain;
@@ -33,7 +32,7 @@ public class LimelightXCommand extends PIDCommand {
         output -> {
           // Use the output here
           limelight.setLEDMode(3);
-      stop = false;
+          stop = false;
           
           if(limelight.getRobotPosition()[0] >= range-0.2 && limelight.getRobotPosition()[0] <= range+0.2){
             stop = true;

@@ -25,34 +25,33 @@ public final class Constants {
     int BL_ROTATION_MOTOR = 6;
     int BR_ROTATION_MOTOR = 12;
 
-    int GOBBEUR = 125;
+    int GOBBEUR = 50;
 
-    int MONTEUR = 126;
-    int AVANCEUR = 127;
-    int REPLIEUR = 128;
+    int MONTEUR = 51;
+    int AVANCEUR = 52;
+    int REPLIEUR = 53;
 
   }
 
   public interface DIGITAL {
-    int FL_ENCODER = 1;
-    int FR_ENCODER = 2;
-    int BL_ENCODER = 3;
-    int BR_ENCODER = 0;
+    int FL_ENCODER = 0;
+    // Pour fils custom: Bleu 1, Meuve 2, Gris 3, Blanc 4, Noir 5
+    int FR_ENCODER = 1;
+    int BL_ENCODER = 2;
+    int BR_ENCODER = 3;
 
-    int CLOCK = 4;
-    int CHIP_SELECT = 5;
+    int CLOCK = 5;
+    int CHIP_SELECT = 4;
 
   }
 
   public interface USB {
     int DRIVER_CONTROLLER = 0;
-    int DRIVER_CONTROLLERCOPILOT = 2;
+    int DRIVER_CONTROLLERCOPILOT = 1;
   }
 
   public interface PCM{
     int PISTON_PINCE_FORWARD = 4;
     int PISTON_PINCE_REVERSE = 5;
-
-
-}
+  }
 }
