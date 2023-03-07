@@ -46,7 +46,7 @@ public class Drivetrain extends SubsystemBase {
 
   public Drivetrain() {
 
-    motorOutputPIDRotation = new PIDController(0.1, 0, 0.001); 
+    motorOutputPIDRotation = new PIDController(0.05, 0, 0.001); 
     motorOutputPIDRotation.enableContinuousInput(-Math.PI, Math.PI);
 
     motorOutputPIDDrive = new PIDController(0.1, 0, 0); 
@@ -168,7 +168,7 @@ public class Drivetrain extends SubsystemBase {
     driveOneSwerve(frontLeftOptimized, flRotationMotor, flDriveMotor, 0);
     driveOneSwerve(frontRightOptimized, frRotationMotor, frDriveMotor, 1);
     driveOneSwerve(backLeftOptimized, blRotationMotor, blDriveMotor, 2);
-    //driveOneSwerve(backRightOptimized, brRotationMotor, brDriveMotor, 3);
+    driveOneSwerve(backRightOptimized, brRotationMotor, brDriveMotor, 3);
   }
 
 
