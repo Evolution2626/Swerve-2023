@@ -90,10 +90,10 @@ public class Drivetrain extends SubsystemBase {
 
 
     // Locations for the swerve drive modules relative to the robot center.
-    Translation2d frontLeftLocation = new Translation2d(0.2, 0.31);  //0.2 0.31
-    Translation2d frontRightLocation = new Translation2d(0.2, -0.31); //0.2 -0.31
-    Translation2d backLeftLocation = new Translation2d(-0.2, 0.31); //-0.2 0.31
-    Translation2d backRightLocation = new Translation2d(-0.2, -0.31); // -0.2 -0.31
+    Translation2d frontLeftLocation = new Translation2d(-0.2, 0.31);  
+    Translation2d frontRightLocation = new Translation2d(0.2, 0.31); 
+    Translation2d backLeftLocation = new Translation2d(-0.2, -0.31); 
+    Translation2d backRightLocation = new Translation2d(0.2, -0.31); 
 
     // Creating my kinematics object using the module locations
     kinematics = new SwerveDriveKinematics(

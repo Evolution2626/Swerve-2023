@@ -41,7 +41,7 @@ public class SwerveDriveCommand extends CommandBase {
     speedY *= 3;
     speedR *= 10;
 
-    drivetrain.driveSwerve(speedX, -speedY, speedR);
+    drivetrain.driveSwerve(speedX, -speedY, -speedR);
   }
 
   // Called once the command ends or is interrupted.
