@@ -46,7 +46,7 @@ public class Drivetrain extends SubsystemBase {
 
   public Drivetrain() {
 
-    motorOutputPIDRotation = new PIDController(0.05, 0, 0.001); 
+    motorOutputPIDRotation = new PIDController(0.1, 0, 0.001); 
     motorOutputPIDRotation.enableContinuousInput(-Math.PI, Math.PI);
 
     motorOutputPIDDrive = new PIDController(0.1, 0, 0); 
@@ -83,10 +83,10 @@ public class Drivetrain extends SubsystemBase {
     blDriveMotor.setIdleMode(IdleMode.kCoast);
     brDriveMotor.setIdleMode(IdleMode.kCoast);
 
-    flRotationMotor.setClosedLoopRampRate(0.1);
-    frRotationMotor.setClosedLoopRampRate(0.1);
-    blRotationMotor.setClosedLoopRampRate(0.1);
-    brRotationMotor.setClosedLoopRampRate(0.1);
+    flRotationMotor.setClosedLoopRampRate(0.15);
+    frRotationMotor.setClosedLoopRampRate(0.15);
+    blRotationMotor.setClosedLoopRampRate(0.15);
+    brRotationMotor.setClosedLoopRampRate(0.15);
 
 
     // Locations for the swerve drive modules relative to the robot center.
