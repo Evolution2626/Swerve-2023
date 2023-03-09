@@ -22,7 +22,7 @@ public class LimelightYCommand extends PIDCommand {
   public LimelightYCommand(Drivetrain drivetrain, Limelight limelight, double range, boolean inverted) {
     super(
         // The controller that the command will use
-        new PIDController(0.5, 0, 0),
+        new PIDController(0.3, 0, 0),
         // This should return the measurement
         () -> limelight.getRobotPosition()[1],
         // This should return the setpoint (can also be a constant)
@@ -32,15 +32,20 @@ public class LimelightYCommand extends PIDCommand {
           // Use the output here
           stop = false;
           limelight.setLEDMode(3);
-          if(limelight.getRobotPosition()[1] >= range-0.2 && limelight.getRobotPosition()[1] <= range+0.2){
+          System.out.println(limelight.getRobotPosition()[0]);
+          //System.out.println(output);
+          if(limelight.getRobotPosition()[0] >= range-0.05 && limelight.getRobotPosition()[0] <= range+0.05){
             stop = true;
-          }
-          if(inverted){
-            drivetrain.driveSwerve(0, -output, 0);
+            drivetrain.driveSwerve(0, 0, 0);
           }
           else{
-            drivetrain.driveSwerve(0,output, 0);
-          }
+            if(inverted){
+              drivetrain.driveSwerve(0, -output, 0);
+            }
+            else{
+              drivetrain.driveSwerve(0,output, 0);
+            }
+        }
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
@@ -53,8 +58,8 @@ public class LimelightYCommand extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    drivetrain.driveSwerve(0, 0, 0);
-    limelight.setLEDMode(1);
+    //drivetrain.driveSwerve(0, 0, 0);
+    //limelight.setLEDMode(1);
 
     return stop;
   }

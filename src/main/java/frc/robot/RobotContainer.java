@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 import frc.robot.commands.ControlBougerBrasCommand;
 import frc.robot.commands.ControlPinceCommand;
 import frc.robot.commands.LimelightRotationCommand;
@@ -60,8 +61,8 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    controller.x().whileTrue(new LimelightXCommand(drivetrain, limelight, 0, false));
-    controller.y().whileTrue(new LimelightYCommand(drivetrain, limelight, 0, false));
+    controller.x().whileTrue(new LimelightXCommand(drivetrain, limelight, -2.82, true));
+    controller.y().whileTrue(new LimelightYCommand(drivetrain, limelight, 5, false));
     controller.rightBumper().whileTrue(new LimelightRotationCommand(drivetrain, limelight, 0));
 
 
