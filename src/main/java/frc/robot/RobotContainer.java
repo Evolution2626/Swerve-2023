@@ -13,6 +13,7 @@ import frc.robot.commands.ControlPinceCommand;
 import frc.robot.commands.LimelightRotationCommand;
 import frc.robot.commands.LimelightXCommand;
 import frc.robot.commands.LimelightYCommand;
+import frc.robot.commands.ResetGryoCommand;
 import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
@@ -64,7 +65,7 @@ public class RobotContainer {
     controller.x().whileTrue(new LimelightXCommand(drivetrain, limelight, -2.82, true));
     controller.y().whileTrue(new LimelightYCommand(drivetrain, limelight, 5, false));
     controller.rightBumper().whileTrue(new LimelightRotationCommand(drivetrain, limelight, 0));
-
+    controller.a().onTrue(new ResetGryoCommand(drivetrain));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.

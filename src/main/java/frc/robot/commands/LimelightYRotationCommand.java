@@ -48,7 +48,7 @@ public class LimelightYRotationCommand extends CommandBase {
     double magnitude = Math.sqrt(Math.pow(distanceX, 2)+Math.pow(distanceY, 2));
     double speed = pidY.calculate(0, magnitude);
     double rotation = pidRotation.calculate(0, distanceR);
-    drivetrain.driveSwerve(0, speed, rotation);
+    drivetrain.driveSwerve(0, speed, rotation, false);
 
   }
 
@@ -56,7 +56,7 @@ public class LimelightYRotationCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    drivetrain.driveSwerve(0, 0, 0);
+    drivetrain.driveSwerve(0, 0, 0, false);
 
   }
 

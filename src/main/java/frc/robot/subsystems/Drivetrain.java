@@ -14,6 +14,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -25,6 +27,8 @@ public class Drivetrain extends SubsystemBase {
 
   double currentAngleRAD;
   double targetAngleRAD;
+
+  private ADXRS450_Gyro gyro;
 
   private CANSparkMax flDriveMotor;
   private CANSparkMax frDriveMotor;
@@ -51,7 +55,7 @@ public class Drivetrain extends SubsystemBase {
 
     motorOutputPIDDrive = new PIDController(0.1, 0, 0); 
 
-   
+    gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
     
     flDriveMotor = new CANSparkMax(Constants.CAN.FL_DRIVE_MOTOR, MotorType.kBrushless);
     frDriveMotor = new CANSparkMax(Constants.CAN.FR_DRIVE_MOTOR, MotorType.kBrushless);
@@ -103,6 +107,14 @@ public class Drivetrain extends SubsystemBase {
     
   }
 
+  public double getGyroAngle(){
+    return gyro.getAngle();
+  }
+
+  public void resetGyroAngle(){
+    gyro.reset();
+  }
+
   double returnEncoderAngle(int encoderNumber){
     switch (encoderNumber) {
       case 0:
@@ -145,11 +157,19 @@ public class Drivetrain extends SubsystemBase {
     rotationMotor.set(goToAngle(moduleState.angle, rotationMotor, encoderNumber));
   }
 
-  public void driveSwerve(double x, double y, double r){
+  public void driveSwerve(double x, double y, double r, boolean fieldRelative){
     // Example chassis speeds: 1 meter per second forward, 3 meters
     // per second to the left, and rotation at 1.5 radians per second
     // counterclockwise.
-    ChassisSpeeds speeds = new ChassisSpeeds(x, y, r); 
+    ChassisSpeeds speeds = new ChassisSpeeds();
+    
+    if (fieldRelative) {
+      speeds = ChassisSpeeds.fromFieldRelativeSpeeds(x, y, r, new Rotation2d().fromDegrees(-getGyroAngle())); 
+
+    } else {
+      speeds = ChassisSpeeds.fromFieldRelativeSpeeds(x, y, r, new Rotation2d().fromDegrees(0)); 
+
+    }
     // Convert to module states
     SwerveModuleState[] moduleStates = kinematics.toSwerveModuleStates(speeds);
     // Front left module state
@@ -180,6 +200,6 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("FR", EncoderValues.FR_ENCODER_VALUE);
     SmartDashboard.putNumber("BL", EncoderValues.BL_ENCODER_VALUE);
     SmartDashboard.putNumber("BR", EncoderValues.BR_ENCODER_VALUE);
-    
+    SmartDashboard.putNumber("Gyro", getGyroAngle());
   }
 }

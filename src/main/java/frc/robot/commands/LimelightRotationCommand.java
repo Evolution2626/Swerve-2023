@@ -33,8 +33,10 @@ public class LimelightRotationCommand extends PIDCommand {
           
           if(limelight.getRobotPosition()[5] >= range-0.2 && limelight.getRobotPosition()[5] <= range+0.2){
             stop = true;
+            drivetrain.driveSwerve(0, 0, 0, false);
+          }else{
+            drivetrain.driveSwerve( -output,0, 0, false);
           }
-          drivetrain.driveSwerve( -output,0, 0);
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
@@ -47,8 +49,8 @@ public class LimelightRotationCommand extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    drivetrain.driveSwerve(0, 0, 0);
-    limelight.setLEDMode(1);
+    //drivetrain.driveSwerve(0, 0, 0);
+    //limelight.setLEDMode(1);
 
     return stop;
   }

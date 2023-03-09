@@ -36,14 +36,14 @@ public class LimelightYCommand extends PIDCommand {
           //System.out.println(output);
           if(limelight.getRobotPosition()[0] >= range-0.05 && limelight.getRobotPosition()[0] <= range+0.05){
             stop = true;
-            drivetrain.driveSwerve(0, 0, 0);
+            drivetrain.driveSwerve(0, 0, 0, false);
           }
           else{
             if(inverted){
-              drivetrain.driveSwerve(0, -output, 0);
+              drivetrain.driveSwerve(0, -output, 0, false);
             }
             else{
-              drivetrain.driveSwerve(0,output, 0);
+              drivetrain.driveSwerve(0,output, 0, false);
             }
         }
         });
