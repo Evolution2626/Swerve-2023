@@ -4,17 +4,25 @@
 
 package frc.robot.commands;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Drivetrain;
 import frc.util.Range;
+import frc.robot.Constants;
+
 
 public class SwerveDriveCommand extends CommandBase {
+  
   /** Creates a new DrivetrainDri. */
   private Drivetrain drivetrain;
   private CommandXboxController controller;
 
   public SwerveDriveCommand(Drivetrain drivetrain, CommandXboxController controller) {
+    
     this.controller = controller;
     this.drivetrain = drivetrain;
     addRequirements(drivetrain);
@@ -36,12 +44,13 @@ public class SwerveDriveCommand extends CommandBase {
     speedX = Range.threshold(0.1, speedX);
     speedY = Range.threshold(0.1, speedY);
     speedR = Range.threshold(0.1, speedR);
-
+    drivetrain.setJello(speedR);
     speedX *= 3;
     speedY *= 3;
     speedR *= 10;
 
     drivetrain.driveSwerve(speedX, -speedY, -speedR, true);
+    
   }
 
   // Called once the command ends or is interrupted.
@@ -53,4 +62,5 @@ public class SwerveDriveCommand extends CommandBase {
   public boolean isFinished() {
     return false;
   }
+  
 }

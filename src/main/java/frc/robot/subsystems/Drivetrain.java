@@ -46,26 +46,26 @@ public class Drivetrain extends SubsystemBase {
   public PIDController motorOutputPIDDrive;
 
   
-
+  
 
   public Drivetrain() {
 
-    motorOutputPIDRotation = new PIDController(0.1, 0, 0.001); 
+    motorOutputPIDRotation = new PIDController(0.15, 0, 0.001); 
     motorOutputPIDRotation.enableContinuousInput(-Math.PI, Math.PI);
 
-    motorOutputPIDDrive = new PIDController(0.1, 0, 0); 
+    
 
     gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
     
     flDriveMotor = new CANSparkMax(Constants.CAN.FL_DRIVE_MOTOR, MotorType.kBrushless);
-    frDriveMotor = new CANSparkMax(Constants.CAN.FR_DRIVE_MOTOR, MotorType.kBrushless);
-    blDriveMotor = new CANSparkMax(Constants.CAN.BL_DRIVE_MOTOR, MotorType.kBrushless);
-    brDriveMotor = new CANSparkMax(Constants.CAN.BR_DRIVE_MOTOR, MotorType.kBrushless);
+  frDriveMotor = new CANSparkMax(Constants.CAN.FR_DRIVE_MOTOR, MotorType.kBrushless);
+  blDriveMotor = new CANSparkMax(Constants.CAN.BL_DRIVE_MOTOR, MotorType.kBrushless);
+  brDriveMotor = new CANSparkMax(Constants.CAN.BR_DRIVE_MOTOR, MotorType.kBrushless);
 
-    flRotationMotor = new CANSparkMax(Constants.CAN.FL_ROTATION_MOTOR, MotorType.kBrushless);
-    frRotationMotor = new CANSparkMax(Constants.CAN.FR_ROTATION_MOTOR, MotorType.kBrushless);
-    blRotationMotor = new CANSparkMax(Constants.CAN.BL_ROTATION_MOTOR, MotorType.kBrushless);
-    brRotationMotor = new CANSparkMax(Constants.CAN.BR_ROTATION_MOTOR, MotorType.kBrushless);
+  flRotationMotor = new CANSparkMax(Constants.CAN.FL_ROTATION_MOTOR, MotorType.kBrushless);
+  frRotationMotor = new CANSparkMax(Constants.CAN.FR_ROTATION_MOTOR, MotorType.kBrushless);
+  blRotationMotor = new CANSparkMax(Constants.CAN.BL_ROTATION_MOTOR, MotorType.kBrushless);
+  brRotationMotor = new CANSparkMax(Constants.CAN.BR_ROTATION_MOTOR, MotorType.kBrushless);
 
     flDriveMotor.setInverted(false);
     frDriveMotor.setInverted(false);
@@ -77,20 +77,9 @@ public class Drivetrain extends SubsystemBase {
     blRotationMotor.setInverted(false);
     brRotationMotor.setInverted(false);
 
-    flRotationMotor.setIdleMode(IdleMode.kBrake);
-    frRotationMotor.setIdleMode(IdleMode.kBrake);
-    blRotationMotor.setIdleMode(IdleMode.kBrake);
-    brRotationMotor.setIdleMode(IdleMode.kBrake);
+    
 
-    flDriveMotor.setIdleMode(IdleMode.kCoast);
-    frDriveMotor.setIdleMode(IdleMode.kCoast);
-    blDriveMotor.setIdleMode(IdleMode.kCoast);
-    brDriveMotor.setIdleMode(IdleMode.kCoast);
-
-    flRotationMotor.setClosedLoopRampRate(0.15);
-    frRotationMotor.setClosedLoopRampRate(0.15);
-    blRotationMotor.setClosedLoopRampRate(0.15);
-    brRotationMotor.setClosedLoopRampRate(0.15);
+    
 
 
     // Locations for the swerve drive modules relative to the robot center.
@@ -106,7 +95,63 @@ public class Drivetrain extends SubsystemBase {
 
     
   }
-
+  public void setJello(Double rotationSpeed){
+    if(rotationSpeed <= -0.1 || rotationSpeed >= 0.1){ 
+      motorOutputPIDDrive = new PIDController(0.25, 0, 0); 
+      flRotationMotor.setIdleMode(IdleMode.kBrake);
+      frRotationMotor.setIdleMode(IdleMode.kBrake);
+      blRotationMotor.setIdleMode(IdleMode.kBrake);
+      brRotationMotor.setIdleMode(IdleMode.kBrake);
+  
+      flDriveMotor.setIdleMode(IdleMode.kBrake);
+      frDriveMotor.setIdleMode(IdleMode.kBrake);
+      blDriveMotor.setIdleMode(IdleMode.kBrake);
+      brDriveMotor.setIdleMode(IdleMode.kBrake);
+  
+      flRotationMotor.setClosedLoopRampRate(0.15);
+      frRotationMotor.setClosedLoopRampRate(0.15);
+      blRotationMotor.setClosedLoopRampRate(0.15);
+      brRotationMotor.setClosedLoopRampRate(0.15);
+    
+  
+      flDriveMotor.setClosedLoopRampRate(0.1);
+      frDriveMotor.setClosedLoopRampRate(0.1);
+      blDriveMotor.setClosedLoopRampRate(0.1);
+      brDriveMotor.setClosedLoopRampRate(0.1);
+      
+      
+      
+    }
+    else{
+      motorOutputPIDDrive = new PIDController(0.55, 0, 0); 
+      flRotationMotor.setIdleMode(IdleMode.kBrake);
+      frRotationMotor.setIdleMode(IdleMode.kBrake);
+      blRotationMotor.setIdleMode(IdleMode.kBrake);
+      brRotationMotor.setIdleMode(IdleMode.kBrake);
+  
+      flDriveMotor.setIdleMode(IdleMode.kBrake);
+      frDriveMotor.setIdleMode(IdleMode.kBrake);
+      blDriveMotor.setIdleMode(IdleMode.kBrake);
+      brDriveMotor.setIdleMode(IdleMode.kBrake);
+  
+      flRotationMotor.setClosedLoopRampRate(0.15);
+      frRotationMotor.setClosedLoopRampRate(0.15);
+      blRotationMotor.setClosedLoopRampRate(0.15);
+      brRotationMotor.setClosedLoopRampRate(0.15);
+    
+  
+      flDriveMotor.setClosedLoopRampRate(0.5);
+      frDriveMotor.setClosedLoopRampRate(0.5);
+      blDriveMotor.setClosedLoopRampRate(0.5);
+      brDriveMotor.setClosedLoopRampRate(0.5);
+  
+      flDriveMotor.setOpenLoopRampRate(0.3);
+      frDriveMotor.setOpenLoopRampRate(0.3);
+      blDriveMotor.setOpenLoopRampRate(0.3);
+      brDriveMotor.setOpenLoopRampRate(0.3);
+    }
+   
+  }
   public double getGyroAngle(){
     return gyro.getAngle();
   }
@@ -202,4 +247,5 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("BR", EncoderValues.BR_ENCODER_VALUE);
     SmartDashboard.putNumber("Gyro", getGyroAngle());
   }
+  
 }
