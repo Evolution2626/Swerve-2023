@@ -21,7 +21,7 @@ public class LimelightRotationCommand extends PIDCommand {
   public LimelightRotationCommand(Drivetrain drivetrain, Limelight limelight, double range) {
     super(
         // The controller that the command will use
-        new PIDController(0.45, 0, 0),
+        new PIDController(0.2, 0, 0.05),
         // This should return the measurement
       () -> limelight.getRobotPosition()[5],
         // This should return the setpoint (can also be a constant)
@@ -30,12 +30,15 @@ public class LimelightRotationCommand extends PIDCommand {
         output -> {
           limelight.setLEDMode(3);
           stop = false;
-          
-          if(limelight.getRobotPosition()[5] >= range-0.2 && limelight.getRobotPosition()[5] <= range+0.2){
-            stop = true;
-            drivetrain.driveSwerve(0, 0, 0, false);
+          if(limelight.getIsTargetFound()){
+            if(limelight.getRobotPosition()[5] >= range-0.2 && limelight.getRobotPosition()[5] <= range+0.2){
+              stop = true;
+              drivetrain.driveSwerve(0, 0, 0, false);
+            }else{
+              drivetrain.driveSwerve( 0, 0, output, false);
+            }
           }else{
-            drivetrain.driveSwerve( -output,0, 0, false);
+            stop = true;
           }
         });
     // Use addRequirements() here to declare subsystem dependencies.
