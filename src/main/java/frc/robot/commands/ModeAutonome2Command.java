@@ -23,18 +23,18 @@ public class ModeAutonome2Command extends SequentialCommandGroup {
   public ModeAutonome2Command() {
 
       addCommands(new LimelightRotationCommand(drivetrain, limelight, 0 /** a changer */));//trois premier serve a se placer
-      addCommands(new LimelightYCommand(drivetrain, limelight,   0 /** a changer */, true));
-      addCommands(new LimelightXCommand(drivetrain, limelight,   0 /** a changer */, true));
+      addCommands(new LimelightYCommand(drivetrain, limelight,   1 /** a changer */, true));
+      addCommands(new LimelightXCommand(drivetrain, limelight,   1.5 /** a changer */, true));
       addCommands(new BougerBrasCommand(echelle, 0,0,0));// deploie le bras
       addCommands(new PinceCommand(true));    // ouvre la pince  
-      addCommands(new LimelightXCommand(drivetrain, limelight,   0 /** a changer */, true));//recule hors de la zone de depart
+      addCommands(new LimelightXCommand(drivetrain, limelight,   6.6 /** a changer */, true));//recule hors de la zone de depart
       addCommands(new LimelightRotationCommand(drivetrain, limelight,   0/** a changer */)); 
       addCommands(new BougerBrasCommand(echelle, 0, 0, 0));//descendre le bras
       addCommands(new PinceCommand(false)); // ferme la pince 
       addCommands(new BougerBrasCommand(echelle, 0, 0, 0)); //monte la pince
       addCommands(new LimelightRotationCommand(drivetrain, limelight,   0)); //tourne robot
-      addCommands(new LimelightXCommand(drivetrain, limelight,   0/** a changer */, true)); //va vers truc a scorer
-      addCommands(new LimelightYCommand(drivetrain, limelight,   0/** a changer */, true)); //stabilise
+      addCommands(new LimelightXCommand(drivetrain, limelight,   1.5/** a changer */, true)); //va vers truc a scorer
+      addCommands(new LimelightYCommand(drivetrain, limelight,   1/** a changer */, true)); //stabilise
       addCommands(new PinceCommand(true));// ouvre la pince
    }
   }
