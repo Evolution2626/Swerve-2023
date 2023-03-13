@@ -141,9 +141,9 @@ public class EncoderThread extends Thread{
             }
             brAverageValue /= brPreviousValue.size();
                                                               //encoder offset
-            EncoderValues.FL_ENCODER_VALUE = (flAverageValue + 4096 - 450)%4096;
-            EncoderValues.FR_ENCODER_VALUE = (frAverageValue + 4096 - 3120)%4096;
-            EncoderValues.BL_ENCODER_VALUE = (blAverageValue + 4096 - 2942)%4096;
+            EncoderValues.FL_ENCODER_VALUE = (flAverageValue + 4096 - 400)%4096;
+            EncoderValues.FR_ENCODER_VALUE = (frAverageValue + 4096 - 2935)%4096;
+            EncoderValues.BL_ENCODER_VALUE = (blAverageValue + 4096 - 2877)%4096;
             EncoderValues.BR_ENCODER_VALUE = (brAverageValue + 4096 - 2124)%4096;
             }
         }

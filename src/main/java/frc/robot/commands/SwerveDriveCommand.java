@@ -44,12 +44,13 @@ public class SwerveDriveCommand extends CommandBase {
     speedX = Range.threshold(0.1, speedX);
     speedY = Range.threshold(0.1, speedY);
     speedR = Range.threshold(0.1, speedR);
-    drivetrain.setJello(speedR);
-    speedX *= 3;
-    speedY *= 3;
-    speedR *= 10;
+    //drivetrain.setJello(speedR);
 
-    drivetrain.driveSwerve(speedX, -speedY, -speedR, true);
+    speedX *= 9;
+    speedY *= 9;
+    speedR *= 18;
+
+    drivetrain.driveSwerve(speedX, -speedY, -speedR, false);
     
   }
 

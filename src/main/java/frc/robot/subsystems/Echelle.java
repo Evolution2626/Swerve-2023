@@ -5,52 +5,65 @@
 package frc.robot.subsystems;
 
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Echelle extends SubsystemBase {
 
-  private CANSparkMax monteur;
-  private CANSparkMax replieur;
-  private CANSparkMax avanceur;
+  private TalonSRX monteur2;
+  private TalonSRX monteur1;
+  private VictorSPX replieur;
+  private VictorSPX avanceur;
 
   /** Creates a new Echelle. */
   public Echelle() {
   
-    monteur = new CANSparkMax(Constants.CAN.MONTEUR, MotorType.kBrushless);
-    replieur = new CANSparkMax(Constants.CAN.REPLIEUR, MotorType.kBrushless);
-    avanceur = new CANSparkMax(Constants.CAN.AVANCEUR, MotorType.kBrushless);
+    monteur2= new TalonSRX(Constants.CAN.MONTEUR2);
+    monteur1 = new TalonSRX(Constants.CAN.MONTEUR1);
+    replieur = new VictorSPX(Constants.CAN.REPLIEUR);
+    avanceur = new VictorSPX(Constants.CAN.AVANCEUR);
 
-    monteur.setInverted(false);
+    monteur1.setInverted(false);
+    monteur2.setInverted(false);
     replieur.setInverted(false);
     avanceur.setInverted(false);
 
-    monteur.setIdleMode(IdleMode.kBrake);
-    replieur.setIdleMode(IdleMode.kBrake);
-    avanceur.setIdleMode(IdleMode.kBrake);
+    monteur2.follow(monteur1);
+    monteur1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+
+   
   }
 
   public void Avance(double valeur) {
     
-    avanceur.set(valeur);
+    avanceur.set(VictorSPXControlMode.PercentOutput, valeur);
 
   }
 
   public void Replie(double valeur) {
 
-    replieur.set(valeur);
+    replieur.set(VictorSPXControlMode.PercentOutput, valeur);
   
   }
 
   public void Monte(double valeur) {
   
-    monteur.set(valeur);
+    monteur1.set(TalonSRXControlMode.PercentOutput, valeur);
+    //monteur2.set(TalonSRXControlMode.PercentOutput, valeur);
 
   }
+  public double getEncoderValue(){
+    return -monteur1.getSelectedSensorPosition();
+}
+
+public void resetEncoderValue(){
+    monteur1.setSelectedSensorPosition(0);
+}
 
   @Override
   public void periodic() {

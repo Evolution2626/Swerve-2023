@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Limelight;
 
-public class LimelightYRotationCommand extends CommandBase {
+public class LimelightXYRCommand extends CommandBase {
 
   Drivetrain drivetrain;
   Limelight limelight;
@@ -18,7 +18,7 @@ public class LimelightYRotationCommand extends CommandBase {
 
 
   /** Creates a new LimelightYRotationCommand. */
-  public LimelightYRotationCommand(Drivetrain drivetrain, Limelight limelight) {
+  public LimelightXYRCommand(Drivetrain drivetrain, Limelight limelight) {
     // (
         // The controller that the command will use
        pidRotation = new PIDController(0.2, 0, 0);
@@ -42,8 +42,8 @@ public class LimelightYRotationCommand extends CommandBase {
 
     //pas sure si getRobotPosition marche, on veut que cela donne la distance relative a la cible et non au terrain
 
-    double distanceY = limelight.getRobotPosition()[1];
-    double distanceX = limelight.getRobotPosition()[0];
+    double distanceY = limelight.getRobotPosition()[0];
+    double distanceX = limelight.getRobotPosition()[1];
     double distanceR = limelight.getRobotPosition()[5];
     double magnitude = Math.sqrt(Math.pow(distanceX, 2)+Math.pow(distanceY, 2));
     double speed = pidY.calculate(0, magnitude);

@@ -27,7 +27,8 @@ public final class Constants {
 
     int GOBBEUR = 50;
 
-    int MONTEUR = 51;
+    int MONTEUR1 = 51;
+    int MONTEUR2 = 54;
     int AVANCEUR = 52;
     int REPLIEUR = 53;
 

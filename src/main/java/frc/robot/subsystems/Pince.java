@@ -38,9 +38,9 @@ public void pinceFerme() {
 
 }
 
-public void setMoteurSpeed(double speed) {
+public void setMoteurSpeed(double valeur) {
 
-  //moteurGobbeur.set(speed);
+  //moteurGobbeur.set(VictorSPXControlMode.PercentOutput, valeur);
 
 }
 
