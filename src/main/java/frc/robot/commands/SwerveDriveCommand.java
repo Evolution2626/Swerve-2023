@@ -4,15 +4,10 @@
 
 package frc.robot.commands;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Drivetrain;
 import frc.util.Range;
-import frc.robot.Constants;
 
 
 public class SwerveDriveCommand extends CommandBase {

@@ -23,7 +23,7 @@ public class LimelightXCommand extends PIDCommand {
     
     super(
         // The controller that the command will use
-        new PIDController(1.9, 0.4, 0),
+        new PIDController(1.8, 0.25, 0.01),
         // This should return the measurement
         () -> limelight.getRobotPosition()[1],
         // This should return the setpoint (can also be a constant)

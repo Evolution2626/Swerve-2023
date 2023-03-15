@@ -16,6 +16,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -96,11 +97,11 @@ public class Drivetrain extends SubsystemBase {
     brRotationMotor.setClosedLoopRampRate(0.14);
     
   
-    flDriveMotor.setClosedLoopRampRate(0.8);
-    frDriveMotor.setClosedLoopRampRate(0.8);
-    blDriveMotor.setClosedLoopRampRate(0.8);
-    brDriveMotor.setClosedLoopRampRate(0.8);
-    
+    flDriveMotor.setOpenLoopRampRate(0.6);
+    frDriveMotor.setOpenLoopRampRate(0.6);
+    blDriveMotor.setOpenLoopRampRate(0.6);
+    brDriveMotor.setOpenLoopRampRate(0.6);
+   
 
 
     // Locations for the swerve drive modules relative to the robot center.

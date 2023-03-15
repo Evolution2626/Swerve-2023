@@ -146,11 +146,12 @@ public class EncoderThread extends Thread{
             // EncoderValues.BL_ENCODER_VALUE = (blAverageValue + 4096 - 2931)%4096;
             // EncoderValues.BR_ENCODER_VALUE = (brAverageValue + 4096 - 2142)%4096;
 
-            EncoderValues.FL_ENCODER_VALUE = (flAverageValue + 4096 - 2720)%4096;
+            EncoderValues.FL_ENCODER_VALUE = (flAverageValue + 4096 - 2735)%4096;
             EncoderValues.FR_ENCODER_VALUE = (frAverageValue + 4096 - 3095)%4096;
-            EncoderValues.BL_ENCODER_VALUE = (blAverageValue + 4096 - 2897)%4096;
-            EncoderValues.BR_ENCODER_VALUE = (brAverageValue + 4096 - 2112)%4096;
+            EncoderValues.BL_ENCODER_VALUE = (blAverageValue + 4096 - 2920)%4096;
+            EncoderValues.BR_ENCODER_VALUE = (brAverageValue + 4096 - 2090)%4096;
 
+            
             }
         }
     }

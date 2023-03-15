@@ -14,6 +14,7 @@ import frc.robot.subsystems.Limelight;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class LimelightRotationCommand extends PIDCommand {
 
+
   Drivetrain drivetrain;
   Limelight limelight;
   public static boolean stop = false;
@@ -21,7 +22,7 @@ public class LimelightRotationCommand extends PIDCommand {
   public LimelightRotationCommand(Drivetrain drivetrain, Limelight limelight, double range) {
     super(
         // The controller that the command will use
-        new PIDController(0.2, 0, 0),
+        new PIDController(0.18, 0.25, 0.01),
         // This should return the measurement
       () -> limelight.getRobotPosition()[5],
         // This should return the setpoint (can also be a constant)
@@ -31,7 +32,7 @@ public class LimelightRotationCommand extends PIDCommand {
           limelight.setLEDMode(3);
           stop = false;
           if(limelight.getIsTargetFound()){
-            if(limelight.getRobotPosition()[5] >= range-0.02 && limelight.getRobotPosition()[5] <= range+0.02){
+            if(limelight.getRobotPosition()[5] >= range-0.2 && limelight.getRobotPosition()[5] <= range+0.2){
               stop = true;
               drivetrain.driveSwerve(0, 0, 0, false);
             }else{
@@ -54,6 +55,7 @@ public class LimelightRotationCommand extends PIDCommand {
   public boolean isFinished() {
     //drivetrain.driveSwerve(0, 0, 0);
     //limelight.setLEDMode(1);
+    
 
     return stop;
   }

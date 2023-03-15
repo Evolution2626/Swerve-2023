@@ -23,7 +23,7 @@ public class LimelightXYRCommand extends CommandBase {
   public LimelightXYRCommand(Drivetrain drivetrain, Limelight limelight) {
     // (
         // The controller that the command will use
-       pidRotation = new PIDController(0.2, 0, 0);
+       //pidRotation = new PIDController(0.2, 0, 0);
        pidY = new PIDController(0.5, 0, 0);
        pidX = new PIDController(0.5, 0, 0);
 
@@ -32,9 +32,9 @@ public class LimelightXYRCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    limelight.setLEDMode(3);
+    //limelight.setLEDMode(3);
 
-    pidRotation.reset();
+    //pidRotation.reset();
     pidY.reset();
     pidX.reset();
 
@@ -48,11 +48,12 @@ public class LimelightXYRCommand extends CommandBase {
 
     double distanceY = limelight.getRobotPosition()[0];
     double distanceX = limelight.getRobotPosition()[1];
-    double distanceR = limelight.getRobotPosition()[5];
+    //double distanceR = limelight.getRobotPosition()[5];
     double magnitude = Math.sqrt(Math.pow(distanceX, 2)+Math.pow(distanceY, 2));
     double speedY = pidY.calculate(0, magnitude);
     double speedX = pidX.calculate( 0, magnitude);
-    double rotation = pidRotation.calculate(0, distanceR);
+    //double rotation = pidRotation.calculate(0, distanceR);
+    double rotation = 0.0;
     drivetrain.driveSwerve(speedX, speedY, rotation, false);
 
   }
