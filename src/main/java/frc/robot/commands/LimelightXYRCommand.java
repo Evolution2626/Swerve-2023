@@ -1,3 +1,4 @@
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -15,6 +16,7 @@ public class LimelightXYRCommand extends CommandBase {
   Limelight limelight;
   PIDController pidRotation;
   PIDController pidY;
+  PIDController pidX;
 
 
   /** Creates a new LimelightYRotationCommand. */
@@ -23,6 +25,7 @@ public class LimelightXYRCommand extends CommandBase {
         // The controller that the command will use
        pidRotation = new PIDController(0.2, 0, 0);
        pidY = new PIDController(0.5, 0, 0);
+       pidX = new PIDController(0.5, 0, 0);
 
   }
 
@@ -33,6 +36,7 @@ public class LimelightXYRCommand extends CommandBase {
 
     pidRotation.reset();
     pidY.reset();
+    pidX.reset();
 
   }
 
@@ -46,9 +50,10 @@ public class LimelightXYRCommand extends CommandBase {
     double distanceX = limelight.getRobotPosition()[1];
     double distanceR = limelight.getRobotPosition()[5];
     double magnitude = Math.sqrt(Math.pow(distanceX, 2)+Math.pow(distanceY, 2));
-    double speed = pidY.calculate(0, magnitude);
+    double speedY = pidY.calculate(0, magnitude);
+    double speedX = pidX.calculate( 0, magnitude);
     double rotation = pidRotation.calculate(0, distanceR);
-    drivetrain.driveSwerve(0, speed, rotation, false);
+    drivetrain.driveSwerve(speedX, speedY, rotation, false);
 
   }
 
