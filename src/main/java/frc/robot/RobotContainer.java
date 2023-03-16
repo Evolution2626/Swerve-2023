@@ -67,7 +67,7 @@ public class RobotContainer {
     controller.y().whileTrue(new LimelightYCommand(drivetrain, limelight, 5, false));
     controller.rightBumper().whileTrue(new LimelightRotationCommand(drivetrain, limelight, 0));
     controller.a().onTrue(new ResetGryoCommand(drivetrain));
-
+    controller.leftBumper().whileTrue(new LimelightXYRCommand(drivetrain, limelight, 4.85, -2.8));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
   }
@@ -77,6 +77,7 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+  
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return null;

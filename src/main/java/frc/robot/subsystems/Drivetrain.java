@@ -91,16 +91,16 @@ public class Drivetrain extends SubsystemBase {
     blDriveMotor.setIdleMode(IdleMode.kBrake);
     brDriveMotor.setIdleMode(IdleMode.kBrake);
 
-    flRotationMotor.setClosedLoopRampRate(0.14);
-    frRotationMotor.setClosedLoopRampRate(0.14);
-    blRotationMotor.setClosedLoopRampRate(0.14);
-    brRotationMotor.setClosedLoopRampRate(0.14);
+    flRotationMotor.setClosedLoopRampRate(0.15);
+    frRotationMotor.setClosedLoopRampRate(0.15);
+    blRotationMotor.setClosedLoopRampRate(0.15);
+    brRotationMotor.setClosedLoopRampRate(0.15);
     
   
-    flDriveMotor.setOpenLoopRampRate(0.6);
-    frDriveMotor.setOpenLoopRampRate(0.6);
-    blDriveMotor.setOpenLoopRampRate(0.6);
-    brDriveMotor.setOpenLoopRampRate(0.6);
+    flDriveMotor.setOpenLoopRampRate(0.4);
+    frDriveMotor.setOpenLoopRampRate(0.4);
+    blDriveMotor.setOpenLoopRampRate(0.4);
+    brDriveMotor.setOpenLoopRampRate(0.4);
    
 
 
