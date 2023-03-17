@@ -10,12 +10,15 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import frc.robot.commands.ControlBougerBrasCommand;
 import frc.robot.commands.ControlPinceCommand;
+import frc.robot.commands.GyroRotationCommand;
 import frc.robot.commands.LimelightRotationCommand;
 import frc.robot.commands.LimelightXCommand;
 import frc.robot.commands.LimelightXYRCommand;
 import frc.robot.commands.LimelightYCommand;
 import frc.robot.commands.ResetGryoCommand;
 import frc.robot.commands.SwerveDriveCommand;
+import frc.robot.commands.XYRCommand;
+import frc.robot.commands.test;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
 import frc.robot.subsystems.Limelight;
@@ -65,9 +68,9 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     controller.x().whileTrue(new LimelightXCommand(drivetrain, limelight, -2.82, true));
     controller.y().whileTrue(new LimelightYCommand(drivetrain, limelight, 5, false));
-    controller.rightBumper().whileTrue(new LimelightRotationCommand(drivetrain, limelight, 0));
+    controller.rightBumper().whileTrue(new GyroRotationCommand(drivetrain, 0));
     controller.a().onTrue(new ResetGryoCommand(drivetrain));
-    controller.leftBumper().whileTrue(new LimelightXYRCommand(drivetrain, limelight, 4.85, -2.8));
+    controller.leftBumper().whileTrue(new XYRCommand(drivetrain, limelight, -2.82, 5.0, 0.0, false));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
   }

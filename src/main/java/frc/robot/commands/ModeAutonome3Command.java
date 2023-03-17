@@ -22,10 +22,10 @@ public class ModeAutonome3Command extends SequentialCommandGroup {
   
   public ModeAutonome3Command() {
 
-      addCommands(new LimelightRotationCommand(drivetrain, limelight,   0 /** a changer */));//trois premier serve a sortir
-      addCommands(new LimelightYCommand(drivetrain, limelight,   1 /** a changer */, true));
-      addCommands(new LimelightXCommand(drivetrain, limelight,   6.6 /** a changer */, true));
-   
+      //addCommands(new LimelightRotationCommand(drivetrain, limelight,   0 /** a changer */));//trois premier serve a sortir
+      //addCommands(new LimelightYCommand(drivetrain, limelight,   1 /** a changer */, true));
+      //addCommands(new LimelightXCommand(drivetrain, limelight,   6.6 /** a changer */, true)); 
+     //addCommands(new XYRCommand(-2.82, 5, 0, false));
 
    }
   }
