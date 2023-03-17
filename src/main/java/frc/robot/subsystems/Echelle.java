@@ -29,7 +29,7 @@ public class Echelle extends SubsystemBase {
     avanceur = new VictorSPX(Constants.CAN.AVANCEUR);
 
     monteur1.setInverted(false);
-    monteur2.setInverted(false);
+    monteur2.setInverted(true);
     replieur.setInverted(false);
     avanceur.setInverted(false);
 

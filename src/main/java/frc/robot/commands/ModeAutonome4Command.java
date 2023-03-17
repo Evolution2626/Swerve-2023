@@ -23,17 +23,21 @@ public class ModeAutonome4Command extends SequentialCommandGroup {
   Echelle echelle;
 
   /** Creates a new ModeAutonome1Command. */
-  public ModeAutonome4Command() {
+  public ModeAutonome4Command(Drivetrain drivetrain, Limelight limelight, Pince pince, Echelle echelle) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new LimelightRotationCommand(drivetrain, limelight,   0 /** a changer */));//trois premier serve a se placer
-    addCommands(new LimelightYCommand(drivetrain, limelight,   2.7 /** a changer */));
-    addCommands(new LimelightXCommand(drivetrain, limelight,   1.5 /** a changer */));
+    this.drivetrain = drivetrain;
+    this.limelight = limelight;
+    this.pince = pince;
+    this.echelle = echelle;
+
+    addCommands(new XYRCommand(drivetrain, limelight, 1.5, 2.7, 0, isFinished()));
     addCommands(new BougerBrasCommand(echelle, 0,0,0));// deploie le bras
     addCommands(new PinceCommand(false)); // ferme la pince  
     addCommands(new BougerBrasCommand(echelle, 0,0,0));// replie le bras
     addCommands(new LimelightYCommand(drivetrain, limelight,   2.7 /** a changer */));//se place pour monter sur la plateform
     addCommands(new LimelightXCommand(drivetrain, limelight,   4 /** a changer */));// vas sur la plateform
- }
+    addCommands(new XYRCommand(drivetrain, limelight, 4, 2.7, 0, isFinished()));
+  }
 }
    

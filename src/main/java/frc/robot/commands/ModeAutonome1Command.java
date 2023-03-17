@@ -23,19 +23,26 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
   Echelle echelle;
 
   /** Creates a new ModeAutonome1Command. */
-  public ModeAutonome1Command() {
+  public ModeAutonome1Command(Drivetrain drivetrain, Limelight limelight, Pince pince, Echelle echelle ) {
+    this.drivetrain = drivetrain;
+    this.limelight = limelight;
+    this.pince = pince;
+    this.echelle = echelle;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new LimelightRotationCommand(drivetrain, limelight, 0 /** a changer */));//trois premier serve a se placer
-    addCommands(new LimelightYCommand(drivetrain, limelight, 4.4 /** a changer */));
-    addCommands(new LimelightXCommand(drivetrain, limelight,  1.8 /** a changer */));
+    
+    addCommands(new XYRCommand(drivetrain, limelight, 1.8, 4.4, 0, isFinished()));
     addCommands(new BougerBrasCommand(echelle, 0,0,0));// deploie le bras
     addCommands(new PinceCommand(true));// ouvre la pince
     addCommands(new BougerBrasCommand(echelle, 0,0,0));// replie le bras
     addCommands(new LimelightXCommand(drivetrain, limelight,  6.1 /** a changer */));//recule hors de la zone de depart
     addCommands(new LimelightYCommand(drivetrain, limelight,  3.2 /** a changer */));//se place pour monter sur la plateform
     addCommands(new LimelightXCommand(drivetrain, limelight,  3.7 /** a changer */));// vas sur la plateform
- }
+    addCommands(new XYRCommand(drivetrain, limelight, 6.1, 3.2, 0, isFinished()));
+    addCommands(new XYRCommand(drivetrain, limelight, 3.7, 3.2, 0, isFinished()));
+
+
+  }
 }
 
    
