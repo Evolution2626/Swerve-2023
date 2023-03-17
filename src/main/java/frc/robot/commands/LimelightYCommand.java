@@ -19,7 +19,7 @@ public class LimelightYCommand extends PIDCommand {
   Limelight limelight;
   public static boolean stop = false;
 
-  public LimelightYCommand(Drivetrain drivetrain, Limelight limelight, double range, boolean inverted) {
+  public LimelightYCommand(Drivetrain drivetrain, Limelight limelight, double range) {
     
     super(
         // The controller that the command will use
@@ -38,11 +38,13 @@ public class LimelightYCommand extends PIDCommand {
               stop = true;
               drivetrain.driveSwerve(0, 0, 0, false);
             }else{
-              if(inverted){
+              double degree = limelight.getRobotPosition()[5];
+
+              if(degree < 90 && -90 > degree){
                 drivetrain.driveSwerve(0, -output, 0, false);
               }
               else{
-                drivetrain.driveSwerve(0,output, 0, false);
+                drivetrain.driveSwerve(0, output, 0, false);
               } 
 
             }

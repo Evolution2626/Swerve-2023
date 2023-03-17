@@ -27,14 +27,14 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new LimelightRotationCommand(drivetrain, limelight, 0 /** a changer */));//trois premier serve a se placer
-    addCommands(new LimelightYCommand(drivetrain, limelight, 4.4 /** a changer */, true));
-    addCommands(new LimelightXCommand(drivetrain, limelight,  1.8 /** a changer */, true));
+    addCommands(new LimelightYCommand(drivetrain, limelight, 4.4 /** a changer */));
+    addCommands(new LimelightXCommand(drivetrain, limelight,  1.8 /** a changer */));
     addCommands(new BougerBrasCommand(echelle, 0,0,0));// deploie le bras
     addCommands(new PinceCommand(true));// ouvre la pince
     addCommands(new BougerBrasCommand(echelle, 0,0,0));// replie le bras
-    addCommands(new LimelightXCommand(drivetrain, limelight,  6.1 /** a changer */, true));//recule hors de la zone de depart
-    addCommands(new LimelightYCommand(drivetrain, limelight,  3.2 /** a changer */, true));//se place pour monter sur la plateform
-    addCommands(new LimelightXCommand(drivetrain, limelight,  3.7 /** a changer */, true));// vas sur la plateform
+    addCommands(new LimelightXCommand(drivetrain, limelight,  6.1 /** a changer */));//recule hors de la zone de depart
+    addCommands(new LimelightYCommand(drivetrain, limelight,  3.2 /** a changer */));//se place pour monter sur la plateform
+    addCommands(new LimelightXCommand(drivetrain, limelight,  3.7 /** a changer */));// vas sur la plateform
  }
 }
 

@@ -63,8 +63,8 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    controller.x().whileTrue(new LimelightXCommand(drivetrain, limelight, -2.82, true));
-    controller.y().whileTrue(new LimelightYCommand(drivetrain, limelight, 5, false));
+    controller.x().whileTrue(new LimelightXCommand(drivetrain, limelight, -2.82));
+    controller.y().whileTrue(new LimelightYCommand(drivetrain, limelight, 5));
     controller.rightBumper().whileTrue(new LimelightRotationCommand(drivetrain, limelight, 0));
     controller.a().onTrue(new ResetGryoCommand(drivetrain));
     controller.leftBumper().whileTrue(new LimelightXYRCommand(drivetrain, limelight, 4.85, -2.8));
