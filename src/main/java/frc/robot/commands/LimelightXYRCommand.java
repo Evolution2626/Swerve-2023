@@ -64,7 +64,7 @@ public class LimelightXYRCommand extends CommandBase {
       distanceY = rangeY - positionY;
     }
 
-    if(Math.abs(distanceX) > Math.abs(distanceY)){
+     if(Math.abs(distanceX) > Math.abs(distanceY)){
       distanceX = distanceX/Math.abs(distanceX);
       distanceY = distanceY/Math.abs(distanceX);
     }else{
