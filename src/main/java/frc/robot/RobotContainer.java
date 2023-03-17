@@ -66,9 +66,12 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+
+
     controller.x().whileTrue(new LimelightXCommand(drivetrain, limelight, -2.82, true));
     controller.y().whileTrue(new LimelightYCommand(drivetrain, limelight, 5, false));
     controller.rightBumper().whileTrue(new GyroRotationCommand(drivetrain, 0));
+
     controller.a().onTrue(new ResetGryoCommand(drivetrain));
     controller.leftBumper().whileTrue(new XYRCommand(drivetrain, limelight, -2.82, 5.0, 0.0, false));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
