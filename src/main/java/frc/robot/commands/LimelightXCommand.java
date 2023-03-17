@@ -41,10 +41,10 @@ public class LimelightXCommand extends PIDCommand {
               double degree = limelight.getRobotPosition()[5];
 
               if(degree < 90 && -90 > degree){
-                drivetrain.driveSwerve(-output,0, 0, false);
+                drivetrain.driveSwerve(output,0, 0, false);
               }
               else{
-                drivetrain.driveSwerve(output,0, 0, false);
+                drivetrain.driveSwerve(-output,0, 0, false);
               } 
 
             }

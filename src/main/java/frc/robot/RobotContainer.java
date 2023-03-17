@@ -8,19 +8,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
-import frc.robot.commands.ControlBougerBrasCommand;
 import frc.robot.commands.ControlPinceCommand;
 import frc.robot.commands.GyroRotationCommand;
-import frc.robot.commands.LimelightRotationCommand;
 import frc.robot.commands.LimelightXCommand;
-import frc.robot.commands.LimelightXYRCommand;
 import frc.robot.commands.LimelightYCommand;
 import frc.robot.commands.ResetGryoCommand;
 import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.commands.XYRCommand;
-import frc.robot.commands.test;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Echelle;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Pince;
 
@@ -68,8 +63,8 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
 
-    controller.x().whileTrue(new LimelightXCommand(drivetrain, limelight, -2.82, true));
-    controller.y().whileTrue(new LimelightYCommand(drivetrain, limelight, 5, false));
+    controller.x().whileTrue(new LimelightXCommand(drivetrain, limelight, -2.82));
+    controller.y().whileTrue(new LimelightYCommand(drivetrain, limelight, 5));
     controller.rightBumper().whileTrue(new GyroRotationCommand(drivetrain, 0));
 
     controller.a().onTrue(new ResetGryoCommand(drivetrain));
