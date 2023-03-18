@@ -6,6 +6,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Limelight;
@@ -20,13 +21,9 @@ public class LimelightXYRCommand extends CommandBase {
   double rangeX;
   double rangeY;
 
-  public static boolean stop = false;
+  public boolean stop = false;
 
-  double distanceX;
-  double distanceY;
-
-  double distanceXfin;
-  double distanceYfin;
+  
 
   /** Creates a new LimelightYRotationCommand. */
   public LimelightXYRCommand(Drivetrain drivetrain, Limelight limelight, double rangeX, double rangeY) {
@@ -37,7 +34,7 @@ public class LimelightXYRCommand extends CommandBase {
       this.rangeY = rangeY;
         // The controller that the command will use
        //pidRotation = new PIDController(0.2, 0, 0);
-       pid = new PIDController(1, 0, 0);
+       pid = new PIDController(1.8, 0, 0);
 
   }
 
@@ -60,7 +57,11 @@ public class LimelightXYRCommand extends CommandBase {
     double positionY = limelight.getRobotPosition()[1];
     double positionX = limelight.getRobotPosition()[0];
 
-
+    double distanceX;
+    double distanceY;
+  
+    double distanceXfin;
+    double distanceYfin;
 
     if(isInverted()){
       distanceX = (rangeX - positionX) * -1;
@@ -95,16 +96,31 @@ public class LimelightXYRCommand extends CommandBase {
     //double rotation = pidRotation.calculate(0, distanceR);
     double rotation = 0.0;
     if(limelight.getIsTargetFound()){
-      if(limelight.getRobotPosition()[0] >= rangeX-0.2 && limelight.getRobotPosition()[0] <= rangeX+0.2 && limelight.getRobotPosition()[1] >= rangeY-0.2 && limelight.getRobotPosition()[1] <= rangeY+0.2){
+      if(limelight.getRobotPosition()[0] >= rangeX-0.5 && limelight.getRobotPosition()[0] <= rangeX+0.5){
+        drivetrain.driveSwerve(0, Range.coerce(1, speed) * -distanceYfin, rotation, false);
+        SmartDashboard.putString("condition", "y");
+      }
+
+  if(limelight.getRobotPosition()[1] >= rangeY-0.5 && limelight.getRobotPosition()[1] <= rangeY+0.5){
+        drivetrain.driveSwerve(Range.coerce(1, speed) * distanceXfin, 0, rotation, false);
+        SmartDashboard.putString("condition", "x");
+      }
+
+  if(limelight.getRobotPosition()[1] >= rangeY-0.5 && limelight.getRobotPosition()[1] <= rangeY+0.5 && limelight.getRobotPosition()[0] >= rangeX-0.5 && limelight.getRobotPosition()[0] <= rangeX+0.5) {
+        drivetrain.driveSwerve(0, 0, rotation, false);
+        SmartDashboard.putString("condition", "fini");
         stop = true;
-        drivetrain.driveSwerve(0, 0, 0, false);
-      }else{
-        drivetrain.driveSwerve(Range.coerce(1, speed) * distanceXfin, Range.coerce(1, speed) * distanceYfin, rotation, false);
+      }
+      else{
+        drivetrain.driveSwerve(Range.coerce(1, speed) * distanceXfin, Range.coerce(1, speed) * -distanceYfin, rotation, false);
+        SmartDashboard.putString("condition", "xy");
       }
     }else{
       stop = true;
     }
-
+    SmartDashboard.putNumber("distanceX", rangeX - positionX);
+    SmartDashboard.putNumber("distanceY", rangeY - positionY);
+    SmartDashboard.putNumber("magnitude", magnitude);
   }
 
   // Called once the command ends or is interrupted.
@@ -127,9 +143,9 @@ public class LimelightXYRCommand extends CommandBase {
     double degree = limelight.getRobotPosition()[5];
 
     if(degree < 90 && degree > -90){
-      return true;
-    }else{
       return false;
+    }else{
+      return true;
     }
   }
 }

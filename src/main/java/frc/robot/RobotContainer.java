@@ -72,7 +72,7 @@ public class RobotContainer {
 
     controller.a().onTrue(new ResetGryoCommand(drivetrain));
     //controller.leftBumper().whileTrue(new XYRCommand(drivetrain, limelight, -2.82, 5.0, 0.0, false));
-    controller.leftBumper().whileTrue(new LimelightXYRCommand(drivetrain, limelight,5, -3));
+    controller.leftBumper().whileTrue(new LimelightXYRCommand(drivetrain, limelight,3.7, -2.3));
 
     //controller.rightTrigger().whileTrue(new ModeAutonome1Command(drivetrain, limelight, pince, echelle));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
