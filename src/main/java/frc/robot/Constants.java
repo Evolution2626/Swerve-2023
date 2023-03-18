@@ -44,6 +44,9 @@ public final class Constants {
     int CLOCK = 5;
     int CHIP_SELECT = 4;
 
+    int STAGE1 = 6;
+    int STAGE2 = 7;
+    int STAGE3 = 8;
   }
 
   public interface USB {

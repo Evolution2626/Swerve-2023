@@ -4,18 +4,22 @@
 
 package frc.robot.commands;
 
+import java.util.Set;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Echelle;
 
-public class ControlBougerBrasCommand extends CommandBase {
+public class ControlSortieEchelleCommand extends CommandBase {
   Echelle echelle;
   CommandXboxController controller;
+  StageEchelleCommand stage;
   /** Creates a new ControlBougerBrasCommand. */
-  public ControlBougerBrasCommand(Echelle echelle, CommandXboxController controller) {
+  public ControlSortieEchelleCommand(Echelle echelle, CommandXboxController controller, StageEchelleCommand stage) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.echelle = echelle;
     this.controller = controller;
+    this.stage = stage;
   }
 
   // Called when the command is initially scheduled.
@@ -26,8 +30,8 @@ public class ControlBougerBrasCommand extends CommandBase {
   @Override
   public void execute() {
     echelle.Avance(controller.getLeftY());
-    echelle.Monte(controller.getRightY());
     echelle.Replie(controller.getRightTriggerAxis() - controller.getLeftTriggerAxis());
+     
 
     
   }

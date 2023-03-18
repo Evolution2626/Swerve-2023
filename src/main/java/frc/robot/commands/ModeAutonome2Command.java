@@ -28,12 +28,12 @@ public class ModeAutonome2Command extends SequentialCommandGroup {
     this.echelle = echelle;
 
       addCommands(new XYRCommand(drivetrain, limelight, 1.5, 1, 0, isFinished()));
-      addCommands(new BougerBrasCommand(echelle, 0,0,0));// deploie le bras
+      addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
       addCommands(new PinceCommand(true));    // ouvre la pince  
       addCommands(new XYRCommand(drivetrain, limelight, 6.6, 1, 0, isFinished()));
-      addCommands(new BougerBrasCommand(echelle, 0, 0, 0));//descendre le bras
+      addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
       addCommands(new PinceCommand(false)); // ferme la pince 
-      addCommands(new BougerBrasCommand(echelle, 0, 0, 0)); //monte la pince
+      addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
       addCommands(new XYRCommand(drivetrain, limelight, 1.5, 1, 0, isFinished()));
       addCommands(new PinceCommand(true));// ouvre la pince
    }

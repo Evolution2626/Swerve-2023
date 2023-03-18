@@ -5,11 +5,15 @@
 package frc.robot.subsystems;
 
 
+import java.util.ArrayList;
+
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -20,10 +24,18 @@ public class Echelle extends SubsystemBase {
   private VictorSPX replieur;
   private VictorSPX avanceur;
 
+  private DigitalInput stage1;
+  private DigitalInput stage2;
+  private DigitalInput stage3;
+
   /** Creates a new Echelle. */
   public Echelle() {
   
-    monteur2= new TalonSRX(Constants.CAN.MONTEUR2);
+    stage1 = new DigitalInput(Constants.DIGITAL.STAGE1);
+    stage2 = new DigitalInput(Constants.DIGITAL.STAGE2);
+    stage3 = new DigitalInput(Constants.DIGITAL.STAGE3);
+
+    monteur2 = new TalonSRX(Constants.CAN.MONTEUR2);
     monteur1 = new TalonSRX(Constants.CAN.MONTEUR1);
     replieur = new VictorSPX(Constants.CAN.REPLIEUR);
     avanceur = new VictorSPX(Constants.CAN.AVANCEUR);
@@ -57,13 +69,24 @@ public class Echelle extends SubsystemBase {
     //monteur2.set(TalonSRXControlMode.PercentOutput, valeur);
 
   }
+
   public double getEncoderValue(){
     return -monteur1.getSelectedSensorPosition();
-}
+  }
 
-public void resetEncoderValue(){
+  public boolean getSensorValue(int stage) {
+    boolean stages[] = new boolean[2];
+
+    stages[0] = stage1.get();
+    stages[1] = stage2.get();
+    stages[2] = stage3.get();
+
+    return stages[stage];
+  }
+
+  public void resetEncoderValue(){
     monteur1.setSelectedSensorPosition(0);
-}
+  }
 
   @Override
   public void periodic() {

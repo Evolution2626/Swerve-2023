@@ -32,12 +32,9 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     
     addCommands(new XYRCommand(drivetrain, limelight, 1.8, 4.4, 0, isFinished()));
-    addCommands(new BougerBrasCommand(echelle, 0,0,0));// deploie le bras
+    addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
     addCommands(new PinceCommand(true));// ouvre la pince
-    addCommands(new BougerBrasCommand(echelle, 0,0,0));// replie le bras
-    addCommands(new LimelightXCommand(drivetrain, limelight,  6.1 /** a changer */));//recule hors de la zone de depart
-    addCommands(new LimelightYCommand(drivetrain, limelight,  3.2 /** a changer */));//se place pour monter sur la plateform
-    addCommands(new LimelightXCommand(drivetrain, limelight,  3.7 /** a changer */));// vas sur la plateform
+    addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
     addCommands(new XYRCommand(drivetrain, limelight, 6.1, 3.2, 0, isFinished()));
     addCommands(new XYRCommand(drivetrain, limelight, 3.7, 3.2, 0, isFinished()));
 

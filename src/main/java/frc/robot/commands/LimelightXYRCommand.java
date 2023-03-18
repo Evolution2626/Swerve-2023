@@ -22,6 +22,11 @@ public class LimelightXYRCommand extends CommandBase {
 
   public static boolean stop = false;
 
+  double distanceX;
+  double distanceY;
+
+  double distanceXfin;
+  double distanceYfin;
 
   /** Creates a new LimelightYRotationCommand. */
   public LimelightXYRCommand(Drivetrain drivetrain, Limelight limelight, double rangeX, double rangeY) {
@@ -32,7 +37,7 @@ public class LimelightXYRCommand extends CommandBase {
       this.rangeY = rangeY;
         // The controller that the command will use
        //pidRotation = new PIDController(0.2, 0, 0);
-       pid = new PIDController(0.5, 0, 0);
+       pid = new PIDController(1, 0, 0);
 
   }
 
@@ -55,8 +60,7 @@ public class LimelightXYRCommand extends CommandBase {
     double positionY = limelight.getRobotPosition()[1];
     double positionX = limelight.getRobotPosition()[0];
 
-    double distanceX = 0;
-    double distanceY = 0;
+
 
     if(isInverted()){
       distanceX = (rangeX - positionX) * -1;
@@ -66,16 +70,19 @@ public class LimelightXYRCommand extends CommandBase {
       distanceY = rangeY - positionY;
     }
 
+    System.out.println("Distance x (a):" + distanceX);
+    System.out.println("Distance y (a):" + distanceY);
+
      if(Math.abs(distanceX) > Math.abs(distanceY)){
-      distanceX = distanceX/Math.abs(distanceX);
-      distanceY = distanceY/Math.abs(distanceX);
+      distanceXfin = distanceX/Math.abs(distanceX);
+      distanceYfin = distanceY/Math.abs(distanceX);
     }else{
-      distanceX = distanceX/Math.abs(distanceY);
-      distanceY = distanceY/Math.abs(distanceY);
+      distanceXfin = distanceX/Math.abs(distanceY);
+      distanceYfin = distanceY/Math.abs(distanceY);
     }
 
-    System.out.println("Distance x:" + distanceX);
-    System.out.println("Distance y:" + distanceY);
+    System.out.println("Distance x:" + distanceXfin);
+    System.out.println("Distance y:" + distanceYfin);
 
 
     //double distanceR = limelight.getRobotPosition()[5];
@@ -88,11 +95,11 @@ public class LimelightXYRCommand extends CommandBase {
     //double rotation = pidRotation.calculate(0, distanceR);
     double rotation = 0.0;
     if(limelight.getIsTargetFound()){
-      if(limelight.getRobotPosition()[1] >= rangeX-0.05 && limelight.getRobotPosition()[1] <= rangeX+0.05 && limelight.getRobotPosition()[0] >= rangeY-0.05 && limelight.getRobotPosition()[0] <= rangeY+0.05){
+      if(limelight.getRobotPosition()[0] >= rangeX-0.2 && limelight.getRobotPosition()[0] <= rangeX+0.2 && limelight.getRobotPosition()[1] >= rangeY-0.2 && limelight.getRobotPosition()[1] <= rangeY+0.2){
         stop = true;
         drivetrain.driveSwerve(0, 0, 0, false);
       }else{
-        drivetrain.driveSwerve(Range.coerce(1, speed) * distanceX, Range.coerce(1, speed) * distanceY, rotation, false);
+        drivetrain.driveSwerve(Range.coerce(1, speed) * distanceXfin, Range.coerce(1, speed) * distanceYfin, rotation, false);
       }
     }else{
       stop = true;
@@ -120,9 +127,9 @@ public class LimelightXYRCommand extends CommandBase {
     double degree = limelight.getRobotPosition()[5];
 
     if(degree < 90 && degree > -90){
-      return false;
-    }else{
       return true;
+    }else{
+      return false;
     }
   }
 }
