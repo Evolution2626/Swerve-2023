@@ -28,6 +28,8 @@ public class LimelightXYRCommand extends CommandBase {
     // (
       this.limelight = limelight;
       this.drivetrain = drivetrain;
+      this.rangeX = rangeX;
+      this.rangeY = rangeY;
         // The controller that the command will use
        //pidRotation = new PIDController(0.2, 0, 0);
        pid = new PIDController(0.5, 0, 0);
@@ -50,8 +52,8 @@ public class LimelightXYRCommand extends CommandBase {
     stop = false;
     //pas sure si getRobotPosition marche, on veut que cela donne la distance relative a la cible et non au terrain
     
-    double positionY = limelight.getRobotPosition()[0];
-    double positionX = limelight.getRobotPosition()[1];
+    double positionY = limelight.getRobotPosition()[1];
+    double positionX = limelight.getRobotPosition()[0];
 
     double distanceX = 0;
     double distanceY = 0;
@@ -80,6 +82,7 @@ public class LimelightXYRCommand extends CommandBase {
     double magnitude = Math.sqrt(Math.pow(positionX-rangeX, 2)+Math.pow(positionY-rangeY, 2));
     double speed = pid.calculate(magnitude, 0);
 
+    System.out.println("magnitude:" +magnitude);
     System.out.println("speed factor:" + speed);
 
     //double rotation = pidRotation.calculate(0, distanceR);
@@ -116,10 +119,10 @@ public class LimelightXYRCommand extends CommandBase {
   public boolean isInverted(){
     double degree = limelight.getRobotPosition()[5];
 
-    if(degree < 90 && -90 > degree){
-      return true;
-    }else{
+    if(degree < 90 && degree > -90){
       return false;
+    }else{
+      return true;
     }
   }
 }

@@ -27,7 +27,7 @@ public class ControlBougerBrasCommand extends CommandBase {
   public void execute() {
     echelle.Avance(controller.getLeftY());
     echelle.Monte(controller.getRightY());
-    echelle.Replie(controller.getLeftX());
+    echelle.Replie(controller.getRightTriggerAxis() - controller.getLeftTriggerAxis());
 
     
   }

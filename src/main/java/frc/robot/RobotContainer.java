@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ControlPinceCommand;
 import frc.robot.commands.GyroRotationCommand;
 import frc.robot.commands.LimelightXCommand;
+import frc.robot.commands.LimelightXYRCommand;
 import frc.robot.commands.LimelightYCommand;
 import frc.robot.commands.ModeAutonome1Command;
 import frc.robot.commands.ResetGryoCommand;
@@ -70,7 +71,9 @@ public class RobotContainer {
     controller.rightBumper().whileTrue(new GyroRotationCommand(drivetrain, 0));
 
     controller.a().onTrue(new ResetGryoCommand(drivetrain));
-    controller.leftBumper().whileTrue(new XYRCommand(drivetrain, limelight, -2.82, 5.0, 0.0, false));
+    //controller.leftBumper().whileTrue(new XYRCommand(drivetrain, limelight, -2.82, 5.0, 0.0, false));
+    controller.leftBumper().whileTrue(new LimelightXYRCommand(drivetrain, limelight, 4.85, -2.82));
+
     //controller.rightTrigger().whileTrue(new ModeAutonome1Command(drivetrain, limelight, pince, echelle));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
