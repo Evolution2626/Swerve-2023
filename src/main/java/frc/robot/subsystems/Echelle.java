@@ -5,8 +5,6 @@
 package frc.robot.subsystems;
 
 
-import java.util.ArrayList;
-
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;

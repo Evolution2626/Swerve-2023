@@ -30,7 +30,9 @@ public class LimelightXCommand extends PIDCommand {
         () -> range,
         // This uses the output
         output -> {
+         // System.out.println(output);
           // Use the output here
+
           limelight.setLEDMode(3);
           stop = false;
           if(limelight.getIsTargetFound()){
@@ -40,11 +42,11 @@ public class LimelightXCommand extends PIDCommand {
             }else{
               double degree = limelight.getRobotPosition()[5];
 
-              if(degree < 90 && -90 > degree){
-                drivetrain.driveSwerve(output,0, 0, false);
+              if(degree < 90 && degree > -90){
+                drivetrain.driveSwerve(-output,0, 0, false);
               }
               else{
-                drivetrain.driveSwerve(-output,0, 0, false);
+                drivetrain.driveSwerve(output,0, 0, false);
               } 
 
             }

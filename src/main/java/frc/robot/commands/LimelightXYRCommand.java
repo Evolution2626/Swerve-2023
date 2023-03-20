@@ -95,29 +95,44 @@ public class LimelightXYRCommand extends CommandBase {
 
     //double rotation = pidRotation.calculate(0, distanceR);
     double rotation = 0.0;
+    double speedX = 0;
+    double speedY = 0;
     if(limelight.getIsTargetFound()){
       if(limelight.getRobotPosition()[0] >= rangeX-0.5 && limelight.getRobotPosition()[0] <= rangeX+0.5){
-        drivetrain.driveSwerve(0, Range.coerce(1, speed) * -distanceYfin, rotation, false);
+        //drivetrain.driveSwerve(0, Range.coerce(1, speed) * -distanceYfin, rotation, false);
+        speedX = 0;
+        speedY = Range.coerce(1, speed) * -distanceYfin;
         SmartDashboard.putString("condition", "y");
       }
 
-  if(limelight.getRobotPosition()[1] >= rangeY-0.5 && limelight.getRobotPosition()[1] <= rangeY+0.5){
-        drivetrain.driveSwerve(Range.coerce(1, speed) * distanceXfin, 0, rotation, false);
+      if(limelight.getRobotPosition()[1] >= rangeY-0.5 && limelight.getRobotPosition()[1] <= rangeY+0.5){
+        //drivetrain.driveSwerve(Range.coerce(1, speed) * distanceXfin, 0, rotation, false);
+        speedX = Range.coerce(1, speed) * distanceXfin;
+        speedY = 0;
         SmartDashboard.putString("condition", "x");
       }
 
-  if(limelight.getRobotPosition()[1] >= rangeY-0.5 && limelight.getRobotPosition()[1] <= rangeY+0.5 && limelight.getRobotPosition()[0] >= rangeX-0.5 && limelight.getRobotPosition()[0] <= rangeX+0.5) {
-        drivetrain.driveSwerve(0, 0, rotation, false);
+      if(limelight.getRobotPosition()[1] >= rangeY-0.5 && limelight.getRobotPosition()[1] <= rangeY+0.5 && limelight.getRobotPosition()[0] >= rangeX-0.5 && limelight.getRobotPosition()[0] <= rangeX+0.5) {
+        //drivetrain.driveSwerve(0, 0, rotation, false);
+        speedX = 0;
+        speedY = 0;
         SmartDashboard.putString("condition", "fini");
         stop = true;
-      }
-      else{
-        drivetrain.driveSwerve(Range.coerce(1, speed) * distanceXfin, Range.coerce(1, speed) * -distanceYfin, rotation, false);
+      }else{
+        //drivetrain.driveSwerve(Range.coerce(1, speed) * distanceXfin, Range.coerce(1, speed) * -distanceYfin, rotation, false);
+        speedX = Range.coerce(1, speed) * distanceXfin;
+        speedY = Range.coerce(1, speed) * -distanceYfin;
         SmartDashboard.putString("condition", "xy");
       }
+
+
+      SmartDashboard.putNumber("speedY", speedY);
+      SmartDashboard.putNumber("speedX", speedX);
+      drivetrain.driveSwerve(speedX, speedY, rotation, false);
     }else{
       stop = true;
     }
+
     SmartDashboard.putNumber("distanceX", rangeX - positionX);
     SmartDashboard.putNumber("distanceY", rangeY - positionY);
     SmartDashboard.putNumber("magnitude", magnitude);

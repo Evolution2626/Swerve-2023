@@ -15,7 +15,7 @@ public class XYRCommand extends SequentialCommandGroup {
   Drivetrain drivetrain;
   Limelight limelight;
   /** Creates a new XYRCommand. */
-  public XYRCommand(Drivetrain drivetrain, Limelight limelight,double rangeX, double rangeY, double rangeR, boolean isInverted) {
+  public XYRCommand(Drivetrain drivetrain, Limelight limelight,double rangeX, double rangeY, double rangeR) {
     this.limelight = limelight;
     this.drivetrain = drivetrain;
     addRequirements(drivetrain, limelight);
@@ -24,7 +24,7 @@ public class XYRCommand extends SequentialCommandGroup {
     for(int i =0; i < 4; i++){
     addCommands(new LimelightYCommand(drivetrain, limelight, rangeY /** a changer */));
     addCommands(new GyroRotationCommand(drivetrain, rangeR));
-    addCommands(new LimelightXCommand(drivetrain, limelight,  rangeX /** a changer */ ));
+    addCommands(new LimelightXCommand(drivetrain, limelight, rangeX /** a changer */ ));
     addCommands(new GyroRotationCommand(drivetrain, rangeR));
     addCommands(new LimelightYCommand(drivetrain, limelight, rangeY /** a changer */));
     addCommands(new GyroRotationCommand(drivetrain, rangeR));

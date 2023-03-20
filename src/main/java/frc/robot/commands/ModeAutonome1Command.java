@@ -31,12 +31,12 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     
-    addCommands(new XYRCommand(drivetrain, limelight, 1.8, 4.4, 0, isFinished()));
+    addCommands(new XYRCommand(drivetrain, limelight, 1.8, 4.4, 0));
     addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
     addCommands(new PinceCommand(true));// ouvre la pince
     addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
-    addCommands(new XYRCommand(drivetrain, limelight, 6.1, 3.2, 0, isFinished()));
-    addCommands(new XYRCommand(drivetrain, limelight, 3.7, 3.2, 0, isFinished()));
+    addCommands(new XYRCommand(drivetrain, limelight, 6.1, 3.2, 0));
+    addCommands(new XYRCommand(drivetrain, limelight, 3.7, 3.2, 0));
 
 
   }

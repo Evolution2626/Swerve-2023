@@ -4,8 +4,6 @@
 
 package frc.robot.commands;
 
-import java.text.BreakIterator;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.Drivetrain;
@@ -42,11 +40,11 @@ public class LimelightYCommand extends PIDCommand {
             }else{
               double degree = limelight.getRobotPosition()[5];
 
-              if(degree < 90 && -90 > degree){
-                drivetrain.driveSwerve(0, -output, 0, false);
+              if(degree < 90 && degree > -90){
+                drivetrain.driveSwerve(0, output, 0, false);
               }
               else{
-                drivetrain.driveSwerve(0, output, 0, false);
+                drivetrain.driveSwerve(0, -output, 0, false);
               } 
 
             }

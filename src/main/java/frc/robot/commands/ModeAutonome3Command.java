@@ -27,7 +27,7 @@ public class ModeAutonome3Command extends SequentialCommandGroup {
     this.limelight = limelight;
     this.pince = pince;
     this.echelle = echelle;
-      addCommands(new XYRCommand(drivetrain, limelight, 6.6, 1, 0, isFinished()));
+      addCommands(new XYRCommand(drivetrain, limelight, 6.6, 1, 0));
 
 
    }
