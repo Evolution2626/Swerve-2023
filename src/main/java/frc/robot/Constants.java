@@ -47,6 +47,9 @@ public final class Constants {
     int STAGE1 = 6;
     int STAGE2 = 7;
     int STAGE3 = 8;
+
+    int RENTRER = 9;
+    int SORTI = 10;
   }
 
   public interface USB {

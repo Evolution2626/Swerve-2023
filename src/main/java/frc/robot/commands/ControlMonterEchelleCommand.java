@@ -11,9 +11,6 @@ public class ControlMonterEchelleCommand extends CommandBase {
   Echelle echelle;
   double monte;
   int stage;
-  private DigitalInput stage1;
-  private DigitalInput stage2;
-  private DigitalInput stage3;
   XboxController controller; 
 
 

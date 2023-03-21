@@ -26,12 +26,18 @@ public class Echelle extends SubsystemBase {
   private DigitalInput stage2;
   private DigitalInput stage3;
 
+  private DigitalInput rentrer; 
+  private DigitalInput sorti;
+
   /** Creates a new Echelle. */
   public Echelle() {
   
     stage1 = new DigitalInput(Constants.DIGITAL.STAGE1);
     stage2 = new DigitalInput(Constants.DIGITAL.STAGE2);
     stage3 = new DigitalInput(Constants.DIGITAL.STAGE3);
+
+    rentrer = new DigitalInput(Constants.DIGITAL.RENTRER);
+    sorti = new DigitalInput(Constants.DIGITAL.SORTI);
 
     monteur2 = new TalonSRX(Constants.CAN.MONTEUR2);
     monteur1 = new TalonSRX(Constants.CAN.MONTEUR1);
@@ -86,6 +92,20 @@ public class Echelle extends SubsystemBase {
     monteur1.setSelectedSensorPosition(0);
   }
 
+  public double getCapteurValue(){
+    return avanceur.getSelectedSensorPosition();
+  }
+
+  public boolean getCapteurActiver(int capteur0){
+
+    boolean echelleX[] = new boolean[1];
+
+    echelleX[0] = rentrer.get();
+    echelleX[1] = sorti.get();
+
+    return echelleX[capteur0];
+
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
