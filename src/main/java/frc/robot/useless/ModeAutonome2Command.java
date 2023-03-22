@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.GyroRotationCommand;
 import frc.robot.commands.LimelightXYCommand;
 import frc.robot.commands.PinceCommand;
-import frc.robot.commands.StageEchelleCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
 import frc.robot.subsystems.Limelight;

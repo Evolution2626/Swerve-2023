@@ -9,7 +9,6 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Pince;
-import frc.robot.useless.XYRCommand;
 //Devant april tag 1 ou 3(3 points) SECOURS SEULEMEMT
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

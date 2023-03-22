@@ -38,8 +38,6 @@ public class LimelightYCommand extends PIDCommand {
               stop = true;
               drivetrain.driveSwerve(0, 0, 0, false);
             }else{
-              double degree = limelight.getRobotPosition()[5];
-
               for(int i = 0; i <= Math.round(limelight.getTagID().length); i++ ){
                 if(limelight.getTagID()[i] == 1 || limelight.getTagID()[i] == 2 || limelight.getTagID()[i] == 3 || limelight.getTagID()[i] == 4){
                   drivetrain.driveSwerve(0, -output, 0, false);

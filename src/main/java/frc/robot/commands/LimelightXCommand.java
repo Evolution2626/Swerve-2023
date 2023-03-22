@@ -4,8 +4,6 @@
 
 package frc.robot.commands;
 
-import org.opencv.core.Size;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.Drivetrain;
@@ -35,6 +33,9 @@ public class LimelightXCommand extends PIDCommand {
          // System.out.println(output);
           // Use the output here
 
+          // red: 1,2,3,4
+         // blue: 5,6,7,8
+
           limelight.setLEDMode(3);
           stop = false;
           if(limelight.getIsTargetFound()){
@@ -42,19 +43,15 @@ public class LimelightXCommand extends PIDCommand {
               stop = true;
               drivetrain.driveSwerve(0, 0, 0, false);
             }else{
-              double degree = limelight.getRobotPosition()[5];
-// red: 1,2,3,4
-// blue: 5,6,7,8
-          for(int i = 0; i <= Math.round(limelight.getTagID().length); i++ ){
-              if(limelight.getTagID()[i] == 1 || limelight.getTagID()[i] == 2 || limelight.getTagID()[i] == 3 || limelight.getTagID()[i] == 4){
-                drivetrain.driveSwerve(-output,0, 0, false);
+              for(int i = 0; i <= Math.round(limelight.getTagID().length); i++ ){
+                if(limelight.getTagID()[i] == 1 || limelight.getTagID()[i] == 2 || limelight.getTagID()[i] == 3 || limelight.getTagID()[i] == 4){
+                  drivetrain.driveSwerve(-output,0, 0, false);
+                }
+                else if(limelight.getTagID()[i] == 5 || limelight.getTagID()[i] == 6 || limelight.getTagID()[i] == 7 || limelight.getTagID()[i] == 8){
+                  drivetrain.driveSwerve(output,0, 0, false);
+                } 
               }
-              else if(limelight.getTagID()[i] == 5 || limelight.getTagID()[i] == 6 || limelight.getTagID()[i] == 7 || limelight.getTagID()[i] == 8){
-                drivetrain.driveSwerve(output,0, 0, false);
-              } 
             }
-            }
-          
           }else{
             stop = true;
           }

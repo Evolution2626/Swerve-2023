@@ -4,14 +4,12 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Pince;
-//Devant le april tag 1 (21 points)
-import frc.robot.useless.XYRCommand;
+import frc.robot.useless.StageEchelleCommand;
 
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more

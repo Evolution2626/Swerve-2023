@@ -117,53 +117,6 @@ public class Drivetrain extends SubsystemBase {
     
   }
 
-  public void setJello(double rotationSpeed){
-    if(rotationSpeed <= -0.1 || rotationSpeed >= 0.1){
-      
-    }
-    else{
-      isRotating = false;
-      flRotationMotor.setClosedLoopRampRate(0.15);
-      frRotationMotor.setClosedLoopRampRate(0.15);
-      blRotationMotor.setClosedLoopRampRate(0.15);
-      brRotationMotor.setClosedLoopRampRate(0.15);
-    
-  
-      flDriveMotor.setClosedLoopRampRate(0.5);
-      frDriveMotor.setClosedLoopRampRate(0.5);
-      blDriveMotor.setClosedLoopRampRate(0.5);
-      brDriveMotor.setClosedLoopRampRate(0.5);
-  
-      flDriveMotor.setOpenLoopRampRate(0.3);
-      frDriveMotor.setOpenLoopRampRate(0.3);
-      blDriveMotor.setOpenLoopRampRate(0.3);
-      brDriveMotor.setOpenLoopRampRate(0.3);
-    }
-    if(rotationSpeed <= -0.1 || rotationSpeed >= 0.1 && isRotating == false){ 
-      //motorOutputPIDDrive = new PIDController(0.25, 0, 0); 
-      isRotating = true;
-  
-      flRotationMotor.setClosedLoopRampRate(0.15);
-      frRotationMotor.setClosedLoopRampRate(0.15);
-      blRotationMotor.setClosedLoopRampRate(0.15);
-      brRotationMotor.setClosedLoopRampRate(0.15);
-    
-  
-      flDriveMotor.setClosedLoopRampRate(0.1);
-      frDriveMotor.setClosedLoopRampRate(0.1);
-      blDriveMotor.setClosedLoopRampRate(0.1);
-      brDriveMotor.setClosedLoopRampRate(0.1);
-      
-
-      
-    }
-    else{
-      //motorOutputPIDDrive = new PIDController(0.55, 0, 0); 
-      
-     
-    }
-   
-  }
   public double getGyroAngle(){
     return gyro.getAngle();
   }
