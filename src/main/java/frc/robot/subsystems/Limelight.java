@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -18,6 +20,9 @@ public class Limelight extends SubsystemBase {
   private double _hearBeatPeriod = 0.1;
 
   private double[] lastPosition;
+
+  public Translation2d robotPos;
+  public Translation2d setpoint;
 
 
 
@@ -288,6 +293,27 @@ public class Limelight extends SubsystemBase {
       Snapshot mode = Snapshot.getByValue(snshot );        
       return mode;
   }
+
+  public double calculateNorm(double x, double y){
+     
+    setpoint = new Translation2d(x, y);
+    robotPos = new Translation2d(getRobotPosition()[0], getRobotPosition()[0]);
+    
+    double norm = (setpoint.minus(robotPos)).getNorm();
+
+    return norm;
+  }
+
+  public Rotation2d calculateAngle(double x, double y){
+     
+    setpoint = new Translation2d(x, y);
+    robotPos = new Translation2d(getRobotPosition()[0], getRobotPosition()[0]);
+    
+    Rotation2d angle = (setpoint.minus(robotPos)).getAngle();
+
+    return angle;
+  }
+
 
 
   @Override
