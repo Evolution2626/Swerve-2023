@@ -314,6 +314,10 @@ public class Limelight extends SubsystemBase {
     return angle;
   }
 
+  public double[] getTagID(){
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getDoubleArray(new double[6]);
+  }
+
 
 
   @Override

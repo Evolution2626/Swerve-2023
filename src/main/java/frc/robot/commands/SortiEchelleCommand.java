@@ -26,11 +26,29 @@ public class SortiEchelleCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
     if(echelle.getCapteurActiver(0) == true && capteur == 1){
       while(echelle.getCapteurActiver(1) == false){
         echelle.Avance(avanceur);
       }
     }
+    
+    if(avanceur < 0) {
+
+      echelle.Replie(-1);;
+
+    } else if(avanceur > 0) {
+
+      echelle.Replie(1);
+
+    } else {
+
+      echelle.Replie(0);
+
+    }
+    
+
+
   }
 
   // Called once the command ends or is interrupted.

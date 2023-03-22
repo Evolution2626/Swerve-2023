@@ -40,13 +40,14 @@ public class LimelightYCommand extends PIDCommand {
             }else{
               double degree = limelight.getRobotPosition()[5];
 
-              if(degree < 90 && degree > -90){
-                drivetrain.driveSwerve(0, output, 0, false);
+              for(int i = 0; i <= Math.round(limelight.getTagID().length); i++ ){
+                if(limelight.getTagID()[i] == 1 || limelight.getTagID()[i] == 2 || limelight.getTagID()[i] == 3 || limelight.getTagID()[i] == 4){
+                  drivetrain.driveSwerve(0, -output, 0, false);
+                }
+                else if(limelight.getTagID()[i] == 5 || limelight.getTagID()[i] == 6 || limelight.getTagID()[i] == 7 || limelight.getTagID()[i] == 8){
+                  drivetrain.driveSwerve(0,output, 0, false);
+                } 
               }
-              else{
-                drivetrain.driveSwerve(0, -output, 0, false);
-              } 
-
             }
           }else{
             stop = true;

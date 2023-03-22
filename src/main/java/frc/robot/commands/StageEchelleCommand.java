@@ -49,25 +49,25 @@ public class StageEchelleCommand extends CommandBase {
        while(echelle.getSensorValue(1) == false){
            echelle.Monte(-monte);
        }
-        }
+      }
 
      if(echelle.getSensorValue(1) == true && stage == 0){
         while(echelle.getSensorValue(0) == false){
            echelle.Monte(-monte);
         }
-          }
+      }
 
-          if(echelle.getSensorValue(0) == true && stage == 2 ){
-            while(echelle.getSensorValue(2) == false){
-               echelle.Monte(monte);
-            }
-              }
+      if(echelle.getSensorValue(0) == true && stage == 2 ){
+        while(echelle.getSensorValue(2) == false){
+            echelle.Monte(monte);
+        }
+      }
 
-              if(echelle.getSensorValue(2) == true && stage == 0 ){
-                while(echelle.getSensorValue(0) == false){
-                   echelle.Monte(-monte);
-                }
-                  }
+      if(echelle.getSensorValue(2) == true && stage == 0 ){
+        while(echelle.getSensorValue(0) == false){
+          echelle.Monte(-monte);
+        }
+      }
 
   }
 

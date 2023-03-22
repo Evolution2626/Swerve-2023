@@ -9,6 +9,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Pince;
+import frc.robot.useless.XYRCommand;
 
 //
 
@@ -31,13 +32,14 @@ public class ModeAutonome4Command extends SequentialCommandGroup {
     this.pince = pince;
     this.echelle = echelle;
 
-    addCommands(new XYRCommand(drivetrain, limelight, 1.5, 2.7, 0));
+    addCommands(new LimelightXYCommand(drivetrain, limelight, 1.5, 2.7));
     addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
     addCommands(new PinceCommand(false)); // ferme la pince  
     addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
-    addCommands(new LimelightYCommand(drivetrain, limelight,   2.7 /** a changer */));//se place pour monter sur la plateform
-    addCommands(new LimelightXCommand(drivetrain, limelight,   4 /** a changer */));// vas sur la plateform
-    addCommands(new XYRCommand(drivetrain, limelight, 4, 2.7, 0));
+    addCommands(new LimelightXYCommand(drivetrain, limelight, 2.7, 4));// vas sur la plateform
+    addCommands(new GyroRotationCommand(drivetrain, 0));
+    addCommands(new LimelightXYCommand(drivetrain, limelight, 4, 2.7));
+    addCommands(new GyroRotationCommand(drivetrain, 0));
   }
 }
    
