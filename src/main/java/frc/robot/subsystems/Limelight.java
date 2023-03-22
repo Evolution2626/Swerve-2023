@@ -297,7 +297,7 @@ public class Limelight extends SubsystemBase {
   public double calculateNorm(double x, double y){
      
     setpoint = new Translation2d(x, y);
-    robotPos = new Translation2d(getRobotPosition()[0], getRobotPosition()[0]);
+    robotPos = new Translation2d(getRobotPosition()[0], getRobotPosition()[0]);  //MUST CHOOSE THE RIGHT ARRAY ELEMENT
     
     double norm = (setpoint.minus(robotPos)).getNorm();
 
@@ -307,7 +307,7 @@ public class Limelight extends SubsystemBase {
   public Rotation2d calculateAngle(double x, double y){
      
     setpoint = new Translation2d(x, y);
-    robotPos = new Translation2d(getRobotPosition()[0], getRobotPosition()[0]);
+    robotPos = new Translation2d(getRobotPosition()[0], getRobotPosition()[0]);  //MUST CHOOSE THE RIGHT ARRAY ELEMENT
     
     Rotation2d angle = (setpoint.minus(robotPos)).getAngle();
 
