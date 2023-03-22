@@ -18,31 +18,29 @@ public class Pince extends SubsystemBase {
   private CANSparkMax moteurGobbeur;
   private DoubleSolenoid piston;
 
-
-
   public Pince() {
 
     piston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.PCM.PISTON_PINCE_FORWARD, Constants.PCM.PISTON_PINCE_REVERSE);
     //moteurGobbeur = new CANSparkMax(Constants.CAN.GOBBEUR, MotorType.kBrushless);
-}
+  }
 
-public void pinceOuvert() {
+  public void pinceOuvert() {
 
-  piston.set(DoubleSolenoid.Value.kReverse);
+    piston.set(DoubleSolenoid.Value.kReverse);
 
-}
+  }
 
-public void pinceFerme() {
+  public void pinceFerme() {
 
-  piston.set(DoubleSolenoid.Value.kForward);
+    piston.set(DoubleSolenoid.Value.kForward);
 
-}
+  }
 
-public void setMoteurSpeed(double valeur) {
+  public void setMoteurSpeed(double valeur) {
 
-  //moteurGobbeur.set(VictorSPXControlMode.PercentOutput, valeur);
+    //moteurGobbeur.set(VictorSPXControlMode.PercentOutput, valeur);
 
-}
+  }
 
   @Override
   public void periodic() {

@@ -8,7 +8,7 @@ public class GyroRotationCommand extends PIDCommand{
     
   Drivetrain drivetrain;
   
-  public static boolean stop = false;
+  private static boolean stop = false;
   /** Creates a new LimelightRotationCommand. */
   public GyroRotationCommand(Drivetrain drivetrain) {
     super(

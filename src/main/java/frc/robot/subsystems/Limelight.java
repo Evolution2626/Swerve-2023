@@ -315,7 +315,7 @@ public class Limelight extends SubsystemBase {
   }
 
   public double[] getTagID(){
-    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getDoubleArray(new double[6]);
+    return networkTable.getEntry("tid").getDoubleArray(new double[6]);
   }
 
 

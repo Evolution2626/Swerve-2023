@@ -34,17 +34,13 @@ public class SortiEchelleCommand extends CommandBase {
     }
     
     if(avanceur < 0) {
-
       echelle.Replie(-1);;
 
     } else if(avanceur > 0) {
-
       echelle.Replie(1);
-
+      
     } else {
-
       echelle.Replie(0);
-
     }
     
 

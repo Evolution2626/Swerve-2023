@@ -22,6 +22,7 @@ public class ModeAutonome4Command extends SequentialCommandGroup {
   Limelight limelight;
   Pince pince;
   Echelle echelle;
+//place le bloc de debut(6 pts a 5pts) et vas sur la plateform (12 pts). pts 17/18 
 
   /** Creates a new ModeAutonome1Command. */
   public ModeAutonome4Command(Drivetrain drivetrain, Limelight limelight, Pince pince, Echelle echelle) {

@@ -19,17 +19,15 @@ public class ModeAutonome3Command extends SequentialCommandGroup {
   Limelight limelight;
   Pince pince;
   Echelle echelle;
-  
-  public ModeAutonome3Command(Drivetrain drivetrain, Limelight limelight, Pince pince, Echelle echelle)
-  {
+  //sort de la zone(3 pts). pts 3
 
+  public ModeAutonome3Command(Drivetrain drivetrain, Limelight limelight, Pince pince, Echelle echelle){
     this.drivetrain = drivetrain;
     this.limelight = limelight;
     this.pince = pince;
     this.echelle = echelle;
-      addCommands(new LimelightXYCommand(drivetrain, limelight, 6.6, 1));
-      addCommands(new GyroRotationCommand(drivetrain));
 
-
+    addCommands(new LimelightXYCommand(drivetrain, limelight, 6.6, 1));
+    addCommands(new GyroRotationCommand(drivetrain));
    }
   }

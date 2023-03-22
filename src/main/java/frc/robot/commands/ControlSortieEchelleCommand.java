@@ -32,9 +32,6 @@ public class ControlSortieEchelleCommand extends CommandBase {
   public void execute() {
     echelle.Avance(controller.getLeftY());
     echelle.Replie(controller.getRightTriggerAxis() - controller.getLeftTriggerAxis());
-     
-
-    
   }
 
   // Called once the command ends or is interrupted.

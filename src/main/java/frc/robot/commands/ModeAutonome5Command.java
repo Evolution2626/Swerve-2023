@@ -21,6 +21,7 @@ public class ModeAutonome5Command extends SequentialCommandGroup {
   Limelight limelight;
   Pince pince;
   Echelle echelle;
+//vas sur la plateform (12 pts). pts 12
 
   /** Creates a new ModeAutonome1Command. */
   public ModeAutonome5Command(Drivetrain drivetrain, Limelight limelight, Pince pince, Echelle echelle ) {

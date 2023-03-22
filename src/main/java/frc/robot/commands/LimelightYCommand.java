@@ -17,7 +17,7 @@ public class LimelightYCommand extends PIDCommand {
   /** Creates a new Limelight1mCommand. */
   Drivetrain drivetrain;
   Limelight limelight;
-  public static boolean stop = false;
+  private static boolean stop = false;
 
   public LimelightYCommand(Drivetrain drivetrain, Limelight limelight, double target) {
     

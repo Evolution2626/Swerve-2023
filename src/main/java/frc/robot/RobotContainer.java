@@ -11,10 +11,12 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ControlPinceCommand;
 import frc.robot.commands.GyroRotationCommand;
 import frc.robot.commands.LimelightXCommand;
+import frc.robot.commands.LimelightXYCommand;
 import frc.robot.commands.LimelightYCommand;
 import frc.robot.commands.ResetGryoCommand;
 import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Echelle;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Pince;
 import frc.robot.useless.XYRCommand;
@@ -31,7 +33,7 @@ public class RobotContainer {
   
   private static final Drivetrain drivetrain = new Drivetrain();
   private static final Limelight limelight = new Limelight();
-  //private static final Echelle echelle = new Echelle();
+  private static final Echelle echelle = new Echelle();
   private static final CommandXboxController controller = new CommandXboxController(Constants.USB.DRIVER_CONTROLLER);
   private static final CommandXboxController controller2 = new CommandXboxController(Constants.USB.DRIVER_CONTROLLERCOPILOT);
   private static final Pince pince = new Pince();
@@ -68,8 +70,7 @@ public class RobotContainer {
     controller.rightBumper().whileTrue(new GyroRotationCommand(drivetrain));
 
     controller.a().onTrue(new ResetGryoCommand(drivetrain));
-    //controller.leftBumper().whileTrue(new XYRCommand(drivetrain, limelight, -2.82, 5.0, 0.0, false));
-    controller.leftBumper().whileTrue(new XYRCommand(drivetrain, limelight,5, -2.82, 0));
+    controller.leftBumper().whileTrue(new LimelightXYCommand(drivetrain, limelight,5, -2.82));
 
     //controller.rightTrigger().whileTrue(new ModeAutonome1Command(drivetrain, limelight, pince, echelle));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,

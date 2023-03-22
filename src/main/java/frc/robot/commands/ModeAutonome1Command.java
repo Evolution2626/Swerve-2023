@@ -21,7 +21,7 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
   Limelight limelight;
   Pince pince;
   Echelle echelle;
-
+//place le bloc de debut(6 pts a 5pts), sort de la zone(3 pts) et vas sur la plateform (12 pts). pts 21/20
   /** Creates a new ModeAutonome1Command. */
   public ModeAutonome1Command(Drivetrain drivetrain, Limelight limelight, Pince pince, Echelle echelle ) {
     this.drivetrain = drivetrain;
@@ -33,9 +33,9 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
     
     addCommands(new LimelightXYCommand(drivetrain, limelight, 1.8, 4.4));
     addCommands(new GyroRotationCommand(drivetrain));
-    addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
-    addCommands(new PinceCommand(true));// ouvre la pince
-    addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
+    addCommands(new StageEchelleCommand(echelle, 0.2,2));
+    addCommands(new PinceCommand(true));
+    addCommands(new StageEchelleCommand(echelle, 0.2,0));
     addCommands(new LimelightXYCommand(drivetrain, limelight, 6.1, 3.2));
     addCommands(new GyroRotationCommand(drivetrain));
     addCommands(new LimelightXYCommand(drivetrain, limelight, 3.7, 3.2));

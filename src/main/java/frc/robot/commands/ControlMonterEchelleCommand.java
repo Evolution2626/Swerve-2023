@@ -35,40 +35,41 @@ public class ControlMonterEchelleCommand extends CommandBase {
       while(echelle.getSensorValue(1) == false){
         echelle.Monte(monte);
       }
-       }
+    }
 
     if(echelle.getSensorValue(1) == true && stage == 2){
       while(echelle.getSensorValue(2) == false){
-          echelle.Monte(monte);
-       }
-        }
-     if(echelle.getSensorValue(2) == true && stage == 1){
-       while(echelle.getSensorValue(1) == false){
-           echelle.Monte(-monte);
-       }
-        }
+        echelle.Monte(monte);
+      }
+    }
 
-     if(echelle.getSensorValue(1) == true && stage == 0){
-        while(echelle.getSensorValue(0) == false){
-           echelle.Monte(-monte);
-        }
-          }
+    if(echelle.getSensorValue(2) == true && stage == 1){
+      while(echelle.getSensorValue(1) == false){
+        echelle.Monte(-monte);
+      }
+    }
 
-          if(controller.povDown(null).getAsBoolean()){
-              stage = stage-1;
-          }
+    if(echelle.getSensorValue(1) == true && stage == 0){
+      while(echelle.getSensorValue(0) == false){
+        echelle.Monte(-monte);
+      }
+    }
+
+    if(controller.povDown(null).getAsBoolean()){
+      stage = stage-1;
+    }
      
-          if(controller.povUp(null).getAsBoolean()){
-              stage = stage+1;
-          }
+    if(controller.povUp(null).getAsBoolean()){
+      stage = stage+1;
+    }
 
-          if(stage > 2){
-            stage = 2;
-          }
+    if(stage > 2){
+      stage = 2;
+    }
 
-          if(stage < 0){
-            stage = 0;
-          }
+    if(stage < 0){
+      stage = 0;
+    }
   }
 
   // Called once the command ends or is interrupted.
