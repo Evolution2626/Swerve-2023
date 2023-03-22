@@ -36,9 +36,9 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
     addCommands(new StageEchelleCommand(echelle, 0.2,2));
     addCommands(new PinceCommand(true));
     addCommands(new StageEchelleCommand(echelle, 0.2,0));
-    addCommands(new LimelightXYCommand(drivetrain, limelight, 6.1, 3.2));
+    addCommands(new LimelightXYCommand(drivetrain, limelight, 3.4, -3));
     addCommands(new GyroRotationCommand(drivetrain));
-    addCommands(new LimelightXYCommand(drivetrain, limelight, 3.7, 3.2));
+    addCommands(new LimelightXYCommand(drivetrain, limelight, 3.4, -3.4));
     addCommands(new GyroRotationCommand(drivetrain));
 
 
