@@ -9,21 +9,20 @@ public class GyroRotationCommand extends PIDCommand{
   Drivetrain drivetrain;
   
   public static boolean stop = false;
-  double offset = drivetrain.getGyroAngle();
   /** Creates a new LimelightRotationCommand. */
-  public GyroRotationCommand(Drivetrain drivetrain, double range) {
+  public GyroRotationCommand(Drivetrain drivetrain) {
     super(
       // The controller that the command will use
       new PIDController(0.4, 0.25, 0.01),
       // This should return the measurement
-      () -> 0,
-      // This should return the setpoint (can also be a constant)
       () -> drivetrain.getGyroAngle(),
+      // This should return the setpoint (can also be a constant)
+      () -> 0,
       // This uses the output
       output -> {
         stop = false;
         
-        if(drivetrain.getGyroAngle() >= range-1.5 && drivetrain.getGyroAngle() <= range+1.5){
+        if(drivetrain.getGyroAngle() >= 0-1.5 && drivetrain.getGyroAngle() <= 0+1.5){
           stop = true;
           drivetrain.driveSwerve(0, 0, 0, false);
         }else{

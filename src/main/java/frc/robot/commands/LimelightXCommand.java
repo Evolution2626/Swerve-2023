@@ -21,7 +21,7 @@ public class LimelightXCommand extends PIDCommand {
   Limelight limelight;
   public static boolean stop = false;
 
-  public LimelightXCommand(Drivetrain drivetrain, Limelight limelight, double range) {
+  public LimelightXCommand(Drivetrain drivetrain, Limelight limelight, double target) {
     
     super(
         // The controller that the command will use
@@ -29,7 +29,7 @@ public class LimelightXCommand extends PIDCommand {
         // This should return the measurement
         () -> limelight.getRobotPosition()[1],
         // This should return the setpoint (can also be a constant)
-        () -> range,
+        () -> target,
         // This uses the output
         output -> {
          // System.out.println(output);
@@ -38,7 +38,7 @@ public class LimelightXCommand extends PIDCommand {
           limelight.setLEDMode(3);
           stop = false;
           if(limelight.getIsTargetFound()){
-            if(limelight.getRobotPosition()[1] >= range-0.2 && limelight.getRobotPosition()[1] <= range+0.2){
+            if(limelight.getRobotPosition()[1] >= target-0.2 && limelight.getRobotPosition()[1] <= target+0.2){
               stop = true;
               drivetrain.driveSwerve(0, 0, 0, false);
             }else{

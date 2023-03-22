@@ -34,14 +34,14 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     
     addCommands(new LimelightXYCommand(drivetrain, limelight, 1.8, 4.4));
-    addCommands(new GyroRotationCommand(drivetrain, 0));
+    addCommands(new GyroRotationCommand(drivetrain));
     addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
     addCommands(new PinceCommand(true));// ouvre la pince
     addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
     addCommands(new LimelightXYCommand(drivetrain, limelight, 6.1, 3.2));
-    addCommands(new GyroRotationCommand(drivetrain, 0));
+    addCommands(new GyroRotationCommand(drivetrain));
     addCommands(new LimelightXYCommand(drivetrain, limelight, 3.7, 3.2));
-    addCommands(new GyroRotationCommand(drivetrain, 0));
+    addCommands(new GyroRotationCommand(drivetrain));
 
 
   }

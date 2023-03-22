@@ -31,9 +31,10 @@ public class ModeAutonome5Command extends SequentialCommandGroup {
     this.echelle = echelle;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-  
+    addCommands(new LimelightXYCommand(drivetrain, limelight,2.7 , 3.2));
+    addCommands(new GyroRotationCommand(drivetrain));
     addCommands(new LimelightXYCommand(drivetrain, limelight, 3.7, 3.2));
-    addCommands(new GyroRotationCommand(drivetrain, 0));
+    addCommands(new GyroRotationCommand(drivetrain));
 
 
   }

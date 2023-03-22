@@ -65,7 +65,7 @@ public class RobotContainer {
 
     controller.x().whileTrue(new LimelightXCommand(drivetrain, limelight, -2.82));
     controller.y().whileTrue(new LimelightYCommand(drivetrain, limelight, 5));
-    controller.rightBumper().whileTrue(new GyroRotationCommand(drivetrain, 0));
+    controller.rightBumper().whileTrue(new GyroRotationCommand(drivetrain));
 
     controller.a().onTrue(new ResetGryoCommand(drivetrain));
     //controller.leftBumper().whileTrue(new XYRCommand(drivetrain, limelight, -2.82, 5.0, 0.0, false));

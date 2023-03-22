@@ -37,9 +37,9 @@ public class ModeAutonome4Command extends SequentialCommandGroup {
     addCommands(new PinceCommand(false)); // ferme la pince  
     addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
     addCommands(new LimelightXYCommand(drivetrain, limelight, 2.7, 4));// vas sur la plateform
-    addCommands(new GyroRotationCommand(drivetrain, 0));
+    addCommands(new GyroRotationCommand(drivetrain));
     addCommands(new LimelightXYCommand(drivetrain, limelight, 4, 2.7));
-    addCommands(new GyroRotationCommand(drivetrain, 0));
+    addCommands(new GyroRotationCommand(drivetrain));
   }
 }
    

@@ -23,14 +23,14 @@ public class XYRCommand extends SequentialCommandGroup {
     this.drivetrain = drivetrain;
     addRequirements(drivetrain, limelight);
     // Add your commands in the addCommands() call, e.g.
-    addCommands(new GyroRotationCommand(drivetrain, rangeR));
+    addCommands(new GyroRotationCommand(drivetrain));
     for(int i =0; i < 4; i++){
     addCommands(new LimelightYCommand(drivetrain, limelight, rangeY /** a changer */));
-    addCommands(new GyroRotationCommand(drivetrain, rangeR));
+    addCommands(new GyroRotationCommand(drivetrain));
     addCommands(new LimelightXCommand(drivetrain, limelight, rangeX /** a changer */ ));
-    addCommands(new GyroRotationCommand(drivetrain, rangeR));
+    addCommands(new GyroRotationCommand(drivetrain ));
     addCommands(new LimelightYCommand(drivetrain, limelight, rangeY /** a changer */));
-    addCommands(new GyroRotationCommand(drivetrain, rangeR));
+    addCommands(new GyroRotationCommand(drivetrain));
    
    if(limelight.getIsTargetFound()&&limelight.getRobotPosition()[0] >= rangeY-0.2 && limelight.getRobotPosition()[0] <= rangeY+0.2 && limelight.getRobotPosition()[1] >= rangeX-0.2 && limelight.getRobotPosition()[1] <= rangeX+0.2 && drivetrain.getGyroAngle() >= rangeR-1 && drivetrain.getGyroAngle() <= rangeR+1)
    {

@@ -19,20 +19,20 @@ public class LimelightRotationCommand extends PIDCommand {
   Limelight limelight;
   public static boolean stop = false;
   /** Creates a new LimelightRotationCommand. */
-  public LimelightRotationCommand(Drivetrain drivetrain, Limelight limelight, double range) {
+  public LimelightRotationCommand(Drivetrain drivetrain, Limelight limelight, double target) {
     super(
         // The controller that the command will use
         new PIDController(0.18, 0.25, 0.01),
         // This should return the measurement
       () -> limelight.getRobotPosition()[5],
         // This should return the setpoint (can also be a constant)
-        () -> range,
+        () -> target,
         // This uses the output
         output -> {
           limelight.setLEDMode(3);
           stop = false;
           if(limelight.getIsTargetFound()){
-            if(limelight.getRobotPosition()[5] >= range-0.2 && limelight.getRobotPosition()[5] <= range+0.2){
+            if(limelight.getRobotPosition()[5] >= target-0.2 && limelight.getRobotPosition()[5] <= target+0.2){
               stop = true;
               drivetrain.driveSwerve(0, 0, 0, false);
             }else{

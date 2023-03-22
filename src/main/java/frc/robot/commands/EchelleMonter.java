@@ -20,7 +20,7 @@ public class EchelleMonter extends PIDCommand{
   public static boolean stop = false;
   public Echelle echelle;
 
-  public EchelleMonter(Echelle echelle, double range) {
+  public EchelleMonter(Echelle echelle, double target) {
     
     super(
         // The controller that the command will use
@@ -28,14 +28,14 @@ public class EchelleMonter extends PIDCommand{
         ()-> 0,
         // This should return the measurement
         // This should return the setpoint (can also be a constant)
-        () -> range,
+        () -> target,
         // This uses the output
         output -> {
          // System.out.println(output);
           // Use the output here
         echelle.Monte(output);
           stop = false;
-            if(echelle.getEncoderValue() >= range-2 && echelle.getEncoderValue() <= range+2){
+            if(echelle.getEncoderValue() >= target-2 && echelle.getEncoderValue() <= target+2){
               stop = true;
               echelle.Monte(0.1);
             }
