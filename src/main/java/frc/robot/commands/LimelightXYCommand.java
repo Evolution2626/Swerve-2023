@@ -27,10 +27,12 @@ public class LimelightXYCommand extends PIDCommand {
         // This uses the output
         output -> {
           // Use the output here
-          drivetrain.driveSwerve(
-            output * limelight.calculateAngle(x, y).getCos(),
-            output * limelight.calculateAngle(x, y).getSin(),
-            0, false);
+          if(limelight.getIsTargetFound()){
+              drivetrain.driveSwerve(
+                output * limelight.calculateAngle(x, y).getCos(),
+                output * limelight.calculateAngle(x, y).getSin(),
+                0, false);
+          }
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
