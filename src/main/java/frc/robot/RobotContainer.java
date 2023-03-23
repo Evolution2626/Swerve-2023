@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -13,6 +15,10 @@ import frc.robot.commands.GyroRotationCommand;
 import frc.robot.commands.LimelightXCommand;
 import frc.robot.commands.LimelightXYCommand;
 import frc.robot.commands.LimelightYCommand;
+import frc.robot.commands.ModeAutonome1Command;
+import frc.robot.commands.ModeAutonome3Command;
+import frc.robot.commands.ModeAutonome4Command;
+import frc.robot.commands.ModeAutonome5Command;
 import frc.robot.commands.ResetGryoCommand;
 import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.subsystems.Drivetrain;
@@ -38,18 +44,26 @@ public class RobotContainer {
   private static final CommandXboxController controller2 = new CommandXboxController(Constants.USB.DRIVER_CONTROLLERCOPILOT);
   private static final Pince pince = new Pince();
 
+  private SendableChooser<Command> autoChooser = new SendableChooser<>();
+
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    
+
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, controller));
     configureBindings();
 
     pince.setDefaultCommand(new ControlPinceCommand(controller2, pince));
-
     //echelle.setDefaultCommand(new ControlBougerBrasCommand(echelle, controller2));
+
+    autoChooser.addOption("PlaceBlocSortPlatforme", new ModeAutonome1Command(drivetrain, limelight, pince, echelle));
+    autoChooser.addOption("Sort", new ModeAutonome3Command(drivetrain, limelight, pince, echelle));
+    autoChooser.addOption("PlaceBlocPlateforme", new ModeAutonome4Command(drivetrain, limelight, pince, echelle));
+    autoChooser.addOption("Plateforme", new ModeAutonome5Command(drivetrain, limelight, pince, echelle));
+
+    SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 
   /**
