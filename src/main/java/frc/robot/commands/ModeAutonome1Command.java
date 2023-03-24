@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
@@ -21,6 +23,7 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
   Limelight limelight;
   Pince pince;
   Echelle echelle;
+
 //place le bloc de debut(6 pts a 5pts), sort de la zone(3 pts) et vas sur la plateform (12 pts). pts 21/20
   /** Creates a new ModeAutonome1Command. */
   public ModeAutonome1Command(Drivetrain drivetrain, Limelight limelight, Pince pince, Echelle echelle ) {
@@ -30,6 +33,7 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
     this.echelle = echelle;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    if(DriverStation.getAlliance() == Alliance.Red){
     addCommands(new LimelightXYCommand(drivetrain, limelight, 5.57, -2.96));
     addCommands(new GyroRotationCommand(drivetrain));
     addCommands(new StageEchelleCommand(echelle, 0.2,2));
@@ -41,6 +45,20 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
     addCommands(new GyroRotationCommand(drivetrain));
     addCommands(new LimelightXYCommand(drivetrain, limelight, 4, -4.51));
     addCommands(new GyroRotationCommand(drivetrain));
+  }
+  else if(DriverStation.getAlliance() == Alliance.Blue){
+    addCommands(new LimelightXYCommand(drivetrain, limelight, -5.57, -2.96));
+    addCommands(new GyroRotationCommand(drivetrain));
+    addCommands(new StageEchelleCommand(echelle, 0.2,2));
+    addCommands(new PinceCommand(true));
+    addCommands(new StageEchelleCommand(echelle, 0.2,0));
+    addCommands(new LimelightXYCommand(drivetrain, limelight, -1.56, -2.96));
+    addCommands(new GyroRotationCommand(drivetrain));
+    addCommands(new LimelightXYCommand(drivetrain, limelight, -1.56, -4.51));
+    addCommands(new GyroRotationCommand(drivetrain));
+    addCommands(new LimelightXYCommand(drivetrain, limelight, -4, -4.51));
+    addCommands(new GyroRotationCommand(drivetrain));
+   }
   }
 }
 

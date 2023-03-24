@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
@@ -31,11 +33,18 @@ public class ModeAutonome5Command extends SequentialCommandGroup {
     this.echelle = echelle;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    if(DriverStation.getAlliance() == Alliance.Red){
     addCommands(new LimelightXYCommand(drivetrain, limelight,5.27, -1.5));
     addCommands(new GyroRotationCommand(drivetrain));
     addCommands(new LimelightXYCommand(drivetrain, limelight, 3.5, -1.5));
     addCommands(new GyroRotationCommand(drivetrain));
-
+    }
+    else if(DriverStation.getAlliance() == Alliance.Blue){
+      addCommands(new LimelightXYCommand(drivetrain, limelight,-5.27, -1.5));
+    addCommands(new GyroRotationCommand(drivetrain));
+    addCommands(new LimelightXYCommand(drivetrain, limelight, -3.5, -1.5));
+    addCommands(new GyroRotationCommand(drivetrain));
+    }
 
   }
 }

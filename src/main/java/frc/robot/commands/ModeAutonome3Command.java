@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
@@ -26,8 +28,13 @@ public class ModeAutonome3Command extends SequentialCommandGroup {
     this.limelight = limelight;
     this.pince = pince;
     this.echelle = echelle;
-
+    if(DriverStation.getAlliance() == Alliance.Red){
     addCommands(new LimelightXYCommand(drivetrain, limelight, 6.6, 1));
     addCommands(new GyroRotationCommand(drivetrain));
+    }
+    else if(DriverStation.getAlliance() == Alliance.Blue){
+      addCommands(new LimelightXYCommand(drivetrain, limelight, -6.6, 1));
+      addCommands(new GyroRotationCommand(drivetrain));
+    }
    }
   }
