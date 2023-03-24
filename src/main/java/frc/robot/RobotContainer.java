@@ -19,6 +19,7 @@ import frc.robot.commands.ModeAutonome1Command;
 import frc.robot.commands.ModeAutonome3Command;
 import frc.robot.commands.ModeAutonome4Command;
 import frc.robot.commands.ModeAutonome5Command;
+import frc.robot.commands.ModeAutonome6Command;
 import frc.robot.commands.ResetGryoCommand;
 import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.subsystems.Drivetrain;
@@ -62,6 +63,7 @@ public class RobotContainer {
     autoChooser.addOption("Sort", new ModeAutonome3Command(drivetrain, limelight, pince, echelle));
     autoChooser.addOption("PlaceBlocPlateforme", new ModeAutonome4Command(drivetrain, limelight, pince, echelle));
     autoChooser.addOption("Plateforme", new ModeAutonome5Command(drivetrain, limelight, pince, echelle));
+    autoChooser.addOption("PlaceBlocSort", new ModeAutonome6Command(drivetrain, limelight, pince, echelle));
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
   }
