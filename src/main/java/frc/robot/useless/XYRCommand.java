@@ -28,7 +28,7 @@ public class XYRCommand extends SequentialCommandGroup {
     addCommands(new LimelightYCommand(drivetrain, limelight, rangeY /** a changer */));
     addCommands(new GyroRotationCommand(drivetrain));
     addCommands(new LimelightXCommand(drivetrain, limelight, rangeX /** a changer */ ));
-    addCommands(new GyroRotationCommand(drivetrain ));
+    addCommands(new GyroRotationCommand(drivetrain));
     addCommands(new LimelightYCommand(drivetrain, limelight, rangeY /** a changer */));
     addCommands(new GyroRotationCommand(drivetrain));
    

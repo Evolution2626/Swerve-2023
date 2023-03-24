@@ -26,6 +26,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Pince;
+import frc.robot.useless.ModeAutonome7Command;
 import frc.robot.useless.XYRCommand;
 
 /**

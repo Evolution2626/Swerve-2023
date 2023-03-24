@@ -31,16 +31,16 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new LimelightXYCommand(drivetrain, limelight, 5.57, -2.96));
-    addCommands(new GyroRotationCommand(drivetrain,0));
+    addCommands(new GyroRotationCommand(drivetrain));
     addCommands(new StageEchelleCommand(echelle, 0.2,2));
     addCommands(new PinceCommand(true));
     addCommands(new StageEchelleCommand(echelle, 0.2,0));
     addCommands(new LimelightXYCommand(drivetrain, limelight, 1.56, -2.96));
-    addCommands(new GyroRotationCommand(drivetrain,0));
+    addCommands(new GyroRotationCommand(drivetrain));
     addCommands(new LimelightXYCommand(drivetrain, limelight, 1.56, -4.51));
-    addCommands(new GyroRotationCommand(drivetrain,0));
+    addCommands(new GyroRotationCommand(drivetrain));
     addCommands(new LimelightXYCommand(drivetrain, limelight, 4, -4.51));
-    addCommands(new GyroRotationCommand(drivetrain,0));
+    addCommands(new GyroRotationCommand(drivetrain));
   }
 }
 

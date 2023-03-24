@@ -28,6 +28,6 @@ public class ModeAutonome3Command extends SequentialCommandGroup {
     this.echelle = echelle;
 
     addCommands(new LimelightXYCommand(drivetrain, limelight, 6.6, 1));
-    addCommands(new GyroRotationCommand(drivetrain,0));
+    addCommands(new GyroRotationCommand(drivetrain));
    }
   }
