@@ -17,7 +17,7 @@ public final class Constants {
   public interface CAN {
     int FL_DRIVE_MOTOR = 7;
     int FR_DRIVE_MOTOR = 3;
-    int BL_DRIVE_MOTOR = 2;
+    int BL_DRIVE_MOTOR = 5;
     int BR_DRIVE_MOTOR = 8;
 
     int FL_ROTATION_MOTOR = 13;
@@ -25,31 +25,31 @@ public final class Constants {
     int BL_ROTATION_MOTOR = 6;
     int BR_ROTATION_MOTOR = 12;
 
-    int GOBBEUR = 50;
+    int GOBBEUR = 21;
 
-    int MONTEUR1 = 51;
-    int MONTEUR2 = 54;
-    int AVANCEUR = 52;
-    int REPLIEUR = 53;
+    int MONTEUR1 = 22;
+    int MONTEUR2 = 24;
+    int AVANCEUR = 23;
+    int REPLIEUR = 20;
 
   }
 
   public interface DIGITAL {
-    int FL_ENCODER = 0;
+    int FL_ENCODER = 10;
     // Pour fils custom: Bleu 1, Meuve 2, Gris 3, Blanc 4, Noir 5
-    int FR_ENCODER = 1;
-    int BL_ENCODER = 2;
-    int BR_ENCODER = 3;
+    int FR_ENCODER = 11;
+    int BL_ENCODER = 12;
+    int BR_ENCODER = 13;
 
-    int CLOCK = 5;
-    int CHIP_SELECT = 4;
+    int CLOCK = 15;
+    int CHIP_SELECT = 14;
 
     int STAGE1 = 6;
     int STAGE2 = 7;
     int STAGE3 = 8;
 
-    int RENTRER = 9;
-    int SORTI = 10;
+    int RENTRER = 20;
+    int SORTI = 21;
   }
 
   public interface USB {
@@ -58,7 +58,7 @@ public final class Constants {
   }
 
   public interface PCM{
-    int PISTON_PINCE_FORWARD = 4;
-    int PISTON_PINCE_REVERSE = 5;
+    int PISTON_PINCE_FORWARD = 8;
+    int PISTON_PINCE_REVERSE = 9;
   }
 }

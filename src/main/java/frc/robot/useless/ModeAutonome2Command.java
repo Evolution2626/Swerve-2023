@@ -33,14 +33,14 @@ public class ModeAutonome2Command extends SequentialCommandGroup {
       addCommands(new LimelightXYCommand(drivetrain, limelight, 1.5, 1));
       addCommands(new GyroRotationCommand(drivetrain));
       addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
-      addCommands(new PinceCommand(true));    // ouvre la pince  
+      addCommands(new PinceCommand(pince, true));    // ouvre la pince  
       addCommands(new LimelightXYCommand(drivetrain, limelight, 6.6, 1));
       addCommands(new GyroRotationCommand(drivetrain));
       addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
-      addCommands(new PinceCommand(false)); // ferme la pince 
+      addCommands(new PinceCommand(pince, false)); // ferme la pince 
       addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
       addCommands(new LimelightXYCommand(drivetrain, limelight, 1.5, 1));
       addCommands(new GyroRotationCommand(drivetrain));
-      addCommands(new PinceCommand(true));// ouvre la pince
+      addCommands(new PinceCommand(pince, true));// ouvre la pince
    }
   }

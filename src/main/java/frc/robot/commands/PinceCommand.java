@@ -12,9 +12,11 @@ public class PinceCommand extends CommandBase {
 
   Pince pince;
   /** Creates a new PinceCommand. */
-  public PinceCommand(boolean ouvert) {
+  public PinceCommand(Pince pince, boolean ouvert) {
     this.ouvert = ouvert;
+    this.pince = pince;
     
+    addRequirements(pince);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

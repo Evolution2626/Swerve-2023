@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
@@ -24,7 +25,7 @@ public class EchelleMonter extends PIDCommand{
     
     super(
         // The controller that the command will use
-        new PIDController(1.8, 0.2, 0.01),
+        new PIDController(1.8, 0, 0),
         ()-> 0,
         // This should return the measurement
         // This should return the setpoint (can also be a constant)
@@ -37,6 +38,8 @@ public class EchelleMonter extends PIDCommand{
           stop = false;
             if(echelle.getEncoderValue() >= target-2 && echelle.getEncoderValue() <= target+2){
               stop = true;
+              echelle.Monte(0);
+            }else{
               echelle.Monte(0.1);
             }
           

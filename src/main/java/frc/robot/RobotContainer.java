@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -11,6 +13,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import frc.robot.commands.ControlPinceCommand;
+import frc.robot.commands.ControlSortieEchelleCommand;
+import frc.robot.commands.EchelleControlCommand;
 import frc.robot.commands.GyroRotationCommand;
 import frc.robot.commands.LimelightXCommand;
 import frc.robot.commands.LimelightXYCommand;
@@ -26,8 +30,6 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Pince;
-import frc.robot.useless.ModeAutonome7Command;
-import frc.robot.useless.XYRCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -47,7 +49,7 @@ public class RobotContainer {
   private static final Pince pince = new Pince();
 
   private SendableChooser<Command> autoChooser = new SendableChooser<>();
-
+  
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -58,7 +60,7 @@ public class RobotContainer {
     configureBindings();
 
     pince.setDefaultCommand(new ControlPinceCommand(controller2, pince));
-    //echelle.setDefaultCommand(new ControlBougerBrasCommand(echelle, controller2));
+    echelle.setDefaultCommand(new EchelleControlCommand(echelle, controller2));
 
     autoChooser.addOption("PlaceBlocSortPlatforme", new ModeAutonome1Command(drivetrain, limelight, pince, echelle));
     autoChooser.addOption("Sort", new ModeAutonome3Command(drivetrain, limelight, pince, echelle));
@@ -89,7 +91,6 @@ public class RobotContainer {
     controller.a().onTrue(new ResetGryoCommand(drivetrain));
     controller.leftBumper().whileTrue(new LimelightXYCommand(drivetrain, limelight,5, -2.82));
 
-    //controller.rightTrigger().whileTrue(new ModeAutonome1Command(drivetrain, limelight, pince, echelle));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
   }

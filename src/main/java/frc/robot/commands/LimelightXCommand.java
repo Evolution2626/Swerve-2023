@@ -4,7 +4,11 @@
 
 package frc.robot.commands;
 
+import java.sql.Driver;
+
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Limelight;
@@ -44,10 +48,10 @@ public class LimelightXCommand extends PIDCommand {
               drivetrain.driveSwerve(0, 0, 0, false);
             }else{
               for(int i = 0; i <= Math.round(limelight.getTagID().length); i++ ){
-                if(limelight.getTagID()[i] == 1 || limelight.getTagID()[i] == 2 || limelight.getTagID()[i] == 3 || limelight.getTagID()[i] == 4){
+                if(DriverStation.getAlliance() == Alliance.Red){
                   drivetrain.driveSwerve(-output,0, 0, false);
                 }
-                else if(limelight.getTagID()[i] == 5 || limelight.getTagID()[i] == 6 || limelight.getTagID()[i] == 7 || limelight.getTagID()[i] == 8){
+                else if(DriverStation.getAlliance() == Alliance.Blue){
                   drivetrain.driveSwerve(output,0, 0, false);
                 } 
               }

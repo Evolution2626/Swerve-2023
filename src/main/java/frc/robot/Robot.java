@@ -23,7 +23,7 @@ public class Robot extends TimedRobot {
 
   private EncoderThread encoderThread = new EncoderThread();
 
-  public Compressor compressor;
+  private Compressor compressor = new Compressor(49, PneumaticsModuleType.REVPH);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -34,7 +34,6 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    compressor = new Compressor(8, PneumaticsModuleType.CTREPCM);
     encoderThread.start();
     
   }

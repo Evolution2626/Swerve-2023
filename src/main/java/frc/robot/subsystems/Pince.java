@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -15,13 +17,13 @@ import frc.robot.Constants;
 
 public class Pince extends SubsystemBase {
   /** Creates a new Pince. */
-  private CANSparkMax moteurGobbeur;
+  private TalonSRX moteurGobbeur;
   private DoubleSolenoid piston;
 
   public Pince() {
 
-    piston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.PCM.PISTON_PINCE_FORWARD, Constants.PCM.PISTON_PINCE_REVERSE);
-    //moteurGobbeur = new CANSparkMax(Constants.CAN.GOBBEUR, MotorType.kBrushless);
+    piston = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.PCM.PISTON_PINCE_FORWARD, Constants.PCM.PISTON_PINCE_REVERSE);
+    moteurGobbeur = new TalonSRX(Constants.CAN.GOBBEUR);
   }
 
   public void pinceOuvert() {
@@ -38,7 +40,7 @@ public class Pince extends SubsystemBase {
 
   public void setMoteurSpeed(double valeur) {
 
-    //moteurGobbeur.set(VictorSPXControlMode.PercentOutput, valeur);
+    moteurGobbeur.set(TalonSRXControlMode.PercentOutput, valeur);
 
   }
 

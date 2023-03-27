@@ -23,8 +23,9 @@ public class ModeAutonome5Command extends SequentialCommandGroup {
   Limelight limelight;
   Pince pince;
   Echelle echelle;
-//vas sur la plateform (12 pts). pts 12
-
+/*
+  vas sur la plateform (12 pts). pts 12
+*/
   /** Creates a new ModeAutonome1Command. */
   public ModeAutonome5Command(Drivetrain drivetrain, Limelight limelight, Pince pince, Echelle echelle ) {
     this.drivetrain = drivetrain;
@@ -34,16 +35,15 @@ public class ModeAutonome5Command extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     if(DriverStation.getAlliance() == Alliance.Red){
-    addCommands(new LimelightXYCommand(drivetrain, limelight,5.27, -1.5));
-    addCommands(new GyroRotationCommand(drivetrain));
-    addCommands(new LimelightXYCommand(drivetrain, limelight, 3.5, -1.5));
-    addCommands(new GyroRotationCommand(drivetrain));
-    }
-    else if(DriverStation.getAlliance() == Alliance.Blue){
+      addCommands(new LimelightXYCommand(drivetrain, limelight,5.27, -1.5));
+      addCommands(new GyroRotationCommand(drivetrain));
+      addCommands(new LimelightXYCommand(drivetrain, limelight, 3.5, -1.5));
+      addCommands(new GyroRotationCommand(drivetrain));
+    }else if(DriverStation.getAlliance() == Alliance.Blue){
       addCommands(new LimelightXYCommand(drivetrain, limelight,-5.27, -1.5));
-    addCommands(new GyroRotationCommand(drivetrain));
-    addCommands(new LimelightXYCommand(drivetrain, limelight, -3.5, -1.5));
-    addCommands(new GyroRotationCommand(drivetrain));
+      addCommands(new GyroRotationCommand(drivetrain));
+      addCommands(new LimelightXYCommand(drivetrain, limelight, -3.5, -1.5));
+      addCommands(new GyroRotationCommand(drivetrain));
     }
 
   }

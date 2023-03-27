@@ -96,10 +96,10 @@ public class Drivetrain extends SubsystemBase {
     brRotationMotor.setClosedLoopRampRate(0.15);
     
   
-    flDriveMotor.setOpenLoopRampRate(0.4);
-    frDriveMotor.setOpenLoopRampRate(0.4);
-    blDriveMotor.setOpenLoopRampRate(0.4);
-    brDriveMotor.setOpenLoopRampRate(0.4);
+    flDriveMotor.setOpenLoopRampRate(0.2);
+    frDriveMotor.setOpenLoopRampRate(0.2);
+    blDriveMotor.setOpenLoopRampRate(0.2);
+    brDriveMotor.setOpenLoopRampRate(0.2);
    
 
 

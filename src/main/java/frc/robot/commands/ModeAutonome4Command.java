@@ -24,8 +24,9 @@ public class ModeAutonome4Command extends SequentialCommandGroup {
   Limelight limelight;
   Pince pince;
   Echelle echelle;
-//place le bloc de debut(6 pts a 5pts) et vas sur la plateform (12 pts). pts 17/18 
-
+/*
+  place le bloc de debut(6 pts a 5pts) et vas sur la plateform (12 pts). pts 17/18 
+*/
   /** Creates a new ModeAutonome1Command. */
   public ModeAutonome4Command(Drivetrain drivetrain, Limelight limelight, Pince pince, Echelle echelle) {
     // Add your commands in the addCommands() call, e.g.
@@ -35,24 +36,23 @@ public class ModeAutonome4Command extends SequentialCommandGroup {
     this.pince = pince;
     this.echelle = echelle;
     if(DriverStation.getAlliance() == Alliance.Red){
-    addCommands(new LimelightXYCommand(drivetrain, limelight, 5.27, -1.64));
-    addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
-    addCommands(new PinceCommand(false)); // ferme la pince  
-    addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
-    addCommands(new LimelightXYCommand(drivetrain, limelight, 5.27, -1.5));// vas sur la plateform
-    addCommands(new GyroRotationCommand(drivetrain));
-    addCommands(new LimelightXYCommand(drivetrain, limelight, 3.5, -1.5));
-    addCommands(new GyroRotationCommand(drivetrain));
-    }
-    else if(DriverStation.getAlliance() == Alliance.Blue){
+      addCommands(new LimelightXYCommand(drivetrain, limelight, 5.27, -1.64));
+      addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
+      addCommands(new PinceCommand(pince, false)); // ferme la pince  
+      addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
+      addCommands(new LimelightXYCommand(drivetrain, limelight, 5.27, -1.5));// vas sur la plateform
+      addCommands(new GyroRotationCommand(drivetrain));
+      addCommands(new LimelightXYCommand(drivetrain, limelight, 3.5, -1.5));
+      addCommands(new GyroRotationCommand(drivetrain));
+    }else if(DriverStation.getAlliance() == Alliance.Blue){
       addCommands(new LimelightXYCommand(drivetrain, limelight, -5.27, -1.64));
-    addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
-    addCommands(new PinceCommand(false)); // ferme la pince  
-    addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
-    addCommands(new LimelightXYCommand(drivetrain, limelight, -5.27, -1.5));// vas sur la plateform
-    addCommands(new GyroRotationCommand(drivetrain));
-    addCommands(new LimelightXYCommand(drivetrain, limelight, -3.5, -1.5));
-    addCommands(new GyroRotationCommand(drivetrain));
+      addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
+      addCommands(new PinceCommand(pince, false)); // ferme la pince  
+      addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
+      addCommands(new LimelightXYCommand(drivetrain, limelight, -5.27, -1.5));// vas sur la plateform
+      addCommands(new GyroRotationCommand(drivetrain));
+      addCommands(new LimelightXYCommand(drivetrain, limelight, -3.5, -1.5));
+      addCommands(new GyroRotationCommand(drivetrain));
     }
   }
 }

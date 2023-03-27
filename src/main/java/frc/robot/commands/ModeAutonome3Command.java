@@ -21,7 +21,9 @@ public class ModeAutonome3Command extends SequentialCommandGroup {
   Limelight limelight;
   Pince pince;
   Echelle echelle;
-  //sort de la zone(3 pts). pts 3
+  /*
+     sort de la zone(3 pts). pts 3
+  */
 
   public ModeAutonome3Command(Drivetrain drivetrain, Limelight limelight, Pince pince, Echelle echelle){
     this.drivetrain = drivetrain;
@@ -29,10 +31,9 @@ public class ModeAutonome3Command extends SequentialCommandGroup {
     this.pince = pince;
     this.echelle = echelle;
     if(DriverStation.getAlliance() == Alliance.Red){
-    addCommands(new LimelightXYCommand(drivetrain, limelight, 6.6, 1));
-    addCommands(new GyroRotationCommand(drivetrain));
-    }
-    else if(DriverStation.getAlliance() == Alliance.Blue){
+      addCommands(new LimelightXYCommand(drivetrain, limelight, 6.6, 1));
+      addCommands(new GyroRotationCommand(drivetrain));
+    }else if(DriverStation.getAlliance() == Alliance.Blue){
       addCommands(new LimelightXYCommand(drivetrain, limelight, -6.6, 1));
       addCommands(new GyroRotationCommand(drivetrain));
     }

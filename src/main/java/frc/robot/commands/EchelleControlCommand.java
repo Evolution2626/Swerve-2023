@@ -5,18 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Echelle;
 
-public class SortiEchelleCommand extends CommandBase {
-  Echelle echelle;
-  int capteur;
-  double avanceur;
-  /** Creates a new SortiEchelleCommand. */
-  public SortiEchelleCommand(Echelle echelle, int capteur, double avanceur) {
-    this.echelle = echelle;
-    this.capteur = capteur;
-    this.avanceur = avanceur;
+public class EchelleControlCommand extends CommandBase {
+  /** Creates a new EchelleControlCommand. */
+  private Echelle echelle;
+  private CommandXboxController controller;
+
+  public EchelleControlCommand(Echelle echelle, CommandXboxController controller) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.controller = controller;
+    this.echelle = echelle;
     addRequirements(echelle);
   }
 
@@ -27,25 +27,9 @@ public class SortiEchelleCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    if(echelle.getCapteurActiver(0) == true && capteur == 1){
-      while(echelle.getCapteurActiver(1) == false){
-        echelle.Avance(avanceur);
-      }
-    }
-    
-    if(avanceur < 0) {
-      echelle.Replie(-1);;
-
-    } else if(avanceur > 0) {
-      echelle.Replie(1);
-      
-    } else {
-      echelle.Replie(0);
-    }
-    
-
-
+    echelle.Monte((Math.pow(controller.getRightTriggerAxis(), 3)));
+    echelle.Replie((Math.pow(controller.getRightX(), 3)));
+    echelle.Avance((Math.pow(controller.getLeftX(), 3))/3);
   }
 
   // Called once the command ends or is interrupted.
