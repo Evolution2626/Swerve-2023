@@ -62,7 +62,6 @@ public class RobotContainer {
     configureBindings();
 
     chariot.setDefaultCommand(new ChariotSortirCommand(controller2, chariot));
-    pince.setDefaultCommand(new PinceTournerCommand(controller2, pince));
     echelle.setDefaultCommand(new EchelleGoToStageCommand(echelle));
 
     autoChooser.addOption("PlaceBlocSortPlatforme", new ModeAutonome1Command(drivetrain, limelight, pince, echelle));
@@ -99,6 +98,9 @@ public class RobotContainer {
 
     controller2.a().onTrue(new SwitchPistonPinceCommand(pince, Value.kForward));
     controller2.b().onTrue(new SwitchPistonPinceCommand(pince, Value.kReverse));
+    controller2.x().onTrue(new PinceTournerCommand(1, pince));
+    controller2.y().onTrue(new PinceTournerCommand(0, pince));
+
 
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,

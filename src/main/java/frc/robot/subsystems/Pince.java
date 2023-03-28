@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -21,12 +22,11 @@ public class Pince extends SubsystemBase {
 
   public Pince() {
 
-    piston = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.PCM.PISTON_PINCE_FORWARD, Constants.PCM.PISTON_PINCE_REVERSE);
+    piston = new DoubleSolenoid(49, PneumaticsModuleType.REVPH, Constants.PCM.PISTON_PINCE_FORWARD, Constants.PCM.PISTON_PINCE_REVERSE);
     moteurGobbeur = new VictorSPX(Constants.CAN.GOBBEUR);
   }
 
   public void setPiston(DoubleSolenoid.Value value) {
-
     piston.set(value);
 
   }
@@ -42,5 +42,6 @@ public class Pince extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putString("PistonPince", piston.get().toString());
   }
 }

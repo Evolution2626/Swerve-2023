@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.Echelle;
+import frc.util.Range;
 
 public class EchelleGoToStageCommand extends PIDCommand{
     // Copyright (c) FIRST and other WPILib contributors.
@@ -20,27 +21,33 @@ public class EchelleGoToStageCommand extends PIDCommand{
     
         super(
         // The controller that the command will use
-        new PIDController(0.9, 0, 0.5),
+        new PIDController(0.3, 0, 0),
         ()-> echelle.getEncoderValue(),
         // This should return the measurement
         // This should return the setpoint (can also be a constant)
         () -> target,
         // This uses the output
         output -> {
-          if (echelle.getStage() == 1) {
-            target = 6000;
-            echelle.monte(output);
-          } else if(echelle.getStage() == 2){
-            target = 10000;
-            echelle.monte(output);
+          if (echelle.getStage() > 0) {
+            if (echelle.getStage() > 1) {
+              target = 15000;
+            }else {
+              target = 6000;
+            }
+            if (Range.inRange(target - 500, target + 500, echelle.getEncoderValue())) {
+              echelle.monte(0.1);
+  
+            }else {
+              echelle.monte(output);
+            }
+            
           }else {
             target = 0;
             echelle.monte(0);
           }
-        
         });
 
-        
+
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
     addRequirements(echelle);

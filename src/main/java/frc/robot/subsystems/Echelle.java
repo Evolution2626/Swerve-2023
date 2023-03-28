@@ -59,8 +59,9 @@ public class Echelle extends SubsystemBase {
   }
 
   public void monte(double valeur) {
-  
-    monteur1.set(TalonSRXControlMode.PercentOutput, Range.coerce(0,1, valeur));
+    valeur = getEchelleLimit() ? Range.coerce(0,1, valeur) : Range.coerce(-0.25,1, valeur);
+
+    monteur1.set(TalonSRXControlMode.PercentOutput, valeur);
 
   }
 

@@ -26,8 +26,14 @@ public class ChariotSortirCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    chariot.avance(Math.pow(controller.getRightY(), 3)/3);
-    chariot.replie(Math.pow(controller.getRightX(), 3)/3);
+
+    double avance = controller.getRightTriggerAxis();
+    avance = controller.rightBumper().getAsBoolean() ? avance *= -1 : avance;
+    double replie = controller.getLeftTriggerAxis();
+    replie = controller.leftBumper().getAsBoolean() ? replie *= -1 : replie;
+
+    chariot.avance(Math.pow(-avance, 3)/2);
+    chariot.replie(Math.pow(replie, 3)/2.5);
   }
 
   // Called once the command ends or is interrupted.

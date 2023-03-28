@@ -17,7 +17,7 @@ public class EchelleUpdateStageCommand extends InstantCommand {
     this.echelle = echelle;
     this.variation = variation;
     
-    //addRequirements(echelle);    ça break le code on peut juste utiliser cette fonction la une fois
+    addRequirements(echelle);    
   }
 
   // Called when the command is initially scheduled.
@@ -26,15 +26,4 @@ public class EchelleUpdateStageCommand extends InstantCommand {
     echelle.setStage(variation);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
 }
