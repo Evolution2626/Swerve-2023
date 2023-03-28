@@ -1,12 +1,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
 
-public class EchelleMonter extends PIDCommand{
+public class EchelleStageCommand extends PIDCommand{
     // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -16,37 +15,35 @@ public class EchelleMonter extends PIDCommand{
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
-  /** Creates a new Limelight1mCommand. */
-  Drivetrain drivetrain;
-  public static boolean stop = false;
-  public Echelle echelle;
+  public static double target;
 
-  public EchelleMonter(Echelle echelle, double target) {
+  public EchelleStageCommand(Echelle echelle) {
     
-    super(
+        super(
         // The controller that the command will use
-        new PIDController(1.8, 0, 0),
-        ()-> 0,
+        new PIDController(1, 0, 0.5),
+        ()-> echelle.getEncoderValue(),
         // This should return the measurement
         // This should return the setpoint (can also be a constant)
         () -> target,
         // This uses the output
         output -> {
-         // System.out.println(output);
-          // Use the output here
-        echelle.Monte(output);
-          stop = false;
-            if(echelle.getEncoderValue() >= target-2 && echelle.getEncoderValue() <= target+2){
-              stop = true;
-              echelle.Monte(0);
-            }else{
-              echelle.Monte(0.1);
-            }
-          
+          if (echelle.getStage() == 1) {
+            target = 6000;
+            echelle.monte(output);
+          } else if(echelle.getStage() == 2){
+            target = 10000;
+            echelle.monte(output);
+          }else {
+            target = 0;
+            echelle.monte(0);
+          }
+        
         });
+
+        
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
-    this.echelle = echelle;
     addRequirements(echelle);
      
   }
@@ -54,8 +51,6 @@ public class EchelleMonter extends PIDCommand{
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //drivetrain.driveSwerve(0, 0, 0);
-    //limelight.setLEDMode(1);
-    return stop;
+    return false;
   }
 }

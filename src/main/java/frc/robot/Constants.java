@@ -27,8 +27,7 @@ public final class Constants {
 
     int GOBBEUR = 21;
 
-    int MONTEUR1 = 22;
-    int MONTEUR2 = 24;
+    int MONTEUR1 = 24;
     int AVANCEUR = 23;
     int REPLIEUR = 20;
 
@@ -44,12 +43,11 @@ public final class Constants {
     int CLOCK = 15;
     int CHIP_SELECT = 14;
 
-    int STAGE1 = 6;
-    int STAGE2 = 7;
-    int STAGE3 = 8;
+    int CHARIOT_LIMIT1 = 25;
+    int CHARIOT_LIMIT2 = 19;
 
-    int RENTRER = 20;
-    int SORTI = 21;
+    int ECHELLE_LIMIT = 24;
+
   }
 
   public interface USB {

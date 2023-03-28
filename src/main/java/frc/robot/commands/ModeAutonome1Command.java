@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Pince;
-import frc.robot.useless.StageEchelleCommand;
 
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -38,9 +38,9 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
     if(DriverStation.getAlliance() == Alliance.Red){
       addCommands(new LimelightXYCommand(drivetrain, limelight, 5.57, -2.96));
       addCommands(new GyroRotationCommand(drivetrain));
-      addCommands(new StageEchelleCommand(echelle, 0.2,2));
-      addCommands(new PinceCommand(pince, true));
-      addCommands(new StageEchelleCommand(echelle, 0.2,0));
+      //addCommands(new StageEchelleCommand(echelle, 0.2,2));
+      addCommands(new SwitchPistonPinceCommand(pince, Value.kForward));
+      //addCommands(new StageEchelleCommand(echelle, 0.2,0));
       addCommands(new LimelightXYCommand(drivetrain, limelight, 1.56, -2.96));
       addCommands(new GyroRotationCommand(drivetrain));
       addCommands(new LimelightXYCommand(drivetrain, limelight, 1.56, -4.51));
@@ -50,9 +50,9 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
     }else if(DriverStation.getAlliance() == Alliance.Blue){
       addCommands(new LimelightXYCommand(drivetrain, limelight, -5.57, -2.96));
       addCommands(new GyroRotationCommand(drivetrain));
-      addCommands(new StageEchelleCommand(echelle, 0.2,2));
-      addCommands(new PinceCommand(pince, true));
-      addCommands(new StageEchelleCommand(echelle, 0.2,0));
+      //addCommands(new StageEchelleCommand(echelle, 0.2,2));
+      addCommands(new SwitchPistonPinceCommand(pince, Value.kForward));
+     //addCommands(new StageEchelleCommand(echelle, 0.2,0));
       addCommands(new LimelightXYCommand(drivetrain, limelight, -1.56, -2.96));
       addCommands(new GyroRotationCommand(drivetrain));
       addCommands(new LimelightXYCommand(drivetrain, limelight, -1.56, -4.51));

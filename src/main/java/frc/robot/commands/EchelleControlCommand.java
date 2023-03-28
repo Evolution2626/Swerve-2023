@@ -4,33 +4,29 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Echelle;
 
-public class EchelleControlCommand extends CommandBase {
+public class EchelleControlCommand extends InstantCommand {
   /** Creates a new EchelleControlCommand. */
   private Echelle echelle;
-  private CommandXboxController controller;
+  private int variation;
 
-  public EchelleControlCommand(Echelle echelle, CommandXboxController controller) {
+  public EchelleControlCommand(Echelle echelle, int variation) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.controller = controller;
     this.echelle = echelle;
-    addRequirements(echelle);
+    this.variation = variation;
+    
+    //addRequirements(echelle);    ça break le code on peut juste utiliser cette fonction la une fois
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    echelle.setStage(variation);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    echelle.Monte((Math.pow(controller.getRightTriggerAxis(), 3)));
-    echelle.Replie((Math.pow(controller.getRightX(), 3)));
-    echelle.Avance((Math.pow(controller.getLeftX(), 3))/3);
-  }
 
   // Called once the command ends or is interrupted.
   @Override

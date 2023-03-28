@@ -6,18 +6,17 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.subsystems.Pince;
+import frc.robot.subsystems.Chariot;
 
-public class ControlPinceCommand extends CommandBase {
+public class ChariotSortirCommand extends CommandBase {
+  /** Creates a new ChariotSortirCommand. */
+  private Chariot chariot;
   private CommandXboxController controller;
-  private Pince pince;
-  /** Creates a new ControlPinceCommand. */
-  public ControlPinceCommand(CommandXboxController controller, Pince pince ) {
-    addRequirements(pince);
+  public ChariotSortirCommand(CommandXboxController controller, Chariot chariot) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.controller = controller;
-    this.pince = pince;
-
+    this.chariot = chariot;
+    addRequirements(chariot);
   }
 
   // Called when the command is initially scheduled.
@@ -27,18 +26,8 @@ public class ControlPinceCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   
-    if(controller.a().getAsBoolean()){
-      pince.pinceOuvert();
-    }
-
-    if(controller.b().getAsBoolean()){
-      pince.pinceFerme();
-    }
-
-  
-    pince.setMoteurSpeed(controller.getRightTriggerAxis());
-
+    chariot.avance(Math.pow(controller.getRightY(), 3)/3);
+    chariot.replie(Math.pow(controller.getRightX(), 3)/3);
   }
 
   // Called once the command ends or is interrupted.

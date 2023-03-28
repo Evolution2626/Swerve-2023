@@ -4,17 +4,15 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
-import frc.robot.commands.ControlPinceCommand;
-import frc.robot.commands.ControlSortieEchelleCommand;
+import frc.robot.commands.ChariotSortirCommand;
 import frc.robot.commands.EchelleControlCommand;
+import frc.robot.commands.EchelleStageCommand;
 import frc.robot.commands.GyroRotationCommand;
 import frc.robot.commands.LimelightXCommand;
 import frc.robot.commands.LimelightXYCommand;
@@ -24,8 +22,11 @@ import frc.robot.commands.ModeAutonome3Command;
 import frc.robot.commands.ModeAutonome4Command;
 import frc.robot.commands.ModeAutonome5Command;
 import frc.robot.commands.ModeAutonome6Command;
+import frc.robot.commands.PinceTournerCommand;
 import frc.robot.commands.ResetGryoCommand;
 import frc.robot.commands.SwerveDriveCommand;
+import frc.robot.commands.SwitchPistonPinceCommand;
+import frc.robot.subsystems.Chariot;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
 import frc.robot.subsystems.Limelight;
@@ -44,6 +45,7 @@ public class RobotContainer {
   private static final Drivetrain drivetrain = new Drivetrain();
   private static final Limelight limelight = new Limelight();
   private static final Echelle echelle = new Echelle();
+  private static final Chariot chariot = new Chariot();
   private static final CommandXboxController controller = new CommandXboxController(Constants.USB.DRIVER_CONTROLLER);
   private static final CommandXboxController controller2 = new CommandXboxController(Constants.USB.DRIVER_CONTROLLERCOPILOT);
   private static final Pince pince = new Pince();
@@ -59,8 +61,9 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, controller));
     configureBindings();
 
-    pince.setDefaultCommand(new ControlPinceCommand(controller2, pince));
-    echelle.setDefaultCommand(new EchelleControlCommand(echelle, controller2));
+    chariot.setDefaultCommand(new ChariotSortirCommand(controller2, chariot));
+    pince.setDefaultCommand(new PinceTournerCommand(controller2, pince));
+    echelle.setDefaultCommand(new EchelleStageCommand(echelle));
 
     autoChooser.addOption("PlaceBlocSortPlatforme", new ModeAutonome1Command(drivetrain, limelight, pince, echelle));
     autoChooser.addOption("Sort", new ModeAutonome3Command(drivetrain, limelight, pince, echelle));
@@ -91,6 +94,13 @@ public class RobotContainer {
     controller.a().onTrue(new ResetGryoCommand(drivetrain));
     controller.leftBumper().whileTrue(new LimelightXYCommand(drivetrain, limelight,5, -2.82));
 
+    controller2.povUp().onTrue(new EchelleControlCommand(echelle, 1));
+    controller2.povDown().onTrue(new EchelleControlCommand(echelle, -1));
+
+    controller2.a().onTrue(new SwitchPistonPinceCommand(pince, Value.kForward));
+    controller2.b().onTrue(new SwitchPistonPinceCommand(pince, Value.kReverse));
+
+
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
   }
@@ -103,6 +113,6 @@ public class RobotContainer {
   
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return null;
+    return autoChooser.getSelected();
   }
 }

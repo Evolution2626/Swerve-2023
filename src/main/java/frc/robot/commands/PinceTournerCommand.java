@@ -5,19 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Echelle;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.Pince;
 
-public class SortiEchelleCommand extends CommandBase {
-  Echelle echelle;
-  int capteur;
-  double avanceur;
-  /** Creates a new SortiEchelleCommand. */
-  public SortiEchelleCommand(Echelle echelle, int capteur, double avanceur) {
-    this.echelle = echelle;
-    this.capteur = capteur;
-    this.avanceur = avanceur;
+public class PinceTournerCommand extends CommandBase {
+  /** Creates a new PinceTournerCommand. */
+  private CommandXboxController controller;
+  private Pince pince;
+  public PinceTournerCommand(CommandXboxController controller, Pince pince) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(echelle);
+    this.pince = pince;
+    this.controller = controller;
+    addRequirements(pince);
   }
 
   // Called when the command is initially scheduled.
@@ -27,25 +26,7 @@ public class SortiEchelleCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    if(echelle.getCapteurActiver(0) == true && capteur == 1){
-      while(echelle.getCapteurActiver(1) == false){
-        echelle.Avance(avanceur);
-      }
-    }
-    
-    if(avanceur < 0) {
-      echelle.Replie(-1);;
-
-    } else if(avanceur > 0) {
-      echelle.Replie(1);
-      
-    } else {
-      echelle.Replie(0);
-    }
-    
-
-
+    pince.setMoteurSpeed(Math.pow(controller.getLeftY(), 3));
   }
 
   // Called once the command ends or is interrupted.

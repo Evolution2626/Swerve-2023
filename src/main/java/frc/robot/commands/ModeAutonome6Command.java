@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Pince;
-import frc.robot.useless.StageEchelleCommand;
 
 //
 
@@ -37,18 +37,18 @@ public class ModeAutonome6Command extends SequentialCommandGroup {
     this.echelle = echelle;
     if(DriverStation.getAlliance() == Alliance.Red){
       addCommands(new LimelightXYCommand(drivetrain, limelight, 5.27, -1.64));
-      addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
-      addCommands(new PinceCommand(pince, false)); // ferme la pince  
-      addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
+      //addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
+      addCommands(new SwitchPistonPinceCommand(pince, Value.kReverse)); // ferme la pince  
+      //addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
       addCommands(new LimelightXYCommand(drivetrain, limelight, 5.27, -0.5));// vas sur la plateform
       addCommands(new GyroRotationCommand(drivetrain));
       addCommands(new LimelightXYCommand(drivetrain, limelight, 3.5, -0.5));
       addCommands(new GyroRotationCommand(drivetrain));
     }else if(DriverStation.getAlliance() == Alliance.Blue){
       addCommands(new LimelightXYCommand(drivetrain, limelight, -5.27, -1.64));
-      addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
-      addCommands(new PinceCommand(pince, false)); // ferme la pince  
-      addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
+      //addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
+      addCommands(new SwitchPistonPinceCommand(pince, Value.kReverse)); // ferme la pince  
+      //addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
       addCommands(new LimelightXYCommand(drivetrain, limelight, -5.27, -0.5));// vas sur la plateform
       addCommands(new GyroRotationCommand(drivetrain));
       addCommands(new LimelightXYCommand(drivetrain, limelight, -3.5, -0.5));
