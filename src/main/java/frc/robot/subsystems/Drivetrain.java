@@ -44,7 +44,6 @@ public class Drivetrain extends SubsystemBase {
 
   public PIDController motorOutputPIDRotation;
   public PIDController motorOutputPIDDrive;
-  private boolean isRotating = false;
 
   
   

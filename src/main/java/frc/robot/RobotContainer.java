@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ChariotSortirCommand;
-import frc.robot.commands.EchelleControlCommand;
-import frc.robot.commands.EchelleStageCommand;
+import frc.robot.commands.EchelleGoToStageCommand;
+import frc.robot.commands.EchelleUpdateStageCommand;
 import frc.robot.commands.GyroRotationCommand;
 import frc.robot.commands.LimelightXCommand;
 import frc.robot.commands.LimelightXYCommand;
@@ -63,7 +63,7 @@ public class RobotContainer {
 
     chariot.setDefaultCommand(new ChariotSortirCommand(controller2, chariot));
     pince.setDefaultCommand(new PinceTournerCommand(controller2, pince));
-    echelle.setDefaultCommand(new EchelleStageCommand(echelle));
+    echelle.setDefaultCommand(new EchelleGoToStageCommand(echelle));
 
     autoChooser.addOption("PlaceBlocSortPlatforme", new ModeAutonome1Command(drivetrain, limelight, pince, echelle));
     autoChooser.addOption("Sort", new ModeAutonome3Command(drivetrain, limelight, pince, echelle));
@@ -94,8 +94,8 @@ public class RobotContainer {
     controller.a().onTrue(new ResetGryoCommand(drivetrain));
     controller.leftBumper().whileTrue(new LimelightXYCommand(drivetrain, limelight,5, -2.82));
 
-    controller2.povUp().onTrue(new EchelleControlCommand(echelle, 1));
-    controller2.povDown().onTrue(new EchelleControlCommand(echelle, -1));
+    controller2.povUp().onTrue(new EchelleUpdateStageCommand(echelle, 1));
+    controller2.povDown().onTrue(new EchelleUpdateStageCommand(echelle, -1));
 
     controller2.a().onTrue(new SwitchPistonPinceCommand(pince, Value.kForward));
     controller2.b().onTrue(new SwitchPistonPinceCommand(pince, Value.kReverse));

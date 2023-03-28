@@ -7,12 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Echelle;
 
-public class EchelleControlCommand extends InstantCommand {
+public class EchelleUpdateStageCommand extends InstantCommand {
   /** Creates a new EchelleControlCommand. */
   private Echelle echelle;
   private int variation;
 
-  public EchelleControlCommand(Echelle echelle, int variation) {
+  public EchelleUpdateStageCommand(Echelle echelle, int variation) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.echelle = echelle;
     this.variation = variation;
