@@ -18,6 +18,7 @@ import frc.robot.commands.ModeAutonome4Command;
 import frc.robot.commands.ModeAutonome5Command;
 import frc.robot.commands.ModeAutonome6Command;
 import frc.robot.commands.PinceTournerCommand;
+import frc.robot.commands.PlaceConeStageOneCommand;
 import frc.robot.commands.ResetGryoCommand;
 import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.commands.SwitchPistonPinceCommand;
@@ -59,6 +60,7 @@ public class RobotContainer {
     chariot.setDefaultCommand(new ChariotSortirCommand(controller2, chariot));
     echelle.setDefaultCommand(new EchelleGoToStageCommand(echelle, false));
 
+    autoChooser.addOption("Placer1Cone", new PlaceConeStageOneCommand(pince, chariot, echelle));
     autoChooser.addOption("PlaceBlocSortPlatforme", new ModeAutonome1Command(drivetrain, limelight, pince, echelle));
     autoChooser.addOption("Sort", new ModeAutonome3Command(drivetrain, limelight, pince, echelle));
     autoChooser.addOption("PlaceBlocPlateforme", new ModeAutonome4Command(drivetrain, limelight, pince, echelle));
