@@ -54,6 +54,14 @@ public class Chariot extends SubsystemBase {
     replieur.set(valeur);
   }
 
+  public double getReplieurEncodeurPosition(){
+    return replieur.getEncoder().getPosition();
+  }
+
+  public void resetEncoder(){
+    replieur.getEncoder().setPosition(0);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

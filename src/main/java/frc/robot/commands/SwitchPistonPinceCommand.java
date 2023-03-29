@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Pince;
 
@@ -13,10 +13,8 @@ import frc.robot.subsystems.Pince;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SwitchPistonPinceCommand extends InstantCommand {
   private Pince pince;
-  private DoubleSolenoid.Value value;
-  public SwitchPistonPinceCommand(Pince pince, DoubleSolenoid.Value value) {
+  public SwitchPistonPinceCommand(Pince pince) {
     this.pince = pince;
-    this.value = value;
     addRequirements(pince);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -24,6 +22,10 @@ public class SwitchPistonPinceCommand extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    pince.setPiston(value);
+    if (pince.getPiston() == Value.kForward) {
+      pince.setPiston(Value.kReverse);
+    } else {
+      pince.setPiston(Value.kForward);
+    } 
   }
 }

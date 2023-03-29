@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Drivetrain;
@@ -38,7 +37,7 @@ public class ModeAutonome4Command extends SequentialCommandGroup {
     if(DriverStation.getAlliance() == Alliance.Red){
       addCommands(new LimelightXYCommand(drivetrain, limelight, 5.27, -1.64));
       //addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
-      addCommands(new SwitchPistonPinceCommand(pince, Value.kReverse)); // ferme la pince  
+      addCommands(new SwitchPistonPinceCommand(pince)); // ferme la pince  
      // addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
       addCommands(new LimelightXYCommand(drivetrain, limelight, 5.27, -1.5));// vas sur la plateform
       addCommands(new GyroRotationCommand(drivetrain));
@@ -47,7 +46,7 @@ public class ModeAutonome4Command extends SequentialCommandGroup {
     }else if(DriverStation.getAlliance() == Alliance.Blue){
       addCommands(new LimelightXYCommand(drivetrain, limelight, -5.27, -1.64));
       //addCommands(new StageEchelleCommand(echelle, 0.2,2));// deploie le bras
-      addCommands(new SwitchPistonPinceCommand(pince, Value.kReverse)); // ferme la pince  
+      addCommands(new SwitchPistonPinceCommand(pince)); // ferme la pince  
       //addCommands(new StageEchelleCommand(echelle, 0.2,0));// replie le bras
       addCommands(new LimelightXYCommand(drivetrain, limelight, -5.27, -1.5));// vas sur la plateform
       addCommands(new GyroRotationCommand(drivetrain));

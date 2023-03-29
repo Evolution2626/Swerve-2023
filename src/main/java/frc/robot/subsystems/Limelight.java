@@ -55,6 +55,7 @@ public class Limelight extends SubsystemBase {
       tableName = "limelight";
       networkTable = NetworkTableInstance.getDefault().getTable(tableName);
       _hearBeat.startPeriodic(_hearBeatPeriod);
+      setLEDMode(0);
   }
 
   /**

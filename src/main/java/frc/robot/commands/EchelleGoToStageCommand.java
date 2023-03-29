@@ -16,8 +16,9 @@ public class EchelleGoToStageCommand extends PIDCommand{
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
   public static double target;
+  public static boolean finished = false;
 
-  public EchelleGoToStageCommand(Echelle echelle) {
+  public EchelleGoToStageCommand(Echelle echelle, boolean auto) {
     
         super(
         // The controller that the command will use
@@ -36,7 +37,9 @@ public class EchelleGoToStageCommand extends PIDCommand{
             }
             if (Range.inRange(target - 500, target + 500, echelle.getEncoderValue())) {
               echelle.monte(0.1);
-  
+              if (auto) {
+                finished = true;
+              }
             }else {
               echelle.monte(output);
             }
@@ -57,6 +60,6 @@ public class EchelleGoToStageCommand extends PIDCommand{
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return finished;
   }
 }

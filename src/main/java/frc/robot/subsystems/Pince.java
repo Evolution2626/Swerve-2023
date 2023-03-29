@@ -30,6 +30,9 @@ public class Pince extends SubsystemBase {
     piston.set(value);
 
   }
+  public DoubleSolenoid.Value getPiston(){
+    return piston.get();
+  }
 
 
 
@@ -42,6 +45,6 @@ public class Pince extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putString("PistonPince", piston.get().toString());
+    SmartDashboard.putString("PistonPince", getPiston().toString());
   }
 }

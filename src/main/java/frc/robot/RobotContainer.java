@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -13,10 +12,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ChariotSortirCommand;
 import frc.robot.commands.EchelleGoToStageCommand;
 import frc.robot.commands.EchelleUpdateStageCommand;
-import frc.robot.commands.GyroRotationCommand;
-import frc.robot.commands.LimelightXCommand;
-import frc.robot.commands.LimelightXYCommand;
-import frc.robot.commands.LimelightYCommand;
 import frc.robot.commands.ModeAutonome1Command;
 import frc.robot.commands.ModeAutonome3Command;
 import frc.robot.commands.ModeAutonome4Command;
@@ -62,7 +57,7 @@ public class RobotContainer {
     configureBindings();
 
     chariot.setDefaultCommand(new ChariotSortirCommand(controller2, chariot));
-    echelle.setDefaultCommand(new EchelleGoToStageCommand(echelle));
+    echelle.setDefaultCommand(new EchelleGoToStageCommand(echelle, false));
 
     autoChooser.addOption("PlaceBlocSortPlatforme", new ModeAutonome1Command(drivetrain, limelight, pince, echelle));
     autoChooser.addOption("Sort", new ModeAutonome3Command(drivetrain, limelight, pince, echelle));
@@ -85,19 +80,13 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
-
-    controller.x().whileTrue(new LimelightXCommand(drivetrain, limelight, -2.82));
-    controller.y().whileTrue(new LimelightYCommand(drivetrain, limelight, 5));
-    controller.rightBumper().whileTrue(new GyroRotationCommand(drivetrain));
-
     controller.a().onTrue(new ResetGryoCommand(drivetrain));
-    controller.leftBumper().whileTrue(new LimelightXYCommand(drivetrain, limelight,5, -2.82));
 
     controller2.povUp().onTrue(new EchelleUpdateStageCommand(echelle, 1));
     controller2.povDown().onTrue(new EchelleUpdateStageCommand(echelle, -1));
 
-    controller2.a().onTrue(new SwitchPistonPinceCommand(pince, Value.kForward));
-    controller2.b().onTrue(new SwitchPistonPinceCommand(pince, Value.kReverse));
+    controller2.a().onTrue(new SwitchPistonPinceCommand(pince));
+    controller2.b().onTrue(new PinceTournerCommand(-1, pince));
     controller2.x().onTrue(new PinceTournerCommand(1, pince));
     controller2.y().onTrue(new PinceTournerCommand(0, pince));
 

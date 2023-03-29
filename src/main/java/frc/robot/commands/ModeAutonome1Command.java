@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Drivetrain;
@@ -39,7 +38,7 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
       addCommands(new LimelightXYCommand(drivetrain, limelight, 5.57, -2.96));
       addCommands(new GyroRotationCommand(drivetrain));
       //addCommands(new StageEchelleCommand(echelle, 0.2,2));
-      addCommands(new SwitchPistonPinceCommand(pince, Value.kForward));
+      addCommands(new SwitchPistonPinceCommand(pince));
       //addCommands(new StageEchelleCommand(echelle, 0.2,0));
       addCommands(new LimelightXYCommand(drivetrain, limelight, 1.56, -2.96));
       addCommands(new GyroRotationCommand(drivetrain));
@@ -51,7 +50,7 @@ public class ModeAutonome1Command extends SequentialCommandGroup {
       addCommands(new LimelightXYCommand(drivetrain, limelight, -5.57, -2.96));
       addCommands(new GyroRotationCommand(drivetrain));
       //addCommands(new StageEchelleCommand(echelle, 0.2,2));
-      addCommands(new SwitchPistonPinceCommand(pince, Value.kForward));
+      addCommands(new SwitchPistonPinceCommand(pince));
      //addCommands(new StageEchelleCommand(echelle, 0.2,0));
       addCommands(new LimelightXYCommand(drivetrain, limelight, -1.56, -2.96));
       addCommands(new GyroRotationCommand(drivetrain));
