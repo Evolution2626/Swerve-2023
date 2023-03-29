@@ -32,11 +32,11 @@ public class ChariotDeplierCommand extends CommandBase {
   public void initialize() {
     chariot.resetEncoder();
 
-    double avance = 0.5;
+    double avance = -0.5;
     avance = (action == Action.RENTRER) ? avance *= -1 : avance;
     chariot.avance(avance);
 
-    double replie = 0.5;
+    double replie = 0.229;
     replie = (action == Action.RENTRER) ? replie *= -1 : replie;
     chariot.replie(replie);
 
@@ -52,7 +52,7 @@ public class ChariotDeplierCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     boolean finishedAvanceur = (action == Action.RENTRER) ? chariot.getChariotLimit1() : chariot.getChariotLimit2();
-    boolean finishedReplieur = (action == Action.RENTRER) ? chariot.getReplieurEncodeurPosition() < 3 : chariot.getReplieurEncodeurPosition() > 22.75;
+    boolean finishedReplieur = (action == Action.RENTRER) ? chariot.getReplieurEncodeurPosition() < 3 : chariot.getReplieurEncodeurPosition() > 13;
     return (finishedAvanceur && finishedReplieur);
   }
 }

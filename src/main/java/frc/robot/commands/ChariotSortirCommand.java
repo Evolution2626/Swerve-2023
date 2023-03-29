@@ -33,7 +33,7 @@ public class ChariotSortirCommand extends CommandBase {
     replie = controller.leftBumper().getAsBoolean() ? replie *= -1 : replie;
 
     chariot.avance(Math.pow(-avance, 3)/2);
-    chariot.replie(Math.pow(replie, 3)/2.5);
+    chariot.replie(Math.pow(replie, 3)/4.375);
   }
 
   // Called once the command ends or is interrupted.
