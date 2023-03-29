@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants;
@@ -30,6 +31,8 @@ public class Chariot extends SubsystemBase {
 
     avanceur = new TalonSRX(Constants.CAN.AVANCEUR);
     avanceur.setInverted(false);
+
+    replieur.setIdleMode(IdleMode.kBrake);
 
 
   }

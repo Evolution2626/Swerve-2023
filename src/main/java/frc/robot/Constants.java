@@ -59,4 +59,11 @@ public final class Constants {
     int PISTON_PINCE_FORWARD = 8;
     int PISTON_PINCE_REVERSE = 9;
   }
+
+  public interface ENCODER_OFFSET{
+    int FRONT_LEFT = 2750;
+    int FRONT_RIGHT = 3123;
+    int BACK_LEFT = 3069;
+    int BACK_RIGHT = 2125;
+  }
 }

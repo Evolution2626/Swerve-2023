@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
+import frc.robot.Constants.ENCODER_OFFSET;
 
 /** Add your docs here. */
 public class EncoderThread extends Thread{
@@ -141,10 +142,10 @@ public class EncoderThread extends Thread{
             }
             brAverageValue /= brPreviousValue.size();
            
-            EncoderValues.FL_ENCODER_VALUE = (flAverageValue + 4096 - 2750)%4096;
-            EncoderValues.FR_ENCODER_VALUE = (frAverageValue + 4096 - 3155)%4096;
-            EncoderValues.BL_ENCODER_VALUE = (blAverageValue + 4096 - 3082)%4096;
-            EncoderValues.BR_ENCODER_VALUE = (brAverageValue + 4096 - 2153)%4096;
+            EncoderValues.FL_ENCODER_VALUE = (flAverageValue + 4096 - ENCODER_OFFSET.FRONT_LEFT)%4096;
+            EncoderValues.FR_ENCODER_VALUE = (frAverageValue + 4096 - ENCODER_OFFSET.FRONT_RIGHT)%4096;
+            EncoderValues.BL_ENCODER_VALUE = (blAverageValue + 4096 - ENCODER_OFFSET.BACK_LEFT)%4096;
+            EncoderValues.BR_ENCODER_VALUE = (brAverageValue + 4096 - ENCODER_OFFSET.BACK_RIGHT)%4096;
 
             
             }

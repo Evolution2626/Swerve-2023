@@ -36,7 +36,7 @@ public class EchelleGoToStageCommand extends PIDCommand{
               target = 6000;
             }
             if (Range.inRange(target - 500, target + 500, echelle.getEncoderValue())) {
-              echelle.monte(0.1);
+              echelle.monte(0.2);
               if (auto) {
                 finished = true;
               }
