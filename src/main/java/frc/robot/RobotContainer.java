@@ -35,7 +35,7 @@ public class RobotContainer {
 
   
   private static final Drivetrain drivetrain = new Drivetrain();
-  private static final Limelight limelight = new Limelight();
+  //private static final Limelight limelight = new Limelight();
   private static final Echelle echelle = new Echelle();
   private static final Chariot chariot = new Chariot();
   private static final CommandXboxController controller = new CommandXboxController(Constants.USB.DRIVER_CONTROLLER);
@@ -80,9 +80,9 @@ public class RobotContainer {
     controller2.povDown().onTrue(new EchelleUpdateStageCommand(echelle, -1));
 
     controller2.a().onTrue(new SwitchPistonPinceCommand(pince));
-    controller2.b().onTrue(new PinceTournerCommand(-1, pince));
-    controller2.x().onTrue(new PinceTournerCommand(1, pince));
-    controller2.y().onTrue(new PinceTournerCommand(0, pince));
+    //controller2.b().onTrue(new PinceTournerCommand(-1, pince));
+    //controller2.x().onTrue(new PinceTournerCommand(1, pince));
+    //controller2.y().onTrue(new PinceTournerCommand(0, pince));
 
 
 

@@ -4,8 +4,8 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+//import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+//import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -18,13 +18,13 @@ import frc.robot.Constants;
 
 public class Pince extends SubsystemBase {
   /** Creates a new Pince. */
-  private VictorSPX moteurGobbeur;
+  //private VictorSPX moteurGobbeur;
   private DoubleSolenoid piston;
 
   public Pince() {
 
     piston = new DoubleSolenoid(49, PneumaticsModuleType.REVPH, Constants.PCM.PISTON_PINCE_FORWARD, Constants.PCM.PISTON_PINCE_REVERSE);
-    moteurGobbeur = new VictorSPX(Constants.CAN.GOBBEUR);
+    //moteurGobbeur = new VictorSPX(Constants.CAN.GOBBEUR);
     piston.set(Value.kForward);
   }
 
@@ -37,13 +37,13 @@ public class Pince extends SubsystemBase {
   }
 
 
-
+/* 
   public void setMoteurSpeed(double valeur) {
 
     moteurGobbeur.set(VictorSPXControlMode.PercentOutput, valeur);
 
   }
-
+*/
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

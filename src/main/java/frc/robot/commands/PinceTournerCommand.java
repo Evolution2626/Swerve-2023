@@ -9,19 +9,19 @@ import frc.robot.subsystems.Pince;
 
 public class PinceTournerCommand extends InstantCommand {
   /** Creates a new PinceTournerCommand. */
-  private double speed;
-  private Pince pince;
+  //private double speed;
+  //private Pince pince;
 
   public PinceTournerCommand(double speed, Pince pince) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.pince = pince;
-    this.speed = speed;
+    //this.pince = pince;
+    //this.speed = speed;
     addRequirements(pince);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    pince.setMoteurSpeed(speed);
+    //pince.setMoteurSpeed(speed);
   }
 }
