@@ -9,14 +9,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.AvancerAutoCommand;
 import frc.robot.commands.ChariotSortirCommand;
 import frc.robot.commands.EchelleGoToStageCommand;
 import frc.robot.commands.EchelleUpdateStageCommand;
-import frc.robot.commands.ModeAutonome1Command;
-import frc.robot.commands.ModeAutonome3Command;
-import frc.robot.commands.ModeAutonome4Command;
-import frc.robot.commands.ModeAutonome5Command;
-import frc.robot.commands.ModeAutonome6Command;
 import frc.robot.commands.PinceTournerCommand;
 import frc.robot.commands.PlaceConeStageOneCommand;
 import frc.robot.commands.ResetGryoCommand;
@@ -59,14 +55,10 @@ public class RobotContainer {
 
     chariot.setDefaultCommand(new ChariotSortirCommand(controller2, chariot));
     echelle.setDefaultCommand(new EchelleGoToStageCommand(echelle, false));
-
+    
+    autoChooser.addOption("AvancerCommand", new AvancerAutoCommand(drivetrain, 4, 0, 7, 0));
     autoChooser.addOption("Placer1Cone", new PlaceConeStageOneCommand(pince, chariot, echelle));
-    autoChooser.addOption("PlaceBlocSortPlatforme", new ModeAutonome1Command(drivetrain, limelight, pince, echelle));
-    autoChooser.addOption("Sort", new ModeAutonome3Command(drivetrain, limelight, pince, echelle));
-    autoChooser.addOption("PlaceBlocPlateforme", new ModeAutonome4Command(drivetrain, limelight, pince, echelle));
-    autoChooser.addOption("Plateforme", new ModeAutonome5Command(drivetrain, limelight, pince, echelle));
-    autoChooser.addOption("PlaceBlocSort", new ModeAutonome6Command(drivetrain, limelight, pince, echelle));
-
+    
     SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 

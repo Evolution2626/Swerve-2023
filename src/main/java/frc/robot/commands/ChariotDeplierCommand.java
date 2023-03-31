@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Chariot;
 
@@ -36,7 +37,7 @@ public class ChariotDeplierCommand extends CommandBase {
     avance = (action == Action.RENTRER) ? avance *= -1 : avance;
     chariot.avance(avance);
 
-    double replie = 0.229;
+    double replie = -0.229;
     replie = (action == Action.RENTRER) ? replie *= -1 : replie;
     chariot.replie(replie);
 
@@ -52,7 +53,7 @@ public class ChariotDeplierCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     boolean finishedAvanceur = (action == Action.RENTRER) ? chariot.getChariotLimit1() : chariot.getChariotLimit2();
-    boolean finishedReplieur = (action == Action.RENTRER) ? chariot.getReplieurEncodeurPosition() < 3 : chariot.getReplieurEncodeurPosition() > 13;
-    return (finishedAvanceur && finishedReplieur);
+    boolean finishedReplieur = (action == Action.RENTRER) ? chariot.getReplieurEncodeurPosition() > -3 : chariot.getReplieurEncodeurPosition() < -13;
+    return ((finishedAvanceur && finishedReplieur) || Timer.getMatchTime() > 16);
   }
 }
