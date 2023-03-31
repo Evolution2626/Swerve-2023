@@ -109,7 +109,6 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     compressor.enableAnalog(60, 120);
-    CommandScheduler.getInstance().cancelAll();
   }
 
   /** This function is called once when the robot is first started up. */

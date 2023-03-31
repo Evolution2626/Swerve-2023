@@ -116,6 +116,18 @@ public class Drivetrain extends SubsystemBase {
     
   }
 
+  public void allMotorAtZero(){
+    flDriveMotor.set(0);
+    frDriveMotor.set(0);
+    blDriveMotor.set(0);
+    brDriveMotor.set(0);
+
+    flRotationMotor.set(0);
+    frRotationMotor.set(0);
+    blRotationMotor.set(0);
+    brRotationMotor.set(0);
+  }
+
   public double getGyroAngle(){
     return gyro.getAngle();
   }

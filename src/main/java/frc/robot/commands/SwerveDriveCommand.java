@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Drivetrain;
@@ -44,8 +45,11 @@ public class SwerveDriveCommand extends CommandBase {
     speedY *= 10;
     speedR *= 18;
 
-    drivetrain.driveSwerve(speedX, -speedY, -speedR, true);
-    
+    if (RobotState.isTest()) {
+      drivetrain.allMotorAtZero();
+    }else {
+      drivetrain.driveSwerve(speedX, -speedY, -speedR, true);
+    }
   }
 
   // Called once the command ends or is interrupted.
