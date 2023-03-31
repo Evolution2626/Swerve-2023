@@ -95,7 +95,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    compressor.enableAnalog(60, 120);
+  }
 
   @Override
   public void testInit() {
@@ -107,6 +109,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     compressor.enableAnalog(60, 120);
+    CommandScheduler.getInstance().cancelAll();
   }
 
   /** This function is called once when the robot is first started up. */
