@@ -41,8 +41,8 @@ public class SwerveDriveCommand extends CommandBase {
     speedY = Range.threshold(0.1, speedY);
     speedR = Range.threshold(0.1, speedR);
 
-    speedX *= 10;
-    speedY *= 10;
+    speedX *= 8;
+    speedY *= 8;
     speedR *= 18;
 
     if (RobotState.isTest()) {

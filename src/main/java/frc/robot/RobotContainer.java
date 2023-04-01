@@ -13,11 +13,11 @@ import frc.robot.commands.AvancerAutoCommand;
 import frc.robot.commands.ChariotSortirCommand;
 import frc.robot.commands.EchelleGoToStageCommand;
 import frc.robot.commands.EchelleUpdateStageCommand;
-import frc.robot.commands.PinceTournerCommand;
 import frc.robot.commands.PlaceConeStageOneCommand;
 import frc.robot.commands.ResetGryoCommand;
 import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.commands.SwitchPistonPinceCommand;
+import frc.robot.commands.SwitchPistonPinceCommand.Mode;
 import frc.robot.subsystems.Chariot;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Echelle;
@@ -56,7 +56,7 @@ public class RobotContainer {
     chariot.setDefaultCommand(new ChariotSortirCommand(controller2, chariot));
     echelle.setDefaultCommand(new EchelleGoToStageCommand(echelle, false));
     
-    autoChooser.addOption("AvancerCommand", new AvancerAutoCommand(drivetrain, 4, 0, 7, 0));
+    autoChooser.addOption("AvancerCommand", new AvancerAutoCommand(drivetrain, 3, 0, 7, 0));
     autoChooser.addOption("Placer1Cone", new PlaceConeStageOneCommand(pince, chariot, echelle));
     
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -79,7 +79,7 @@ public class RobotContainer {
     controller2.povUp().onTrue(new EchelleUpdateStageCommand(echelle, 1));
     controller2.povDown().onTrue(new EchelleUpdateStageCommand(echelle, -1));
 
-    controller2.a().onTrue(new SwitchPistonPinceCommand(pince));
+    controller2.a().onTrue(new SwitchPistonPinceCommand(pince, Mode.SWITCH));
     //controller2.b().onTrue(new PinceTournerCommand(-1, pince));
     //controller2.x().onTrue(new PinceTournerCommand(1, pince));
     //controller2.y().onTrue(new PinceTournerCommand(0, pince));

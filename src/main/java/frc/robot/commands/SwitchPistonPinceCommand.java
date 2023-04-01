@@ -13,8 +13,15 @@ import frc.robot.subsystems.Pince;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SwitchPistonPinceCommand extends InstantCommand {
   private Pince pince;
-  public SwitchPistonPinceCommand(Pince pince) {
+  public enum Mode{
+    OUVRE,
+    FERME,
+    SWITCH,
+  }
+  Mode mode;
+  public SwitchPistonPinceCommand(Pince pince, Mode mode) {
     this.pince = pince;
+    this.mode = mode;
     addRequirements(pince);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -22,10 +29,18 @@ public class SwitchPistonPinceCommand extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (pince.getPiston() == Value.kForward) {
+
+    if (mode == Mode.OUVRE) {
       pince.setPiston(Value.kReverse);
-    } else {
-      pince.setPiston(Value.kForward);
-    } 
-  }
+    } else if (mode == Mode.FERME) {
+        pince.setPiston(Value.kForward);
+      } else if (mode == Mode.SWITCH){
+        if (pince.getPiston() == Value.kForward) {
+          pince.setPiston(Value.kReverse);
+        } else {
+          pince.setPiston(Value.kForward);
+        } 
+      }
+    }
 }
+

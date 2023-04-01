@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.ChariotDeplierCommand.Action;
+import frc.robot.commands.SwitchPistonPinceCommand.Mode;
 import frc.robot.subsystems.Chariot;
 import frc.robot.subsystems.Echelle;
 import frc.robot.subsystems.Pince;
@@ -19,15 +20,18 @@ public class PlaceConeStageOneCommand extends SequentialCommandGroup {
   public PlaceConeStageOneCommand(Pince pince, Chariot chariot, Echelle echelle) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    addRequirements(pince, echelle, chariot);
     addCommands(
-      new SwitchPistonPinceCommand(pince),
       new EchelleUpdateStageCommand(echelle, 1),
       new EchelleGoToStageCommand(echelle, true),
       new ChariotDeplierCommand(chariot, Action.SORTIR),
-      new SwitchPistonPinceCommand(pince),
+      //new WaitAutonomousTimerCommand(0.5),
+      new SwitchPistonPinceCommand(pince, Mode.OUVRE),
+      new WaitAutonomousTimerCommand(0.5),
       new ChariotDeplierCommand(chariot, Action.RENTRER),
       new EchelleUpdateStageCommand(echelle, -1),
-      new EchelleGoToStageCommand(echelle, true)
+      new EchelleGoToStageCommand(echelle, true),
+      new WaitAutonomousTimerCommand(0.01)
       );
   }
 }

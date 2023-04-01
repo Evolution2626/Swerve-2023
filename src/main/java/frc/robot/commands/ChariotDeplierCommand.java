@@ -20,6 +20,8 @@ public class ChariotDeplierCommand extends CommandBase {
   }
 
   Action action;
+  boolean finishedAvanceur;
+  boolean finishedReplieur;
 
   public ChariotDeplierCommand(Chariot chariot, Action action) {
     this.chariot = chariot;
@@ -31,16 +33,22 @@ public class ChariotDeplierCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    chariot.resetEncoder();
+    if (action == Action.SORTIR) {
+      chariot.resetEncoder();
+    }
 
     double avance = -0.5;
     avance = (action == Action.RENTRER) ? avance *= -1 : avance;
     chariot.avance(avance);
 
-    double replie = -0.229;
+    double replie = 0.229;
     replie = (action == Action.RENTRER) ? replie *= -1 : replie;
     chariot.replie(replie);
-
+      }
+  @Override
+  public void execute(){
+    finishedAvanceur = (action == Action.RENTRER) ? chariot.getChariotLimit2() : chariot.getChariotLimit1();
+    finishedReplieur = (action == Action.RENTRER) ? chariot.getReplieurEncodeurPosition() < 2 : chariot.getReplieurEncodeurPosition() > 13;
   }
 
   @Override
@@ -52,8 +60,7 @@ public class ChariotDeplierCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    boolean finishedAvanceur = (action == Action.RENTRER) ? chariot.getChariotLimit1() : chariot.getChariotLimit2();
-    boolean finishedReplieur = (action == Action.RENTRER) ? chariot.getReplieurEncodeurPosition() > -3 : chariot.getReplieurEncodeurPosition() < -13;
-    return ((finishedAvanceur && finishedReplieur) || Timer.getMatchTime() > 16);
+    
+    return (finishedReplieur && finishedAvanceur);
   }
 }

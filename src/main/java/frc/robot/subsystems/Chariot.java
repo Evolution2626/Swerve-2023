@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Chariot extends SubsystemBase {
@@ -68,5 +69,8 @@ public class Chariot extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("ChariotEncoder", getReplieurEncodeurPosition());
+    SmartDashboard.putBoolean("ChariotLimite1", getChariotLimit1());
+    SmartDashboard.putBoolean("ChariotLimite2", getChariotLimit2());
   }
 }
