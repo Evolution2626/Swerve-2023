@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.Echelle;
 import frc.util.Range;
@@ -37,7 +36,7 @@ public class EchelleGoToStageCommand extends PIDCommand{
               target = 6000;
             }
             if (Range.inRange(target - 500, target + 500, echelle.getEncoderValue())) {
-              echelle.monte(0.1);
+              echelle.monte(0.2);
               if (auto) {
                 finished = true;
               } 
