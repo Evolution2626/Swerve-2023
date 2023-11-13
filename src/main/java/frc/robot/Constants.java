@@ -29,7 +29,7 @@ public final class Constants {
 
     int MONTEUR1 = 24;
     int AVANCEUR = 23;
-    int REPLIEUR = 20;
+    int REPLIEUR = 20;//allo
 
   }
 
@@ -61,9 +61,9 @@ public final class Constants {
   }
 
   public interface ENCODER_OFFSET{
-    int FRONT_LEFT = 2750;
-    int FRONT_RIGHT = 3123;
-    int BACK_LEFT = 3069;
-    int BACK_RIGHT = 2125;
+    int FRONT_LEFT = 600;
+    int FRONT_RIGHT = 3143;
+    int BACK_LEFT = 3089;
+    int BACK_RIGHT = 2210;
   }
 }
